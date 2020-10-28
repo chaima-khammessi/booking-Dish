@@ -1,0 +1,27 @@
+<div class="container app">
+    <form  id="contactus" >
+        <h3>Calculate BMI</h3>
+        <fieldset> <input type="number" placeholder="weight"  [(ngModel)]="weight"  tabindex="1" required autofocus [ngModelOptions]="{standalone: true}"> </fieldset>
+        <fieldset> <input type="number" placeholder="Height" [(ngModel)]="height"   tabindex="2" required [ngModelOptions]="{standalone: true}"> </fieldset>
+        <fieldset> <button name="submit" type="submit" id="contactus-submit" data-submit="...Sending" (click)="calBmi()"><i id="icon" class="" ></i> Calculate</button> </fieldset>
+    </form>
+
+
+
+
+<div>
+  <div class="alert alert-success" role="alert">
+        <h3> Weight (km)**
+       {{weight}}**</h3>
+       
+  <div class="alert alert-success" role="alert">
+    <h3> height (m)**
+   {{height}}**</h3>
+      </div> 
+    </div>  
+      <div class="alert alert-warning" role="alert">
+        <h3>Your BMI******
+       {{result}}******</h3>
+      </div>
+
+</div>

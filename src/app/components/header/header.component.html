@@ -1,0 +1,48 @@
+<!-- ======= Top Bar ======= -->
+<section id="topbar" class="d-none d-lg-flex align-items-center fixed-top topbar-transparent">
+  <div class="container text-right">
+    <i class="icofont-phone"></i> +216 5883283387
+    <i class="icofont-clock-time icofont-rotate-180"></i><span class="color">{{dateNow| date:'dd-MM-yyyy HH:mm'}}</span>
+    &nbsp;&nbsp;
+  <a [routerLink]="['/singup']">SignUp</a>|
+  <a [routerLink]="['/login']">Login</a>
+
+  </div>
+</section>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center header-transparent">
+  <div class="container d-flex align-items-center">
+
+
+    <div class="logo mr-auto">
+      <h1 class="text-light"><a href="index.html"><span>delicious restaurant<br> book now</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    </div>
+    
+
+    <nav class="nav-menu d-none d-lg-block">
+
+
+      <ul >
+        <li class="active"><a routerLink="/">Home</a></li>
+        <li><a [routerLink]="['/dish']">Dish</a></li>
+        <li><a [routerLink]="['/menu']">Menu</a></li>
+        <li><a [routerLink]="['/booking']">booking</a></li>
+        <li><a [routerLink]="['/recipes']">recipes</a></li>
+        <li><a [routerLink]="['/chefs']">Chefs</a></li>
+        <li><a [routerLink]="['/gallery']">Gallery</a></li>
+        <li><a [routerLink]="['/contact']">Contact</a></li>
+        <li><a [routerLink]="['/bmi']">BMI</a></li>
+        <li class="nav-item cart"><a [routerLink]="['/cart']" class="nav-link"><img src="https://img.icons8.com/fluent/24/000000/buy.png"/></a></li>
+        
+        <!-- <li class="book-a-table text-center"><a href="#book-a-table">Book a table</a></li> -->
+      </ul>
+
+    </nav><!-- .nav-menu -->
+    
+  </div>
+ 
+  
+</header><!-- End Header -->
