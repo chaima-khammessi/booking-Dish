@@ -7,25 +7,22 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BmiComponent implements OnInit {
 
- weight:number;
- height:number;
- res : boolean = false;
- result : any ;
- rest:any;
+  weight: number;
+  height: number;
+  res: boolean = false;
+  result: any;
+  rest: any;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  // calculator BMI
+  calBmi() {
 
-  calBmi()
-  {
+    this.result = this.weight / Math.pow(this.height, 2);
 
-    
-   
-   this.result = this.weight/Math.pow(this.height,2);
-   
- 
+
   }
 
 

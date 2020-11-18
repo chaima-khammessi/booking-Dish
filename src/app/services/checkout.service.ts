@@ -5,25 +5,25 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CheckoutService {
-  checkoutUrl='http://localhost:3000'
-  constructor( private httpClient:HttpClient) { }
+  checkoutUrl = 'http://localhost:3000'
+  constructor(private httpClient: HttpClient) { }
 
-  getAllChekout(){
-    return this.httpClient.get<{ message:string, checkout:any}>(`${this.checkoutUrl}/allCheckout`)
+  getAllChekout() {
+    return this.httpClient.get<{ message: string, checkout: any }>(`${this.checkoutUrl}/allCheckout`)
   }
 
-  getByIdCheckout(id:number){
-    return this.httpClient.get<{message:string,checkout:any}>(`${this.checkoutUrl}allCheckout ${id}`)
+  getByIdCheckout(id: number) {
+    return this.httpClient.get<{ message: string, checkout: any }>(`${this.checkoutUrl}allCheckout ${id}`)
   }
 
-  deleteCheckout(id:number){
+  deleteCheckout(id: number) {
     return this.httpClient.delete(`${this.checkoutUrl}/deleteCheckout/${id}`)
   }
-  addcheckout(checkout:any){
-    return this.httpClient.post(`${this.checkoutUrl}/addCheckout`,checkout);
+  addcheckout(checkout: any) {
+    return this.httpClient.post(`${this.checkoutUrl}/addCheckout`, checkout);
   }
 
-  editGallery(checkout:any){
-    return this.httpClient.put<{message:string}>(`${this.checkoutUrl}/editCheckout/${checkout.id}`,checkout)
+  editGallery(checkout: any) {
+    return this.httpClient.put<{ message: string }>(`${this.checkoutUrl}/editCheckout/${checkout.id}`, checkout)
   }
 }

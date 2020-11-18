@@ -1,0 +1,95 @@
+<!--child form-->
+<form [formGroup]='usersForm' class="signup-form">
+    <h2 class="text-center">SIGNUP NOW</h2>
+    <hr>
+    <div class="form-group"> <input type="text" class="form-control" formControlName='fName' placeholder="First Name"
+            required="required"> </div>
+    <div *ngIf="usersForm.controls['fName'].invalid &&
+    (usersForm.controls['fName'].dirty || usersForm.controls['fName'].touched)" class="alert alert-danger">
+        <div *ngIf="usersForm.controls['fName'].errors.minlength">
+            First Name Min Length : 3
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" formControlName="lName" id="lName" *ngIf="lName" placeholder="Last Name"
+            required="required"> </div>
+
+
+    <div class="form-group"> <input type="text" class="form-control" formControlName="adress" placeholder="Address"
+            required="required"> </div>
+    <div *ngIf="usersForm.controls['adress'].invalid &&
+    (usersForm.controls['adress'].dirty || usersForm.controls['adress'].touched)" class="alert alert-danger">
+        <div *ngIf="usersForm.controls['adress'].errors.minlength">
+            First Name Min Length : 20 caracter
+        </div>
+    </div>
+    <div class="form-group"> <input type="email" class="form-control" formControlName="email" placeholder="Email"
+            required="required"> </div>
+    <div *ngIf="usersForm.controls['email'].invalid &&
+    (usersForm.controls['email'].dirty || usersForm.controls['email'].touched)" class="alert alert-danger">
+        <div *ngIf="usersForm.controls['email'].errors.email">
+            Format Email Invalid
+        </div>
+        <div *ngIf="usersForm.controls['email'].errors.required">
+            Email is required
+        </div>
+    </div>
+
+    <div class="form-group"> <input type="password" class="form-control" formControlName="pwd" placeholder="Password"
+            required="required"> </div>
+    <div *ngIf="usersForm.controls['pwd'].invalid &&
+    (usersForm.controls['pwd'].dirty || usersForm.controls['pwd'].touched)" class="alert alert-danger">
+
+        <div *ngIf="usersForm.controls['pwd'].errors.required">
+            Password is required
+        </div>
+    </div>
+    <div class="form-group"> <input type="password" class="form-control" formControlName="confPwd"
+            placeholder="Confirm Password" required="required"> </div>
+    <div *ngIf="usersForm.controls['confPwd'].invalid &&
+    (usersForm.controls['confPwd'].dirty || usersForm.controls['pwd'].touched)" class="alert alert-danger">
+        <div *ngIf="usersForm.controls['confPwd'].errors.minlength">
+            password Min length :8
+        </div>
+        <div *ngIf="usersForm.controls['confPwd'].errors.mustMatch">
+            Confirm Pwd does not match PWD
+        </div>
+    </div>
+    <div class="form-group"> <input type="text" class="form-control" formControlName="tel" placeholder="Number Phone"
+            required="required"> </div>
+    <div *ngIf="usersForm.controls['tel'].invalid &&
+    (usersForm.controls['tel'].dirty || usersForm.controls['tel'].touched)" class="alert alert-danger">
+        <div *ngIf="usersForm.controls['tel'].errors.maxlength">
+            phone Max length :8
+        </div>
+        <div *ngIf="usersForm.controls['tel'].errors.minlength">
+            phone Min length :8
+        </div>
+    </div>
+    <div class="form-group"> <input type="text" class="form-control" *ngIf="fax" formControlName="faxCompany"
+            placeholder="Fax"> </div>
+
+
+
+    <div class="form-group"> <input type="text" class="form-control" *ngIf="domain" formControlName="domainCompany"
+            placeholder="Domain"> </div>
+
+    <div class="form-group"> <input type="text" id="mfCompany" class="form-control" *ngIf="mf"
+            formControlName="mfCompany" placeholder="MF">
+    </div>
+    <div class="form-group"> <input type="text" class="form-control" *ngIf="specialite" formControlName="specialityChef"
+            placeholder="specialite">
+    </div>
+    <div class="form-group"> <input type="text" class="form-control" *ngIf="experience" formControlName="expChef"
+            placeholder="
+    experience">
+    </div>
+
+    <div class="form-group"> <input type="hidden" class="form-control" formControlName="userType">
+    </div>
+
+
+    <div class="form-group text-center"> <button type="submit" (click)='signUpUser()'
+            class="btn btn-yellow btn-block">Start Now</button> </div>
+</form>
+<!-- End child form-->

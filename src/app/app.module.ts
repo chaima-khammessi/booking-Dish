@@ -1,3 +1,5 @@
+import { UsersService } from './services/users.service';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -27,6 +29,11 @@ import { SingupComponent } from './components/singup/singup.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DisplayDishComponent } from './components/display-dish/display-dish.component';
+import { UserFormComponent } from './components/singup/user-form/user-form.component'
+import { CommonModule } from '@angular/common';
+
+
+
 
 
 @NgModule({
@@ -54,6 +61,10 @@ import { DisplayDishComponent } from './components/display-dish/display-dish.com
     SingupComponent,
     LoginComponent,
     DisplayDishComponent,
+    UserFormComponent,
+    
+    
+  
     
   ],
   imports: [
@@ -62,10 +73,19 @@ import { DisplayDishComponent } from './components/display-dish/display-dish.com
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CommonModule,
+    
+    
+  
+   
+
    
   
   ],
-  providers: [],
+  providers: [
+     UserFormComponent 
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

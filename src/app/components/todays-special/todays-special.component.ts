@@ -1,7 +1,7 @@
 import { DishService } from './../../services/dish.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { from } from 'rxjs';
-import {Router} from '@angular/router'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-todays-special',
@@ -9,19 +9,19 @@ import {Router} from '@angular/router'
   styleUrls: ['./todays-special.component.css']
 })
 export class TodaysSpecialComponent implements OnInit {
-@Input()dataDish:any;
+  @Input() dataDish: any;
 
 
-  constructor( private router:Router,
-    private dishService:DishService) { }
+  constructor(private router: Router,
+    private dishService: DishService) { }
 
   ngOnInit(): void {
   }
-  goToDish(id:number){
-      this.router.navigate([`display_dish/${id}`]);
-     
-     
-    }
+  goToDish(id: number) {
+    this.router.navigate([`display_dish/${id}`]);
+
+
+  }
 
 
 }

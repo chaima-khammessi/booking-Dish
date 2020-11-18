@@ -1,7 +1,7 @@
 import { DishService } from './../../services/dish.service';
 import { from } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import{ActivatedRoute} from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-display-dish',
@@ -9,20 +9,20 @@ import{ActivatedRoute} from '@angular/router'
   styleUrls: ['./display-dish.component.css']
 })
 export class DisplayDishComponent implements OnInit {
-  id:any;
-  dish:any;
+  id: any;
+  dish: any;
 
-  constructor(private activateRoute:ActivatedRoute,
-    private dishService:DishService
-    ) { }
+  constructor(private activateRoute: ActivatedRoute,
+    private dishService: DishService
+  ) { }
 
   ngOnInit(): void {
 
-    this.id=this.activateRoute.snapshot.paramMap.get('id');
+    this.id = this.activateRoute.snapshot.paramMap.get('id');
     this.dishService.getDishById(this.id).subscribe(
-      data=>{
-        this.dish=data.dish
-        
+      data => {
+        this.dish = data.dish
+
       }
     )
   }

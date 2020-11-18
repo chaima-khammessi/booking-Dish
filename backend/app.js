@@ -1,13 +1,15 @@
-const express=require('express');
-const bodyParser=require('body-parser');
-const app=express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken')
+const app = express();
+const bcrypt = require('bcrypt')
 const mongoose = require('mongoose');
 const path = require('path');
 const multer = require('multer');
-const users = require('./models/users');
+const User = require('./models/users');
 
 
-
+//Set up default mongoose connection
 mongoose.connect('mongodb://localhost:27017/restaurant', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,177 +56,81 @@ app.use((req, res, next) => {
 
 
 
-
-app.post('/addConsumer', (req, res) => {
-    console.log('consumers added from FE', req.body);
-    const consumers = new users({
+// add user in collections from FE
+app.post('/addUser', (req, res) => {
+    console.log('users added from FE', req.body);
+    const user = new User({
         fName: req.body.fName,
         lName: req.body.lName,
-        adress:req.body.adress,
+        adress: req.body.adress,
         email: req.body.email,
         pwd: req.body.pwd,
         confirmPwd: req.body.confirmPwd,
-        tel:req.body.tel,
-        
-    });
-    consumers.save()
-});
-
-app.post('/addCompany', (req, res) => {
-    console.log('company added from FE', req.body);
-    const companys = new company({
-        nameCompany: req.body.nameCompany,
+        tel: req.body.tel,
         mfCompany: req.body.mfCompany,
-        adressCompany:req.body.adressCompany,
-        emailCompany:req.body.emailCompany,
-        pwdCompany: req.body.pwdCompany,
-        confPwdCompany: req.body.confPwdCompany,
-        telCompany:req.body.telCompany,
-        faxCompany:req.body.faxCompany,
-        domainCompany:req.body.domainCompany
-        
+        faxCompany: req.body.faxCompany,
+        domainCompany: req.body.domainCompany,
+        expChef: req.body.expChef,
+        specialityChef: req.body.specialityChef,
+        userType: req.body.userType
+
+
     });
-    companys.save()
+    user.save((error, users) => {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            let payload = { subject: users._id }
+            let token = jwt.sign(payload, 'secretKey')
+            res.status(200).send({ token });
+        }
+    })
 });
 
 
-app.post('/addChef', (req, res) => {
-    console.log('chef added from FE', req.body);
-    const chefs = new chef({
-        firstNameChef: req.body.firstNameChef,
-        lastNameChef: req.body.lastNameChef,
-        adressChef:req.body.adressChef,
-        emailChef: req.body.emailChef,
-        expChef:req.body.expChef,
-        pwdChef: req.body.pwdChef,
-        confPwdChef: req.body.confPwdChef,
-        specialityChef:req.body.specialityChef,
-      
-        
-    });
-    chefs.save()
+
+app.get('/allUser', async (req, res) => {
+    try {
+        let user = await Users.find();
+
+        res.status(200).json({
+            user: user
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+
 });
-
-   app.post('/addLogin',(req,res)=>{
-    console.log(('Received consumer',req.body));
-    users.findOne({email:req.body.emailLogin}).then(
-        x=>{
-            console.log('finded consumer',x);
-            if(!x){
-                res.status(404).json({
-                    message:'0'
-                });}
-                else{
-                    users.findOne({pwd:req.body.pswLogin}).then(
-                        y=>{
-                            if(!y){
-                                res.status(200).json({
-                                    message:'1'
-                                });
-                            }
-                            else{
-                                res.status(201).json({
-                                    message:'2',
-                                    users:y
-                                })
-                            }
-
-                        }
-                    )
-                }
+// search user by email from collections: (req.body.email received from FE)
+app.post("/addLogin", (req, res) => {
+    User.findOne({ email: req.body.emailLogin })
+        .then((data) => {
+            console.log("data", data);
+            if (!data) {
+                res.status(200).json({
+                    message: "Authentification Problem",
+                });
             }
-        
-    )
+            return bcrypt.compare(req.body.pswLogin, data.pwd);
+        })
+        .then((result) => {
+            if (!result) {
+                res.status(200).json({
+                    message: "0",
+                });
+            }
+            User.findOne({ email: req.body.emailLogin }).then((data) => {
+                res.status(200).json({
+                    message: "1",
+                    userType: data.userType
+                });
+            });
 
-    
+        });
 });
-app.post('/addLogin',(req,res)=>{
-    console.log(('Received company',req.body));
-    users.findOne({emailCompany:req.body.emailLogin}).then(
-        data1=>{
-            console.log('finded company',data1);
-            if(!data1){
-                res.status(404).json({
-                    message:'0'
-                });}
-                else{
-                    users.findOne({pwdCompany:req.body.pswLogin}).then(
-                        datapsw=>{
-                            if(!datapsw){
-                                res.status(200).json({
-                                    message:'1'
-                                });
-                            }
-                            else{
-                                res.status(201).json({
-                                    message:'2',
-                                    users:datapsw
-                                })
-                            }
-
-                        }
-                    )
-                }
-            }
-        
-    )
-
-    
-})
-
-
-
-app.post('/addLogin',(req,res)=>{
-    console.log(('Received chef',req.body));
-    users.findOne({emailChef:req.body.emailLogin}).then(
-        data2=>{
-            console.log('finded chef',data2);
-            if(!data2){
-                res.status(404).json({
-                    message:'0'
-                });}
-                else{
-                    users.findOne({pwdChef:req.body.pswLogin}).then(
-                        datapsd=>{
-                            if(!datapsd){
-                                res.status(200).json({
-                                    message:'1'
-                                });
-                            }
-                            else{
-                                res.status(201).json({
-                                    message:'2',
-                                    users:datapsd
-                                })
-                            }
-
-                        }
-                    )
-                }
-            }
-        
-    )
-
-    
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 module.exports = app;

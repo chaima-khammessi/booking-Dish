@@ -1,49 +1,44 @@
-const { strict } = require('assert');
+//Require Mongoose
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt')
 
-const consumerSchema = mongoose.Schema({
+//Define a schema
+const userSchema = mongoose.Schema({
     fName: String,
     lName: String,
     adress: String,
     email: String,
     pwd: String,
     confPwd: String,
-    tel: Number
-
-});
-
-const consumer = mongoose.model('consumers', consumerSchema);
-
-const chefSchema = mongoose.Schema({
-    firstNameChef: String,
-        lastNameChef: String,
-        adressChef:String,
-        emailChef:String,
-        expChef:String,
-        pwdChef: String,
-        confPwdChef: String,
-        specialityChef:String,
-
-});
-const chef = mongoose.model('chefs', chefSchema);
-
-const companySchema = mongoose.Schema({
-    nameCompany: String,
-    mfCompany: String,
-    adressCompany: String,
-    emailCompany:String,
-    pwdCompany: String,
-    confPwdCompany:String,
-    telCompany: Number,
+    tel: Number,
+    specialityChef: String,
+    expChef: String,
     faxCompany: Number,
-    domainCompany: String
+    mfCompany: String,
+    domainCompany: String,
+    userType: String
+
+
 
 });
+userSchema.pre('save', function (next) {
+    if (this.pwd) {
+        let salt = bcrypt.genSaltSync(10)
+        this.pwd = bcrypt.hashSync(this.pwd, salt)
+    }
+    next()
+})
+// Compile model from schema
+const user = mongoose.model('Users', userSchema);
+module.exports = user
 
-const company = mongoose.model('companys', companySchema);
 
 
-module.exports = {consumer: consumer ,chef: chef , company: company } 
+
+
+
+
+
 
 
 

@@ -1,71 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-     urlUsers= 'http://localhost:3000'
-  constructor(private httpClient:HttpClient) { }
-  getAllConsumer(){
-    return this.httpClient.get<{message:string, consumers:any}>(`${this.urlUsers}/allConsumer`);
-  }
-  getByIdConsumer(id:number){
-    return this.httpClient.get<{message:String, consumers:any}>(`${this.urlUsers}/allConsumer/${id}`);
+  urlUsers = 'http://localhost:3000'
+  constructor(private httpClient: HttpClient) { }
+  getAllUser() {
+    return this.httpClient.get<{ message: string, users: any }>(`${this.urlUsers}/allUser`);
+
 
   }
-  deleteConsumer(id:number){
-  return this.httpClient.delete(`${this.urlUsers}/deleteConsumer/${id}`);
-  }
-  addConsumer(consumers:any){
-    return this.httpClient.post(`${this.urlUsers}/addConsumer`,consumers);
-  }
-  editConsumer(consumers:any){
-    return this.httpClient.put<{message:string,consumers:any}>(`${this.urlUsers}/allConsumer/${consumers.id}`,consumers)
-  }
-
-  getAllCompany(){
-    return this.httpClient.get<{message:string, companys:any}>(`${this.urlUsers}/allCompany`);
-  }
-  getByIdCompany(id:number){
-    return this.httpClient.get<{message:String, companys:any}>(`${this.urlUsers}/allCompany/${id}`);
+  getByIdUser(id: number) {
+    return this.httpClient.get<{ message: String, users: any }>(`${this.urlUsers}/allUser/${id}`);
 
   }
-  deleteCompany(id:number){
-  return this.httpClient.delete(`${this.urlUsers}/deleteCompany/${id}`);
+  deleteUser(id: number) {
+    return this.httpClient.delete(`${this.urlUsers}/deleteUser/${id}`);
   }
-  addCompany(companys:any){
-    return this.httpClient.post(`${this.urlUsers}/addCompany`,companys);
+  addUser(users: any) {
+    return this.httpClient.post(`${this.urlUsers}/addUser`, users);
   }
-  editCompany(companys:any){
-    return this.httpClient.put<{message:string,companys:any}>(`${this.urlUsers}/allCompany/${companys.id}`,companys)
-  }
-  getAllChef(){
-    return this.httpClient.get<{message:string, chefs:any}>(`${this.urlUsers}/allChef`);
-  }
-  getByIdChef(id:number){
-    return this.httpClient.get<{message:String, chefs:any}>(`${this.urlUsers}/allChef/${id}`);
-
-  }
-  deleteChef(id:number){
-  return this.httpClient.delete(`${this.urlUsers}/deleteChef/${id}`);
-  }
-  addChef(chefs:any){
-    return this.httpClient.post(`${this.urlUsers}/addChef`,chefs);
-  }
-  editChef(chefs:any){
-    return this.httpClient.put<{message:string,chefs:any}>(`${this.urlUsers}/allChef/${chefs.id}`,chefs)
+  editUser(users: any) {
+    return this.httpClient.put<{ message: string, users: any }>(`${this.urlUsers}/editUser/${users.id}`, users)
   }
 
 
-  login(user:any){
-    return this.httpClient.post<{ message:string, user:any}>(`${this.urlUsers}/addLogin`,user);
+
+
+  login(user: any) {
+    console.log('user in service', user);
+
+    return this.httpClient.post<{ message: string, userType: string }>(`${this.urlUsers}/addLogin`, user);
+
   }
-
-  /*loginCompany(company:any){
-    return this.httpClient.post<{ message:string, user:any}>(`${this.urlUsers}/addLoginCompany`,company);
-  }*/
-
-  
 
 }

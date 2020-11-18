@@ -32,35 +32,35 @@ const routes: Routes = [
     path: "recipes", component: RecipesComponent
   },
   {
-    path:"chefs", component : ChefsComponent
+    path: "chefs", component: ChefsComponent
   },
   {
-    path:"gallery", component:GalleryComponent
+    path: "gallery", component: GalleryComponent
   },
   {
-    path:"contact", component:ContactComponent
+    path: "contact", component: ContactComponent
   },
   {
-    path:"bmi", component:BmiComponent
+    path: "bmi", component: BmiComponent
   },
   {
-    path:"cart", component:CartComponent
+    path: "cart", component: CartComponent
   },
   {
-    path:"checkout", component:CheckoutComponent
+    path: "checkout", component: CheckoutComponent
   },
   {
-    path:"singup", component:SingupComponent
+    path: "singup", component: SingupComponent
   },
   {
-    path:"login", component:LoginComponent
+    path: "login", component: LoginComponent
 
   },
-   {
-    path:'display_dish/:id',
-     component:DisplayDishComponent
+  {
+    path: 'display_dish/:id',
+    component: DisplayDishComponent
   },
-   
+
 ];
 
 @NgModule({

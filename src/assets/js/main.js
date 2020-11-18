@@ -205,7 +205,7 @@
 
 })(jQuery);
 
-
+//button disabled calculator BMI
 $(document).ready(function(){
   $("#contactus-submit").click(function(){
   var r= $('<i class="fa fa-spinner fa-spin"></i>');
@@ -224,7 +224,7 @@ $(document).ready(function(){
   });
   });
 
-
+  //  Input Login
   $(document).ready(function(){
     var showPass = 0;
     $('.btn-show-pass').on('click', function(){
