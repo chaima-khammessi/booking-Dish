@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-     // Validator Input Login
+    // Validator Input Login
     this.loginForm = this.formBuilder.group({
       emailLogin: ['', [Validators.email, Validators.required]],
       pswLogin: ['', Validators.required]
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(loginUser) {
-     // searsh if userType== true 
+    // searsh if userType== true 
     this.usersService.login(loginUser).subscribe(
       data => {
         console.log('data from login', data);
@@ -45,10 +45,9 @@ export class LoginComponent implements OnInit {
         } else if (data.userType === 'company') {
           this.router.navigate(['dish']);
         } else {
-          //document.getElementById('error').innerHTML = 'Email/Pwd incorrect';
-          document.getElementById('error').innerHTML = '<div class="alert alert-danger" role="alert">'+'Email / Password incorrect'+'</div>'
 
-         // document.getElementById('error').style.color = 'red';
+          document.getElementById('error').innerHTML = '<div class="alert alert-danger" role="alert">' + 'Email / Password incorrect' + '</div>'
+
         }
       }
     );
