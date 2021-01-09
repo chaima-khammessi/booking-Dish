@@ -100,14 +100,4 @@ export class TableFilterComponent implements OnInit {
         displayUser(user){
           this.router.navigate([`display-user/${user._id}`]);
         }
-
-         
-     
-             
-       
-
-
- 
-
-
 }

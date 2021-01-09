@@ -18,7 +18,6 @@ export class DishService {
   deleteDish(id: number) {
     return this.httpClient.delete(`${this.dishUrl}/deleteDish/${id}`);
   }
-
   addDish(dishs: any, image: File) {
     let formData = new FormData();
     formData.append('name', dishs.name);

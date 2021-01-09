@@ -16,11 +16,5 @@ export class ChefComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
- 
-  
-  
-
 }
 

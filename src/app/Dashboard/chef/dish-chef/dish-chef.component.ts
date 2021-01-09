@@ -39,7 +39,6 @@ export class DishChefComponent implements OnInit {
       data => {
         console.log('returned data', data);
         this.router.navigate(['chef']);
-
       }
     )
 

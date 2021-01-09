@@ -27,6 +27,7 @@ import { DishComponent } from './components/dish/dish.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule, Component }from '@angular/core'
 import { Routes, RouterModule } from '@angular/router';
+import { UpdateDishComponent } from './Dashboard/chef/update-dish/update-dish.component';
 
 
 

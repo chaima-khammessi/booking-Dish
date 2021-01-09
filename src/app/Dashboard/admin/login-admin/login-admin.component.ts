@@ -40,7 +40,6 @@ export class LoginAdminComponent implements OnInit {
 
   loginAdmin() {
 
-
     this.adminService.loginAdmin(this.loginAdmins.value).subscribe(
       data => {
 

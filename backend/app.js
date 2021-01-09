@@ -61,7 +61,6 @@ app.use((req, res, next) => {
 
 app.use(express.static('uploads'));
 
-
 // add user in collections from FE
 app.post('/addUser', (req, res) => {
     console.log('users added from FE', req.body);
@@ -124,6 +123,33 @@ app.post('/addAdmin', (req, res) => {
  * Patch attributes for a model instance and persist it into the data source.
  */
 
+app.get('/allDishs', (req, res) => {
+    Dish.find((err, findedDish) => {
+        console.log('All Dishs', findedDish);
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).json({
+            message: 'Here all Dishs',
+            dish: findedDish
+        })
+    })
+})
+app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    const dish = new Dish({
+        name: req.body.name,
+        price: req.body.price,
+        ingredient: req.body.ingredient,
+        calorie:req.body.calorie,
+        img: url + ('/images/' + req.file.filename),
+        description:req.body.description
+    });
+    dish.save();
+    res.status(200).json({
+        message: "dish added successfuly"
+    })
+});
 
 app.put('/editDish/:id',  multer({ storage: storage }).single('img'),(req, res) => {
     const url = req.protocol + '://' + req.get('host');
@@ -158,6 +184,63 @@ app.put('/editDish/:id',  multer({ storage: storage }).single('img'),(req, res) 
       
 ;
 })
+
+app.delete('/deleteDish/:id', (req, res) => {
+    console.log('delete dish by ID', req.params._id);
+    Dish.deleteOne({_id: req.params.id }).then(
+        result => {
+            if (result) {
+                console.log('result', result);
+                res.status(200).json({
+                    message: 'Dish deleted successfully'
+                });
+            }
+        }
+    );
+});
+
+app.get('/allDishs/:id', (req, res) => {
+    console.log('this is my id', req.params.id);
+    Dish.findOne({_id: req.params.id }).then(
+        dish => {
+            console.log('Finded Dish', dish);
+            res.status(200).json({
+                message: 'this is the dish',
+                dish: dish
+            })
+        }
+    )
+})
+
+app.put('/editDish/:id', (req, res) => {
+    console.log('Update Dish By ID', req.params.id);
+    Dish.findByIdAndUpdate(
+        // the id of the item to find
+        req.params.id,
+        
+        // the change to be made. Mongoose will smartly combine your existing 
+        // document with this change, which allows for partial updates too
+        req.body,
+        
+        // an option that asks mongoose to return the updated version 
+        // of the document instead of the pre-updated one.
+        {new: true},
+        
+        // the callback function
+        (err, dish) => {
+        // Handle any possible database errors
+            if (err) return res.status(500).send(err);
+            return res.send(dish);
+        }
+);
+})
+
+
+
+/*app.get('/allUser', async (req, res) => {
+    try {
+        let user = await Users.find();
+>>>>>>> f3a5beb8ae1eb0791721ae7dd875c15aa3459fc8
 
 
 app.get('/allDishs', (req, res) => {
@@ -333,6 +416,47 @@ app.post("/addLoginAdmin", (req, res) => {
 
         });
     
+
+/******************  search admin by email from collections: (req.body.email received from FE)********************* */
+
+
+app.post("/addLoginAdmin", (req, res) => {
+    Admin.findOne({ emailAdmin: req.body.emailLoginAdmin })
+        .then((data) => {
+            console.log("data", data);
+            if (!data) {
+                res.status(200).json({
+                    message: "Authentification Problem",
+                });
+            }
+            return bcrypt.compare(req.body.pwdLoginAdmin, data.pwdAdmin);
+        })
+        .then((result) => {
+            if (!result) {
+                res.status(200).json({
+                    message: "0",
+                });
+            }
+            Admin.findOne({ emailAdmin: req.body.emailLoginAdmin }).then((data) => {
+                res.status(200).json({
+                    message: "1",
+                    admin: data.admin
+                });
+            });
+
+        });
+});
+
+
+app.get('/logoutAdmin',(req, res)=>{
+    console.log('delete admin', req.params._id);
+    Admin.findByIdAndRemove(req.params._id, function(err){
+    if(err) res.send(err);
+    res.status(200).json({ message: 'Admin Deleted!'});
+   })
+});
+
+
 
 
 module.exports = app;

@@ -11,27 +11,24 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TableComponent implements OnInit {
   @Input() dataDish: any;
-  @Output()  newDish: EventEmitter<any> = new EventEmitter();
+  @Output() newDish: EventEmitter<any> = new EventEmitter();
 
-  dishs:any = [];
+  dishs: any = [];
   id: number;
   firstName: any;
   p: number = 1;
   filter: any;
 
   constructor(private dishService: DishService,
-               private router: Router,
-               private toastr: ToastrService
-               
-               ) { }
+    private router: Router,
+    private toastr: ToastrService
+
+  ) { }
 
   ngOnInit(): void {
     this.dishService.getAllDishs().subscribe(
       data => {
         this.dishs = data['dish'];
-       
-
-
       },
       error => {
         console.log(error);
@@ -56,40 +53,32 @@ export class TableComponent implements OnInit {
     this.router.navigate([`display-dish-chef/${dish.id}`]);
   }
 
-  
+
   deleteDish(dish) {
 
     let index = this.dishs.indexOf(dish);
-    this.dishs.splice(index , 1);
+    this.dishs.splice(index, 1);
 
     this.dishService.deleteDish(dish.id).subscribe(
-      ()=>{
-        
-          this.dishService.getAllDishs().subscribe(
-            res=>{
-              this.newDish.emit(res.dish);
-              this.toastr.error('Dish deleted successfully');
-           
-             
+      () => {
 
-            }
-          )
-          },
-          (err) => {
-            console.dir(err);
+        this.dishService.getAllDishs().subscribe(
+          res => {
+            this.newDish.emit(res.dish);
+            this.toastr.error('Dish deleted successfully');
           }
-        )}
-       
+        )
+      },
+      (err) => {
+        console.dir(err);
+      }
+    )
+  }
 
 
-        goToEditDish(id:number) {
-          this.router.navigate([`update-dish/${id}`]);
-        }
-    
-
-
-
-
+  goToEditDish(id: number) {
+    this.router.navigate([`update-dish/${id}`]);
+  }
 
 }
 
