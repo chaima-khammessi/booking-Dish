@@ -38,4 +38,9 @@ export class UsersService {
 
   }
 
+
+  logoutUser(){
+    return this.httpClient.get<{message:string}>(`${this.urlUsers}/logoutUser`)
+  }
+
 }

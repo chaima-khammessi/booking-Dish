@@ -1,3 +1,9 @@
+import { DisplayChefComponent } from './Dashboard/chef/display-chef/display-chef.component';
+import { DishChefComponent } from './Dashboard/chef/dish-chef/dish-chef.component';
+import { ChefComponent } from './Dashboard/chef/chef/chef.component';
+import { LoginAdminComponent } from './Dashboard/admin/login-admin/login-admin.component';
+import { SignUpComponent } from './Dashboard/admin/sign-up/sign-up.component';
+import { AdminComponent } from './Dashboard/admin/admin/admin.component';
 import { DisplayDishComponent } from './components/display-dish/display-dish.component';
 import { LoginComponent } from './components/login/login.component';
 import { SingupComponent } from './components/singup/singup.component';
@@ -14,6 +20,7 @@ import { DishComponent } from './components/dish/dish.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { UpdateDishComponent } from './Dashboard/chef/update-dish/update-dish.component';
 
 const routes: Routes = [
   {
@@ -57,10 +64,33 @@ const routes: Routes = [
 
   },
   {
-    path: 'display_dish/:id',
-    component: DisplayDishComponent
+    path: 'display-chef/:id',
+    component: DisplayChefComponent
   },
-
+  {
+    path:'admin',
+    component:AdminComponent
+  },
+  {
+    path:'sign-up',
+    component:SignUpComponent
+  },
+  {
+    path:'login-admin',
+    component:LoginAdminComponent
+  },
+  {
+    path:'chef',
+    component:ChefComponent
+  },
+  {
+    path:'dish-chef',
+    component:DishChefComponent
+  },
+  {
+    path:'update-dish/:id',
+    component:UpdateDishComponent
+  }
 ];
 
 @NgModule({

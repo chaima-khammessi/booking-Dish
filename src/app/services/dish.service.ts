@@ -7,23 +7,33 @@ import { HttpClient } from '@angular/common/http';
 export class DishService {
   dishUrl = 'http://localhost:3000';
   constructor(private httpClient: HttpClient) { }
-  getAllDish() {
-    return this.httpClient.get<{ message: string, dish: any }>(`${this.dishUrl}/allDish`);
+
+  getAllDishs() {
+    return this.httpClient.get<{ message: string, dish: any }>(`${this.dishUrl}/allDishs`);
   }
-  getDishById(id: number) {
-    return this.httpClient.get<{ message: string, dish: any }>(`${this.dishUrl}/allDish/${id}`);
+  getDishById(id: string) {
+    return this.httpClient.get<{ message: string, dish: string }>(`${this.dishUrl}/allDishs/${id}`);
   }
   deleteDish(id: number) {
-    return this.httpClient.delete(`${this.dishUrl}/allDish/${id}`);
+    return this.httpClient.delete(`${this.dishUrl}/deleteDish/${id}`);
   }
-  addDish(dish: any) {
-    return this.httpClient.post(`${this.dishUrl}/allDish`, dish);
+  
+  addDish(dishs: any, image: File) {
+    let formData = new FormData();
+    formData.append('name', dishs.name);
+    formData.append('price', dishs.price);
+    formData.append('ingredient', dishs.ingredient);
+    formData.append('calorie', dishs.calorie);
+    formData.append('img', image);
+    formData.append('description', dishs.description);
+    return this.httpClient.post<{ message: string }>(`${this. dishUrl}/addDish`, formData);
 
   }
-  editDish(dish: any) {
-    return this.httpClient.put<{ message: string }>(`${this.dishUrl}/allDish/${dish.id}`, dish);
+  editDish(dishs: any) {
+    return this.httpClient.put<{ message: string }>(`${this. dishUrl}/editDish/${dishs.id}`, dishs);
 
 
   }
+
 
 }

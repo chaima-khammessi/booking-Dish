@@ -1,0 +1,70 @@
+<!--<input type="checkbox"  id="check">-->
+<!--header area start-->
+<!--<header>
+    <label for="check">
+        <i class="fas fa-bars" id="sidebar_btn"></i>
+    </label>
+    <div class="left-area">
+        <h3>Codding <span>Snow</span></h3>
+    </div>
+    <div class="right-area">
+        <a href="#" class="logout_btn">Logout</a>
+    </div>
+</header>-->
+<!--header area End-->
+
+<!--sidebar start-->
+
+<!--<div class="sidebar ">
+    
+        <img src="assets/img/testimonials/testimonials-1.jpg" class="profile-image" alt="photo user">
+        <h4>chaima</h4>
+
+        <a href="#"><i class="fas fa-desktop"><span>Dashboard</span></i></a>
+        <a href="#"><i class="fas fa-cogs"><span>component</span></i></a>
+        <a href="#"><i class="fas fa-table"><span>Tables</span></i></a>
+        <a href="#"><i class="fas fa-th"><span>Forms</span></i></a>
+        <a href="#"><i class="fas fa-info-circle"><span>About</span></i></a>
+        <a href="#"><i class="fas fa-sliders-h"><span>Settings</span></i></a>
+       
+
+</div>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Chef</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Reservation</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pannier</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"   (click)="logout()"  routerLink="/login-admin" id="logout">Logout</a>
+          </li>
+      </ul>
+      
+    </div>
+  </nav>
+
+
+<div class="content">
+    <app-table-filter></app-table-filter>
+
+</div>
+
+
+<!--sidebar End-->

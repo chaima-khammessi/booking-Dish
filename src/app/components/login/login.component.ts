@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         if (data.userType === 'consumer') {
           this.router.navigate(['contact']);
         } else if (data.userType === 'chef') {
-          this.router.navigate(['']);
+          this.router.navigate(['chef']);
         } else if (data.userType === 'company') {
           this.router.navigate(['dish']);
         } else {
