@@ -1,7 +1,10 @@
+import { Router } from '@angular/router';
+import { MustMatch } from '../../../validators/mustMatchValidators';
 
 import { UsersService } from './../../../services/users.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, RequiredValidator, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -15,8 +18,12 @@ export class UserFormComponent implements OnInit {
   usersForm: FormGroup;
   form: FormGroup;
 
+
   constructor(
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router:Router,
+    private toastr: ToastrService
+
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +37,7 @@ export class UserFormComponent implements OnInit {
       adress: new FormControl('', Validators.minLength(20)),
       email: new FormControl('', [Validators.email, Validators.required]),
       pwd: new FormControl('', Validators.required),
-      confPwd: new FormControl('', Validators.minLength(8)),
+      confPwd: new FormControl('', Validators.required),
       tel: new FormControl('', [Validators.maxLength(8), Validators.minLength(8)]),
       mfCompany: new FormControl('', Validators.minLength(5)),
       faxCompany: new FormControl('', Validators.minLength(8)),
@@ -39,8 +46,19 @@ export class UserFormComponent implements OnInit {
       specialityChef: new FormControl('', Validators.required),
       userType: new FormControl(this.userType)
 
-    });
-    this.userFormConstruction()
+    },
+    
+    //{ validator: MustMatch('pwd', 'confPwd') }
+    
+    
+    );
+    
+    this.userFormConstruction();
+
+    let isLoggedIn = this.usersService.isLoggedIn();
+    if (isLoggedIn) {
+      this.router.navigate(['chef'])
+    }
 
 
   }
@@ -104,8 +122,10 @@ export class UserFormComponent implements OnInit {
     console.log('this is signUp user', this.usersForm.value);
     this.usersService.addUser(this.usersForm.value).subscribe(
       (data) => {
-        console.log('service call', data);
-        localStorage.setItem('token', JSON.stringify('data.token'))
+        this.router.navigate(['login']);
+          this.toastr.success('User Registred Succesufully');
+       
+       
       })
   }
 

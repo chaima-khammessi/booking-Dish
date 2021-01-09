@@ -1,0 +1,47 @@
+<app-header-dashoard-chef></app-header-dashoard-chef>
+
+
+<h1 class="centerLign">ADD Dish</h1>
+
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <form #dishForm='ngForm' (ngSubmit)='validate()'  >
+            <div class="form-group">
+              <input type="text" [(ngModel)]='dish.name' [ngModelOptions]="{standalone: true}" class="form-control"
+                placeholder="Name Dish">
+            </div>
+            <div class="form-group">
+              <input type="text" [(ngModel)]='dish.price' [ngModelOptions]="{standalone: true}" class="form-control"
+                placeholder="Price">
+            </div>
+            <div class="form-group">
+                <input type="text" [(ngModel)]='dish.ingredient' [ngModelOptions]="{standalone: true}" class="form-control"
+                  placeholder="Ingredient">
+              </div>
+              <div class="form-group">
+                <input type="text" [(ngModel)]='dish.calorie' [ngModelOptions]="{standalone: true}" class="form-control"
+                  placeholder="calorie">
+              </div>
+           
+  
+  
+              <button type="button" (click)='filePicker.click()' class="btn btn-warning">Select File</button>
+              <input type="file" #filePicker style="visibility: hidden;" (change)='onImageSelected($event)'>
+              <img [src]="imagePreview" alt="" width="150px" height="150px">
+              
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea class="form-control" [(ngModel)]='dish.description' [ngModelOptions]="{standalone: true}" id="exampleFormControlTextarea1" rows="4"></textarea>
+              </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary py-3 px-5">Add</button>
+            </div>
+           
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

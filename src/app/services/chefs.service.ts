@@ -26,4 +26,9 @@ export class ChefsService {
   editChef(chef: any) {
     return this.httpClient.put<{ message: string }>(`${this.chefUrl}/editChef/${chef.id}`, chef)
   }
+
+
+
+
+  
 }

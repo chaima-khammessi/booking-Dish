@@ -34,8 +34,21 @@ export class UsersService {
   login(user: any) {
     console.log('user in service', user);
 
-    return this.httpClient.post<{ message: string, userType: string }>(`${this.urlUsers}/addLogin`, user);
+    return this.httpClient.post<{ message: string, userType: string, token: any }>(`${this.urlUsers}/addLogin`, user);
 
   }
 
+
+  logoutUser() {
+    return this.httpClient.get<{ message: string }>(`${this.urlUsers}/logoutUser`)
+  }
+
+  isLoggedIn() {
+    let token = localStorage.getItem('token');
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

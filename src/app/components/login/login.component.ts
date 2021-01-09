@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { style } from '@angular/animations';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private usersService: UsersService,
     private router: Router,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
+    ) { }
 
   ngOnInit(): void {
     // Validator Input Login
@@ -37,17 +39,28 @@ export class LoginComponent implements OnInit {
     // searsh if userType== true 
     this.usersService.login(loginUser).subscribe(
       data => {
-        console.log('data from login', data);
+   
         if (data.userType === 'consumer') {
+          localStorage.setItem('token', JSON.stringify(data.token))
           this.router.navigate(['contact']);
+          this.toastr.success(data.message);
+          console.log(data);
+
         } else if (data.userType === 'chef') {
-          this.router.navigate(['']);
+          localStorage.setItem('token', JSON.stringify(data.token))
+          this.router.navigate(['chef']);
+          this.toastr.success(data.message);
+          console.log(data);
         } else if (data.userType === 'company') {
+          localStorage.setItem('token', JSON.stringify(data.token))
           this.router.navigate(['dish']);
+          this.toastr.success(data.message);
+          console.log(data);
+
         } else {
 
-          document.getElementById('error').innerHTML = '<div class="alert alert-danger" role="alert">' + 'Email / Password incorrect' + '</div>'
-
+         // document.getElementById('error').innerHTML = '<div class="alert alert-danger" role="alert">' + 'Email / Password incorrect' + '</div>'
+         this.toastr.error(data.message);
         }
       }
     );

@@ -1,0 +1,40 @@
+
+<app-header-dashoard-chef></app-header-dashoard-chef>
+
+<div class=" container move-tab ">
+    <h1> Table Dish</h1>
+   
+      <div class="table-responsive">
+    <table   class="table">
+        <thead>
+            <tr>
+                <th>Name Dish</th>
+                <th>Price</th>
+                <th>Photo</th>
+                <th>Description</th>
+                <th>Ingredient</th>
+                <th>Calorie</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="dish">
+                
+                <td>{{dish.name}}</td>
+                <td>{{dish.price}}</td>
+                <td><img [src]="dish.img" height="50px" width="50px" alt=""></td>
+                <td>{{dish.description}}</td>
+                <td>{{dish.ingredient}}</td>
+                <td>{{dish.calorie}}</td>
+               
+               
+                
+               
+            </tr>
+        </tbody>
+    
+    </table>
+    </div>
+</div>
+
+   
+     

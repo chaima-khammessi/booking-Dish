@@ -26,6 +26,7 @@
             "styles": [
               "src/styles.css"
             ],
+          
             "scripts": []
           },
           "configurations": {
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "restaurant"
+    }
+  },
+  "defaultProject": "restaurant",
+  "cli": {
+    "analytics": "6dfe2735-dadf-43af-b62b-bb716fdb5b3b"
+  }
 }

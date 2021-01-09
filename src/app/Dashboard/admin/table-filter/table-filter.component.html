@@ -1,0 +1,48 @@
+<div class="container move-tab">
+    <h1 class="centerLign">Table Users</h1>
+    <nav class="navbar">
+        <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+    </nav>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="4">Users</th>
+                    <th colspan="4">Dishs</th>
+                </tr>
+                <tr>
+
+                    <th (click)="sort('FirstName')">FirstName &nbsp; <i class="fa fa-sort"></i></th>
+                    <th>Last Name</th>
+                    <th>tel</th>
+                    <th>Type User</th>
+                    <th>Action</th>
+                </tr>
+
+
+            </thead>
+            <tbody *ngFor="let user of users |orderBy : key : reserve| filter:filter | paginate :{itemsPerPage:5,currentPage:p };">
+
+                <tr>
+                    <td>{{user.fName}}</td>
+                    <td>{{user.lName}}</td>
+                    <td>{{user.tel}}</td>
+                    <td>{{user.userType}}</td>
+      
+                    <td><i class="far fa-trash-alt" style="cursor: pointer;" (click)="deleteUser(user)"></i>&nbsp;
+                        <i class="far fa-check-circle" style="cursor:pointer;" (click)='displayUser(user)'></i>&nbsp;
+                        <i class="fas fa-user-edit"></i></td> 
+                
+        
+
+
+
+                 </tr>
+
+
+
+    </tbody>
+    </table>
+</div>
+<pagination-controls (pageChange)="p=$event"></pagination-controls>
+</div>

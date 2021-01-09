@@ -1,0 +1,59 @@
+<div class="padding container d-flex justify-content-center">
+    <div class="col-md-10 col-md-offset-1">
+        <form class="signup-form" [formGroup]='adminForm'>
+            <h2 class="text-center">SIGNUP ADMIN</h2>
+            <hr>
+            <div class="form-group"> <input type="text" class="form-control" placeholder="Full Name" formControlName='fullName' > 
+                <div *ngIf="adminForm.controls['fullName'].invalid &&
+                (adminForm.controls['fullName'].dirty || adminForm.controls['fullName'].touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="adminForm.controls['fullName'].errors.minlength">
+                          Full Name Min Length : 5
+                      </div>
+                  </div>
+            </div>
+            <div class="form-group"> <input type="email" class="form-control" formControlName='emailAdmin' placeholder="Email Address">
+            
+                <div *ngIf="adminForm.controls['emailAdmin'].invalid &&
+                (adminForm.controls['emailAdmin'].dirty || adminForm.controls['emailAdmin'].touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="adminForm.controls['emailAdmin'].errors.email">
+                          Email is Required
+                      </div>
+                  </div></div>
+            <div class="form-group"> <input type="text" class="form-control" placeholder="User Name" formControlName='userAdmin' > 
+                <div *ngIf="adminForm.controls['userAdmin'].invalid &&
+                (adminForm.controls['userAdmin'].dirty || adminForm.controls['userAdmin'].touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="adminForm.controls['userAdmin'].errors.minlength">
+                          User Name Min Length : 4
+                      </div>
+                  </div>
+            </div>
+            <div class="form-group"> <input type="password" class="form-control" placeholder="Password" formControlName='pwdAdmin' > 
+                <div *ngIf="adminForm.controls['pwdAdmin'].invalid &&
+                (adminForm.controls['pwdAdmin'].dirty || adminForm.controls['pwdAdmin'].touched)"
+                      class="alert alert-danger">
+                     
+                      <div *ngIf="adminForm.controls['pwdAdmin'].errors.required">
+                         Password is Required
+                      </div>
+                  </div>
+            </div>
+            <div class="form-group"> <input type="password" class="form-control" placeholder="Confirm Password" formControlName='confPwdAdmin' >
+                <div *ngIf="adminForm.controls['confPwdAdmin'].invalid &&
+                (adminForm.controls['confPwdAdmin'].dirty || adminForm.controls['pwdAdmin'].touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="adminForm.controls['confPwdAdmin'].errors.minlength">
+                          password Min length :8
+                      </div>
+                      <div *ngIf="adminForm.controls.confPwdAdmin.valid && adminForm.controls.confPwdAdmin.value != adminForm.controls.pwdAdmin.value" class="alert alert-danger">
+                        Confirm Pwd does not match PWD
+                    </div>
+                  </div>
+            </div>
+
+            <div class="form-group text-center"> <button type="submit" class="btn btn-blue btn-block" [disabled]="!adminForm.valid||adminForm.controls.confPwdAdmin.value != adminForm.controls.pwdAdmin.value" (click)='signUpAdmin()'>Sign Up</button> </div>
+        </form>
+    </div>
+</div>
