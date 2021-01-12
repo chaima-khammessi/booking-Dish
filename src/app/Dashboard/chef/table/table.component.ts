@@ -20,12 +20,13 @@ export class TableComponent implements OnInit {
   filter: any;
 
   constructor(private dishService: DishService,
-    private router: Router,
-    private toastr: ToastrService
+             private router: Router,
+             private toastr: ToastrService,
 
   ) { }
 
   ngOnInit(): void {
+    
     this.dishService.getAllDishs().subscribe(
       data => {
         this.dishs = data['dish'];
@@ -35,6 +36,7 @@ export class TableComponent implements OnInit {
 
       }
     )
+    
   }
 
 

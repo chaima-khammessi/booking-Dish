@@ -16,33 +16,33 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TableFilterComponent implements OnInit {
   @Input() user: any;
-  @Input() dish:any;
-  @Output() newUser:EventEmitter<any> = new EventEmitter();
+  @Input() dish: any;
+  @Output() newUser: EventEmitter<any> = new EventEmitter();
   users: any = [];
-  dishs:any=[];
+  dishs: any = [];
   id: number;
   firstName: any;
   p: number = 1;
   filter: any;
   constructor(private usersService: UsersService,
-              private router: Router,
-              private toastr: ToastrService,
-              private dishService:DishService
-    ) { }
+    private router: Router,
+    private toastr: ToastrService,
+    private dishService: DishService
+  ) { }
 
   ngOnInit(): void {
+
     this.usersService.getAllUser().subscribe(
       data => {
         this.users = data['users'];
         console.log(this.users);
-        
-
 
       },
       error => {
         console.log(error);
 
       }
+
     )
 
     this.dishService.getAllDishs().subscribe(
@@ -78,26 +78,27 @@ export class TableFilterComponent implements OnInit {
 
 
   }
-  deleteUser(user){
-   let index = this.users.indexOf(user);
-   this.users.splice(index , 1);
-   this.usersService.deleteUser(user._id).subscribe(
-     ()=>{
-       this.usersService.getAllUser().subscribe(
-         res=>{
-           this.newUser.emit(res.users);
-           this.toastr.error('Dish deleted successfully');
-           
-       
-          }
-          )
-          },
-          (err) => {
-            console.dir(err);
-          }
-        )}
+  deleteUser(user) {
+    let index = this.users.indexOf(user);
+    this.users.splice(index, 1);
+    this.usersService.deleteUser(user._id).subscribe(
+      () => {
+        this.usersService.getAllUser().subscribe(
+          res => {
+            this.newUser.emit(res.users);
+            this.toastr.error('User deleted successfully');
 
-        displayUser(user){
-          this.router.navigate([`display-user/${user._id}`]);
-        }
+
+          }
+        )
+      },
+      (err) => {
+        console.dir(err);
+      }
+    )
+  }
+
+  displayUser(user) {
+    this.router.navigate([`display-user/${user._id}`]);
+  }
 }

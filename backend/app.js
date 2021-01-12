@@ -9,9 +9,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const multer = require('multer');
 const User = require('./models/users');
-const Admin=require('./models/admin');
-const Dish=require('./models/dish');
-const admin = require('./models/admin');
+const Admin = require('./models/admin');
+const Dish = require('./models/dish');
 
 
 //Set up default mongoose connection
@@ -70,7 +69,7 @@ app.post('/addUser', (req, res) => {
         adress: req.body.adress,
         email: req.body.email,
         pwd: req.body.pwd,
-     
+
         confirmPwd: req.body.confirmPwd,
         tel: req.body.tel,
         mfCompany: req.body.mfCompany,
@@ -99,13 +98,13 @@ app.post('/addAdmin', (req, res) => {
     console.log('admins added from FE', req.body);
     const admin = new Admin({
         fullName: req.body.fullName,
-        emailAdmin:req.body.emailAdmin,
-        userAdmin:req.body.userAdmin,
-        pwdAdmin:req.body.pwdAdmin,
-        confPwdAdmin:req.body.confPwdAdmin
+        emailAdmin: req.body.emailAdmin,
+        userAdmin: req.body.userAdmin,
+        pwdAdmin: req.body.pwdAdmin,
+        confPwdAdmin: req.body.confPwdAdmin
 
     });
-   admin.save((error, admin) => {
+    admin.save((error, admin) => {
         if (error) {
             console.log(error);
         }
@@ -122,7 +121,7 @@ app.post('/addAdmin', (req, res) => {
  * UPDATE ONE BY ID
  * Patch attributes for a model instance and persist it into the data source.
  */
-
+// finded Dishs
 app.get('/allDishs', (req, res) => {
     Dish.find((err, findedDish) => {
         console.log('All Dishs', findedDish);
@@ -135,59 +134,61 @@ app.get('/allDishs', (req, res) => {
         })
     })
 })
+
+// add Dishs
 app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
     const dish = new Dish({
         name: req.body.name,
         price: req.body.price,
         ingredient: req.body.ingredient,
-        calorie:req.body.calorie,
+        calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
-        description:req.body.description
+        description: req.body.description
     });
     dish.save();
     res.status(200).json({
         message: "dish added successfuly"
     })
 });
-
-app.put('/editDish/:id',  multer({ storage: storage }).single('img'),(req, res) => {
+// Update Dishs
+app.put('/editDish/:id', multer({ storage: storage }).single('img'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
-       if(!req.body){
-          
-           return res.status(200).send({
-               
-               message: 'Data To Update can not empty!'
-              
-           });
-          
-       }
-      
-       const id=req.params.id;
-       console.log( 'source image', req.body.img);
-       req.body.img= url +('/images/' + req.file.filename );
-       Dish.findByIdAndUpdate(id,req.body, { useFindAndModify:false})
-       .then(data=>{
-           if(!data){
-               res.status(200).send({
-                   message:`Cannot Update Dish with id=${id}, May be dish wa not found!`
-               });
-           }
-           else res.send({
-               message:"Dish was Update succesfully"
-           })
-          /* .catch(err=>{
-               res.status(500).send({
-                   message:'error update dish id='+ id})
-           })*/
-       })
-      
-;
-})
+    if (!req.body) {
 
+        return res.status(200).send({
+
+            message: 'Data To Update can not empty!'
+
+        });
+
+    }
+
+    const id = req.params.id;
+    console.log('source image', req.body.img);
+    req.body.img = url + ('/images/' + req.file.filename);
+    Dish.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        .then(data => {
+            if (!data) {
+                res.status(200).send({
+                    message: `Cannot Update Dish with id=${id}, May be dish wa not found!`
+                });
+            }
+            else res.send({
+                message: "Dish was Update succesfully"
+            })
+            /* .catch(err=>{
+                 res.status(500).send({
+                     message:'error update dish id='+ id})
+             })*/
+        })
+
+        ;
+})
+// Delete Dish
 app.delete('/deleteDish/:id', (req, res) => {
     console.log('delete dish by ID', req.params._id);
-    Dish.deleteOne({_id: req.params.id }).then(
+    Dish.deleteOne({ _id: req.params.id }).then(
         result => {
             if (result) {
                 console.log('result', result);
@@ -198,10 +199,10 @@ app.delete('/deleteDish/:id', (req, res) => {
         }
     );
 });
-
+//  Finded Dish By Id
 app.get('/allDishs/:id', (req, res) => {
     console.log('this is my id', req.params.id);
-    Dish.findOne({_id: req.params.id }).then(
+    Dish.findOne({ _id: req.params.id }).then(
         dish => {
             console.log('Finded Dish', dish);
             res.status(200).json({
@@ -217,30 +218,38 @@ app.put('/editDish/:id', (req, res) => {
     Dish.findByIdAndUpdate(
         // the id of the item to find
         req.params.id,
-        
+
         // the change to be made. Mongoose will smartly combine your existing 
         // document with this change, which allows for partial updates too
         req.body,
-        
+
         // an option that asks mongoose to return the updated version 
         // of the document instead of the pre-updated one.
-        {new: true},
-        
+        { new: true },
+
         // the callback function
         (err, dish) => {
-        // Handle any possible database errors
+            // Handle any possible database errors
             if (err) return res.status(500).send(err);
             return res.send(dish);
         }
-);
+    );
 })
 
 
 
-/*app.get('/allUser', async (req, res) => {
-    try {
-        let user = await Users.find();
->>>>>>> f3a5beb8ae1eb0791721ae7dd875c15aa3459fc8
+app.get('/allUser', (req, res) => {
+    User.find((err, findedUser) => {
+        console.log('All Users', findedUser);
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).json({
+            message: 'Here all Users',
+            users: findedUser
+        })
+    })
+})
 
 
 app.get('/allDishs', (req, res) => {
@@ -261,9 +270,9 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         name: req.body.name,
         price: req.body.price,
         ingredient: req.body.ingredient,
-        calorie:req.body.calorie,
+        calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
-        description:req.body.description
+        description: req.body.description
 
     });
     dish.save();
@@ -274,7 +283,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
 
 app.get('/allDishs/:id', (req, res) => {
     console.log('this is my id', req.params.id);
-    Dish.findOne({_id: req.params.id }).then(
+    Dish.findOne({ _id: req.params.id }).then(
         dish => {
             console.log('Finded Dish', dish);
             res.status(200).json({
@@ -284,15 +293,15 @@ app.get('/allDishs/:id', (req, res) => {
         }
     )
 })
-
-app.get('/allUser/:id',(req,res)=> {
+// Fided All User
+app.get('/allUser/:id', (req, res) => {
     console.log('this is my id', req.params.id);
-    User.findOne({_id: req.params.id}).then(
+    User.findOne({ _id: req.params.id }).then(
         user => {
             console.log('finded User', user);
             res.status(200).json({
-                message:'this is User',
-                user:user
+                message: 'this is User',
+                users: user
             });
         }
     )
@@ -301,7 +310,7 @@ app.get('/allUser/:id',(req,res)=> {
 
 app.delete('/deleteDish/:id', (req, res) => {
     console.log('delete dish by ID', req.params.id);
-    Dish.deleteOne({_id: req.params.id }).then(
+    Dish.deleteOne({ _id: req.params.id }).then(
         result => {
             if (result) {
                 console.log('result', result);
@@ -312,14 +321,14 @@ app.delete('/deleteDish/:id', (req, res) => {
         }
     );
 });
-app.delete('/deleteUser/:id',(req,res)=> {
+app.delete('/deleteUser/:id', (req, res) => {
     console.log('delet User by id', req.params.id);
-    User.deleteOne({_id: req.params.id}).then(
-        resul=>{
-            if(resul){
+    User.deleteOne({ _id: req.params.id }).then(
+        resul => {
+            if (resul) {
                 console.log('resul', resul);
                 res.status(200).json({
-                    message :' user deleted successfully'
+                    message: ' user deleted successfully'
                 })
             }
         }
@@ -351,7 +360,7 @@ app.get('/allAdmin', (req, res) => {
 })
 
 
-    
+
 // search user by email from collections: (req.body.email received from FE)
 app.post("/addLogin", (req, res) => {
     User.findOne({ email: req.body.emailLogin })
@@ -371,14 +380,14 @@ app.post("/addLogin", (req, res) => {
                 });
             }
             User.findOne({ email: req.body.emailLogin }).then((data) => {
-               
-                       
-                    let payload = { subject: data._id }
-                    let token = jwt.sign(payload, 'secretKey', {expiresIn:'3h'})
-                    res.status(200).json({ token,  userType: data.userType, message:'User added successfuly' });
-                 
-                   
-              
+
+
+                let payload = { subject: data._id }
+                let token = jwt.sign(payload, 'secretKey', { expiresIn: '3h' })
+                res.status(200).json({ token, userType: data.userType, message: 'User added successfuly' });
+
+
+
             });
 
         });
@@ -405,17 +414,17 @@ app.post("/addLoginAdmin", (req, res) => {
                 });
             }
             Admin.findOne({ emailAdmin: req.body.emailLoginAdmin }).then((data) => {
-                
-                    
-                    let payload = { subject: data._id }
-                    let token = jwt.sign(payload, 'secretKey', {expiresIn:'3h'})
-                    res.status(200).json({ token, admin:data.admin, message:'1' });
-                 
-                });
-            });
 
+
+                let payload = { subject: data._id }
+                let token = jwt.sign(payload, 'secretKey', { expiresIn: '3h' })
+                res.status(200).json({ token, admin: data.admin, message: '1' });
+
+            });
         });
-    
+
+});
+
 
 /******************  search admin by email from collections: (req.body.email received from FE)********************* */
 
@@ -448,12 +457,12 @@ app.post("/addLoginAdmin", (req, res) => {
 });
 
 
-app.get('/logoutAdmin',(req, res)=>{
+app.get('/logoutAdmin', (req, res) => {
     console.log('delete admin', req.params._id);
-    Admin.findByIdAndRemove(req.params._id, function(err){
-    if(err) res.send(err);
-    res.status(200).json({ message: 'Admin Deleted!'});
-   })
+    Admin.findByIdAndRemove(req.params._id, function (err) {
+        if (err) res.send(err);
+        res.status(200).json({ message: 'Admin Deleted!' });
+    })
 });
 
 

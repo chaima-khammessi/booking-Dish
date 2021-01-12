@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { schema } = require('./users');
 const bcrypt = require('bcrypt');
 
 const dishSchema = mongoose.Schema({

@@ -8,25 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./display-user.component.css']
 })
 export class DisplayUserComponent implements OnInit {
-  id:any;
-  user:any;
+  id: any;
+  user: any;
 
-  constructor( private userService:UsersService,
-               private activateRoute:ActivatedRoute
-    
-    ) { }
+  constructor(private userService: UsersService,
+    private activateRoute: ActivatedRoute
+
+  ) { }
 
   ngOnInit(): void {
-    this.id=this.activateRoute.snapshot.paramMap.get('id');
+    this.id = this.activateRoute.snapshot.paramMap.get('id');
     this.userService.getByIdUser(this.id).subscribe(
-      data=>{
-        console.log('this is all Data for User',data);
-        this.user= data.users
-        
+      data => {
+        console.log('this is all Data for User', data);
+        this.user = data.users
+
       },
-      err=>{
+      err => {
         console.log(err);
-        
+
       }
     )
 
