@@ -70,7 +70,6 @@ app.post('/addUser', (req, res) => {
         adress: req.body.adress,
         email: req.body.email,
         pwd: req.body.pwd,
-
         confirmPwd: req.body.confirmPwd,
         tel: req.body.tel,
         mfCompany: req.body.mfCompany,
@@ -145,7 +144,8 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         ingredient: req.body.ingredient,
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
-        description: req.body.description, 
+        description: req.body.description,
+        status: Status.NEW
     });
     dish.save();
     res.status(200).json({
@@ -167,7 +167,7 @@ app.put('/editDish/:id', multer({ storage: storage }).single('img'), (req, res) 
 
     const id = req.params.id;
     console.log('source image', req.body.img);
-    if(req.file && req.file.filename){
+    if (req.file && req.file.filename) {
         req.body.img = url + ('/images/' + req.file.filename);
     }
 
@@ -217,16 +217,7 @@ app.get('/allDishs/:id', (req, res) => {
     )
 })
 
-// Validator Dish By Admin
 
-/*app.get('/allDishs/:id', (req,res)=>{
-    
-let id = req.params.id ;
-// Cast to Number failed for value "bar" at path "age"
-await id.validate();
-
-
-})*/
 
 app.put('/editDish/:id', (req, res) => {
     console.log('Update Dish By ID', req.params.id);

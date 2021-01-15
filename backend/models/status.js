@@ -1,7 +1,9 @@
+const { REFUSED } = require("dns");
+
 const Status = {
-    NEW : "NEW", 
-    VALIDATED : "VALIDATED", 
-    REFUSED : "REFUSED"
+    NEW : String, 
+    VALIDATED : String, 
+    REFUSED : String
 }
 
 module.exports = Status;

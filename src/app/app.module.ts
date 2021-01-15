@@ -1,3 +1,4 @@
+import { from } from 'rxjs';
 
 import { UsersService } from './services/users.service';
 import { DataService } from './services/data.service';
@@ -53,6 +54,9 @@ import { DisplayUserComponent } from './Dashboard/admin/display-user/display-use
 import { HeaderDashoardChefComponent } from './Dashboard/chef/header/header-dashoard-chef/header-dashoard-chef.component';
 import { GalleryChefComponent } from './Dashboard/chef/gallery-chef/gallery-chef.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+
 
 
 
@@ -112,7 +116,10 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     // Specify your library as an import
     AlertModule.forRoot({ maxMessages: 5, timeout: 5000, positionX: 'right' }),
     ToastNoAnimationModule.forRoot(),
-    NgxGalleryModule 
+    NgxGalleryModule,
+    NgbModule
+
+
   ],
   providers: [
     UserFormComponent],

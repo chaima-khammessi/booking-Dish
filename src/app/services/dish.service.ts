@@ -37,9 +37,11 @@ export class DishService {
     formData.append('price', dishs.price);
     formData.append('ingredient', dishs.ingredient);
     formData.append('calorie', dishs.calorie);
+
     if(image){
       formData.append('img', image);
     }
+    formData.append('status', Status.NEW);
     formData.append('description', dishs.description);
 
     return this.httpClient.put(`${this.dishUrl}/editDish/${id}`, formData, dishs);

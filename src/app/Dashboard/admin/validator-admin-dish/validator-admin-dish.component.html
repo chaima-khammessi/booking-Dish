@@ -35,13 +35,28 @@
                
                
                 
-                <td *ngIf="dish.status && dish.status == 'NEW' "><i  (click)="deletDish(dish)" style="cursor: pointer;" class="far fa-trash-alt" ></i>&nbsp;
+                <td ><i  *ngIf="dish.status && dish.status" (click)="deletDish(dish)" style="cursor: pointer;" class="far fa-trash-alt" ></i>&nbsp;
                     <i  (click)="validatorDish(dish)" style="cursor: pointer;" class="far fa-check-circle"></i>&nbsp;
                     <i  style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit"></i>
-                    <i class="fal fa-comment-times"></i>
+                    <button class="btn btn-lg btn-primary" (click)="open(mymodal)">Refused And Send Resean</button>
+
                 </td>
             </tr>
         </tbody>
+        <ng-template #mymodal let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Send Message To Chef</h4>
+            <button type="button" class="close buttonColor" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           <textarea name="" id="" cols="10" rows="5"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark buttonColor" (click)="modal.close('Save click')">Send</button>
+          </div>
+        </ng-template>
     
     </table>
     <pagination-controls (pageChange)="p=$event"></pagination-controls>

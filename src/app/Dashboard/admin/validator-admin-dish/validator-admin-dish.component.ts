@@ -5,6 +5,7 @@ import { DishService } from './../../../services/dish.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Route } from '@angular/compiler/src/core';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-validator-admin-dish',
@@ -19,11 +20,15 @@ export class ValidatorAdminDishComponent implements OnInit {
   p: number = 1;
   filter: any;
   validator:boolean=false;
+  title = 'appBootstrap';
+  
+  closeResult: string;
 
   constructor(private dishService: DishService,
     private router: Router,
     private adminService: adminService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
 
   ) { }
 
@@ -45,6 +50,25 @@ export class ValidatorAdminDishComponent implements OnInit {
 
   }
 
+
+  /************ Add popup ******************/
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
 
   deletDish(dish) {
 
