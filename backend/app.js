@@ -11,6 +11,7 @@ const multer = require('multer');
 const User = require('./models/users');
 const Admin = require('./models/admin');
 const Dish = require('./models/dish');
+const { Status } = require('./models/status');
 
 
 //Set up default mongoose connection
@@ -144,7 +145,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         ingredient: req.body.ingredient,
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
-        description: req.body.description
+        description: req.body.description, 
     });
     dish.save();
     res.status(200).json({
@@ -166,7 +167,10 @@ app.put('/editDish/:id', multer({ storage: storage }).single('img'), (req, res) 
 
     const id = req.params.id;
     console.log('source image', req.body.img);
-    req.body.img = url + ('/images/' + req.file.filename);
+    if(req.file && req.file.filename){
+        req.body.img = url + ('/images/' + req.file.filename);
+    }
+
     Dish.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then(data => {
             if (!data) {
@@ -212,6 +216,17 @@ app.get('/allDishs/:id', (req, res) => {
         }
     )
 })
+
+// Validator Dish By Admin
+
+/*app.get('/allDishs/:id', (req,res)=>{
+    
+let id = req.params.id ;
+// Cast to Number failed for value "bar" at path "age"
+await id.validate();
+
+
+})*/
 
 app.put('/editDish/:id', (req, res) => {
     console.log('Update Dish By ID', req.params.id);
@@ -272,8 +287,8 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         ingredient: req.body.ingredient,
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
-        description: req.body.description
-
+        description: req.body.description,
+        status: Status.NEW
     });
     dish.save();
     res.status(200).json({

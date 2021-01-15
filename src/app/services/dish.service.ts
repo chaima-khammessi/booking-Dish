@@ -1,3 +1,4 @@
+import { Status } from './../enums/status.enum';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -25,6 +26,7 @@ export class DishService {
     formData.append('ingredient', dishs.ingredient);
     formData.append('calorie', dishs.calorie);
     formData.append('img', image);
+    formData.append('status', Status.NEW);
     formData.append('description', dishs.description);
     return this.httpClient.post<{ message: string }>(`${this.dishUrl}/addDish`, formData);
 
@@ -35,14 +37,16 @@ export class DishService {
     formData.append('price', dishs.price);
     formData.append('ingredient', dishs.ingredient);
     formData.append('calorie', dishs.calorie);
-    formData.append('img', image);
+    if(image){
+      formData.append('img', image);
+    }
     formData.append('description', dishs.description);
 
-
     return this.httpClient.put(`${this.dishUrl}/editDish/${id}`, formData, dishs);
-
-
   }
 
+  editDishById(id, dish): Observable<any> {
+    return this.httpClient.put(`${this.dishUrl}/editDish/${id}`, dish);
+  }
 
 }

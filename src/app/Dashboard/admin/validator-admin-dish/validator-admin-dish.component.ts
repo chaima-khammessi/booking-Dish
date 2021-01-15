@@ -1,3 +1,4 @@
+import { Status } from './../../../enums/status.enum';
 import { adminService } from './../../../services/admins.service';
 import { Router } from '@angular/router';
 import { DishService } from './../../../services/dish.service';
@@ -71,16 +72,29 @@ export class ValidatorAdminDishComponent implements OnInit {
 
 
   validatorDish(dish){
-    this.dishService.getDishById(dish).subscribe(
+    /**
+     * Steps
+     * 
+     * DONE update the dish status
+     * DONE send a post request to mongo
+     * get success/error
+     * on response : send notification to the chef
+     * on error : show error toast
+     */
+    
+    dish.status = Status.VALIDATED;
+    this.dishService.editDishById(dish.id, dish).subscribe(
       data=>{
        this.dishs=data.dish
-       this.toastr.error('Dish addeed successfully in web site');
+       // send notification to the chef
+       console.log("Dish validation" , "validated");
+      },
+       (error)=>{
+        this.toastr.error('Error when validating the Dish');
       }
-     
     )
     return this.validator==true
     
-
   }
 
 

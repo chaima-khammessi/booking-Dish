@@ -3,18 +3,17 @@ const bcrypt = require('bcrypt');
 
 const dishSchema = mongoose.Schema({
     name: String,
-   price: String,
+    price: String,
     ingredient: String,
-    calorie:String,
+    calorie: String,
     img: String,
-    description:String
-
-
+    description: String,
+    status: String
 });
 
-dishSchema.method('toJSON',function(){
-    const {__v,_id, ...object}=this.toObject();
-    object.id= _id;
+dishSchema.method('toJSON', function () {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
     return object;
 })
 const dish = mongoose.model('Dish', dishSchema)

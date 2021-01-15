@@ -35,9 +35,10 @@
                
                
                 
-                <td><i  (click)="deletDish(dish)" style="cursor: pointer;" class="far fa-trash-alt" ></i>&nbsp;
+                <td *ngIf="dish.status && dish.status == 'NEW' "><i  (click)="deletDish(dish)" style="cursor: pointer;" class="far fa-trash-alt" ></i>&nbsp;
                     <i  (click)="validatorDish(dish)" style="cursor: pointer;" class="far fa-check-circle"></i>&nbsp;
                     <i  style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit"></i>
+                    <i class="fal fa-comment-times"></i>
                 </td>
             </tr>
         </tbody>
