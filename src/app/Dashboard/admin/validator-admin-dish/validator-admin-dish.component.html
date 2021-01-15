@@ -1,67 +1,69 @@
-
 <app-header-dashboard-admin></app-header-dashboard-admin>
 <div class=" container move-tab ">
-    <h1 class="centerLign">Validator Dish Chef</h1>
-    <nav class="navbar">
-        <input class="form-control" type="text" name="search" [(ngModel)]="filter">      
-      </nav>
-      <div class="table-responsive">
-    <table   class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th (click)="sort('FirstName')">Name Dish &nbsp; <i class="fa fa-sort"></i></th>
-               
-                <th>Price</th>
-                <th>Photo</th>
-                <th>Description</th>
-                <th>Ingredient</th>
-                <th>Calorie</th>
-                <th>Action</th>
-                
+  <h1 class="centerLign">Validator Dish Chef</h1>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+  </nav>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th (click)="sort('FirstName')">Name Dish &nbsp; <i class="fa fa-sort"></i></th>
 
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let dish of dishs |orderBy  : key : reserve| filter:filter |  paginate :{itemsPerPage:5,currentPage:p }; let i = index ">
-                <th>{{i}}</th>
-                <td>{{dish.name}}</td>
-                <td>{{dish.price}}</td>
-                <td><img [src]="dish.img" height="50px" width="50px" alt=""></td>
-                <td>{{dish.description}}</td>
-                <td>{{dish.ingredient}}</td>
-                <td>{{dish.calorie}}</td>
-               
-               
-                
-                <td ><i  *ngIf="dish.status && dish.status" (click)="deletDish(dish)" style="cursor: pointer;" class="far fa-trash-alt" ></i>&nbsp;
-                    <i  (click)="validatorDish(dish)" style="cursor: pointer;" class="far fa-check-circle"></i>&nbsp;
-                    <i  style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit"></i>
-                    <button class="btn btn-lg btn-primary" (click)="open(mymodal)">Refused And Send Resean</button>
+          <th>Price</th>
+          <th>Photo</th>
+          <th>Description</th>
+          <th>Ingredient</th>
+          <th>Calorie</th>
+          <th>Action</th>
 
-                </td>
-            </tr>
-        </tbody>
-        <ng-template #mymodal let-modal>
-          <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Send Message To Chef</h4>
-            <button type="button" class="close buttonColor" aria-label="Close" (click)="modal.dismiss('Cross click')">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-           <textarea name="" id="" cols="10" rows="5"></textarea>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark buttonColor" (click)="modal.close('Save click')">Send</button>
-          </div>
-        </ng-template>
-    
+
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let dish of dishs |orderBy  : key : reserve| filter:filter |  paginate :{itemsPerPage:5,currentPage:p }; let i = index ">
+          <th>{{i}}</th>
+          <td>{{dish.name}}</td>
+          <td>{{dish.price}}</td>
+          <td><img [src]="dish.img" height="50px" width="50px" alt=""></td>
+          <td>{{dish.description}}</td>
+          <td>{{dish.ingredient}}</td>
+          <td>{{dish.calorie}}</td>
+
+
+
+          <td>
+            <i title="Remove the dish" (click)="deletDish(dish)" style="cursor: pointer;" class="far fa-trash-alt text-danger pr-1"></i>&nbsp;
+            <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
+              <i title="Validate the dish" (click)="validatorDish(dish)" style="cursor: pointer;" class="far fa-check-circle text-success  pr-1
+              "></i>&nbsp;
+              <i title="Update the dish" style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit text-primary  pr-1
+              "></i>
+            </ng-container>
+            <i title="Decline & return it back to the Chef" (click)="open(mymodal)" style="cursor: pointer;" class="far fa-window-close text-danger"></i>&nbsp;
+          </td>
+        </tr>
+      </tbody>
+      <ng-template #mymodal let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Send Message To Chef</h4>
+          <button type="button" class="close buttonColor" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea name="" id="" cols="10" rows="5"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark buttonColor"
+            (click)="modal.close('Save click')">Send</button>
+        </div>
+      </ng-template>
+
     </table>
     <pagination-controls (pageChange)="p=$event"></pagination-controls>
-    </div>
+  </div>
 </div>
-
-   
-     

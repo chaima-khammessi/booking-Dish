@@ -11,7 +11,7 @@ const multer = require('multer');
 const User = require('./models/users');
 const Admin = require('./models/admin');
 const Dish = require('./models/dish');
-const { Status } = require('./models/status');
+const Status = require('./models/status');
 
 
 //Set up default mongoose connection
@@ -135,7 +135,7 @@ app.get('/allDishs', (req, res) => {
     })
 })
 
-// add Dishs
+
 app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
     const dish = new Dish({
