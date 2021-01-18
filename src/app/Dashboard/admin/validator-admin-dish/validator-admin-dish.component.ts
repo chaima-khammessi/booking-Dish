@@ -52,12 +52,28 @@ export class ValidatorAdminDishComponent implements OnInit {
 
 
   /************ Add popup ******************/
-  open(content) {
+  open(content , dish ) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+     dish.status= Status.REFUSED;
+
+     this.dishService.editDishById(dish.id, dish).subscribe(
+       data=>{
+         this.dishs=data.dish;
+         console.log("Dish refusing" , "refused");
+         
+       },
+       (error)=>{
+        this.toastr.error('Error when refusing the Dish');
+      }
+       
+     )
+     return this.validator==true
+  
+   
   }
   
   private getDismissReason(reason: any): string {
@@ -120,6 +136,9 @@ export class ValidatorAdminDishComponent implements OnInit {
     return this.validator==true
     
   }
+
+
+ 
 
 
 

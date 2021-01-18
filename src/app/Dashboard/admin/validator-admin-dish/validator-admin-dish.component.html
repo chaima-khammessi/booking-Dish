@@ -43,7 +43,9 @@
               <i title="Update the dish" style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit text-primary  pr-1
               "></i>
             </ng-container>
-            <i title="Decline & return it back to the Chef" (click)="open(mymodal)" style="cursor: pointer;" class="far fa-window-close text-danger"></i>&nbsp;
+            <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
+            <i title="Decline & return it back to the Chef" (click)="open(mymodal,dish)" style="cursor: pointer;" class="far fa-window-close text-danger"></i>&nbsp;
+          </ng-container>
           </td>
         </tr>
       </tbody>
