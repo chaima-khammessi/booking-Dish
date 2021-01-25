@@ -41,18 +41,18 @@ export class LoginComponent implements OnInit {
       data => {
    
         if (data.userType === 'consumer') {
-          localStorage.setItem('token', JSON.stringify(data.token))
+          this.storeDataInLocalStorage(data);
           this.router.navigate(['contact']);
           this.toastr.success(data.message);
           console.log(data);
 
         } else if (data.userType === 'chef') {
-          localStorage.setItem('token', JSON.stringify(data.token))
+          this.storeDataInLocalStorage(data);
           this.router.navigate(['chef']);
           this.toastr.success(data.message);
           console.log(data);
         } else if (data.userType === 'company') {
-          localStorage.setItem('token', JSON.stringify(data.token))
+          this.storeDataInLocalStorage(data);
           this.router.navigate(['dish']);
           this.toastr.success(data.message);
           console.log(data);
@@ -64,15 +64,11 @@ export class LoginComponent implements OnInit {
         }
       }
     );
-
   }
 
-
-
-
-
-
-
-
+  private storeDataInLocalStorage(data){
+    localStorage.setItem('token', JSON.stringify(data.token))
+    localStorage.setItem('userId', JSON.stringify(data.userId))
+  }
 
 }

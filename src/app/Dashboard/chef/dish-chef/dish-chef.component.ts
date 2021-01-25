@@ -30,6 +30,7 @@ export class DishChefComponent implements OnInit {
       calorie: [''],
       description: [''],
       img: [''],
+      
 
 
     })

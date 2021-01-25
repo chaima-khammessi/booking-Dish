@@ -8,6 +8,7 @@ const dishSchema = mongoose.Schema({
     calorie: String,
     img: String,
     description: String,
+    userId: String,
     status: String
 });
 

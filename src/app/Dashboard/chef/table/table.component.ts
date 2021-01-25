@@ -18,65 +18,52 @@ export class TableComponent implements OnInit {
   firstName: any;
   p: number = 1;
   filter: any;
+  key: string = 'id';
+  reserve: boolean = false;
 
   constructor(private dishService: DishService,
-             private router: Router,
-             private toastr: ToastrService,
-
+    private router: Router,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
-    
-    this.dishService.getAllDishs().subscribe(
+    this.getAllUserDishes();
+  }
+
+  private getAllUserDishes() {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    this.dishService.getAllUserDishs(userId).subscribe(
       data => {
         this.dishs = data['dish'];
       },
       error => {
         console.log(error);
-
       }
-    )
-    
+    );
   }
 
-
-  key: string = 'id';
-  reserve: boolean = false
   sort(key) {
     this.key = key;
     this.reserve = !this.reserve;
-
-
   }
 
-
   goToDish(dish) {
-
     this.router.navigate([`display-dish-chef/${dish.id}`]);
   }
 
-
   deleteDish(dish) {
-
     let index = this.dishs.indexOf(dish);
     this.dishs.splice(index, 1);
-
     this.dishService.deleteDish(dish.id).subscribe(
       () => {
-
-        this.dishService.getAllDishs().subscribe(
-          res => {
-            this.newDish.emit(res.dish);
-            this.toastr.error('Dish deleted successfully');
-          }
-        )
+        this.getAllUserDishes();
+        this.toastr.error('Dish deleted successfully');
       },
       (err) => {
         console.dir(err);
       }
     )
   }
-
 
   goToEditDish(id: number) {
     this.router.navigate([`update-dish/${id}`]);

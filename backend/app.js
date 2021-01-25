@@ -145,6 +145,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
+        userId: req.body.userId,
         status: Status.NEW
     });
     dish.save();
@@ -218,6 +219,20 @@ app.get('/allDishs/:id', (req, res) => {
 })
 
 
+//  Finded all dishes by User Id
+app.get('/allUserDishs/:userId', (req, res) => {
+    console.log('this is my userId', req.params.userId);
+    Dish.find({ userId: req.params.userId }).then(
+        dish => {
+            console.log('Finded Dish', dish);
+            res.status(200).json({
+                message: 'this is the dish',
+                dish: dish
+            })
+        }
+    )
+})
+
 
 app.put('/editDish/:id', (req, res) => {
     console.log('Update Dish By ID', req.params.id);
@@ -279,6 +294,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
+        userId: req.body.userId,
         status: Status.NEW
     });
     dish.save();
@@ -390,7 +406,7 @@ app.post("/addLogin", (req, res) => {
 
                 let payload = { subject: data._id }
                 let token = jwt.sign(payload, 'secretKey', { expiresIn: '3h' })
-                res.status(200).json({ token, userType: data.userType, message: 'User added successfuly' });
+                res.status(200).json({ token, userType: data.userType, userId :data._id, message: 'User added successfuly' });
 
 
 

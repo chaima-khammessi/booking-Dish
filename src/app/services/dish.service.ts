@@ -13,6 +13,11 @@ export class DishService {
   getAllDishs() {
     return this.httpClient.get<{ message: string, dish: any }>(`${this.dishUrl}/allDishs`);
   }
+  
+  getAllUserDishs(userId : String) {
+    return this.httpClient.get<{ message: string, dish: any }>(`${this.dishUrl}/allUserDishs/${userId}`);
+  }
+
   getDishById(id: string) {
     return this.httpClient.get<{ message: string, dish: string }>(`${this.dishUrl}/allDishs/${id}`);
   }
@@ -27,6 +32,7 @@ export class DishService {
     formData.append('calorie', dishs.calorie);
     formData.append('img', image);
     formData.append('status', Status.NEW);
+    formData.append('userId', JSON.parse(localStorage.getItem('userId')));
     formData.append('description', dishs.description);
     return this.httpClient.post<{ message: string }>(`${this.dishUrl}/addDish`, formData);
 

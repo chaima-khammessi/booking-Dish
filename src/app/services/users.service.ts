@@ -34,7 +34,7 @@ export class UsersService {
   login(user: any) {
     console.log('user in service', user);
 
-    return this.httpClient.post<{ message: string, userType: string, token: any }>(`${this.urlUsers}/addLogin`, user);
+    return this.httpClient.post<{ message: string, userType: string,userId: string, token: any }>(`${this.urlUsers}/addLogin`, user);
 
   }
 
