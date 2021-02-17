@@ -1,3 +1,4 @@
+import { Status } from './../../enums/status.enum';
 import { DishService } from './../../services/dish.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { from } from 'rxjs';
@@ -10,15 +11,34 @@ import { Router } from '@angular/router'
 })
 export class TodaysSpecialComponent implements OnInit {
   @Input() dataDish: any;
+  dishs: any = [];
+  id: number;
 
 
   constructor(private router: Router,
     private dishService: DishService) { }
 
   ngOnInit(): void {
+    this.getAllDishsValidate()
+
   }
-  goToDish(id: number) {
-    this.router.navigate([`display_dish/${id}`]);
+
+  private getAllDishsValidate() {
+    this.dishService.getAllVerifDishs().subscribe(
+      (data) => {
+          this.dishs = data;
+
+
+          console.log('all dish validated',this.dishs);
+          
+      },err=>{
+        console.dir(err)
+      }
+    )
+
+  }
+  goToDish(dish) { 
+    this.router.navigate([`dish/${dish.id}`]);
 
 
   }

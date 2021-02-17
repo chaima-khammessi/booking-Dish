@@ -1,3 +1,4 @@
+
 import { GalleryChefComponent } from './Dashboard/chef/gallery-chef/gallery-chef.component';
 import { from } from 'rxjs';
 import { DisplayUserComponent } from './Dashboard/admin/display-user/display-user.component';
@@ -36,7 +37,7 @@ const routes: Routes = [
     path: "", component: HomeComponent
   },
   {
-    path: "dish", component: DishComponent
+    path: "dish/:id", component: DishComponent
   },
   {
     path: "menu", component: MenuComponent
@@ -47,6 +48,7 @@ const routes: Routes = [
   {
     path: "recipes", component: RecipesComponent
   },
+ 
   {
     path: "chefs", component: ChefsComponent
   },

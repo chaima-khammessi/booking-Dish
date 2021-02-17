@@ -9,7 +9,8 @@ const dishSchema = mongoose.Schema({
     img: String,
     description: String,
     userId: String,
-    status: String
+    status: String,
+    verif:String
 });
 
 dishSchema.method('toJSON', function () {

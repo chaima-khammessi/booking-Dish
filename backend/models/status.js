@@ -1,7 +1,8 @@
 const Status = {
     NEW : 'NEW', 
     VALIDATED : 'VALIDATED', 
-    REFUSED : 'REFUSED'
+    REFUSED : 'REFUSED',
+   
 }
 
 module.exports = Status;

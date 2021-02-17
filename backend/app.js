@@ -12,6 +12,7 @@ const User = require('./models/users');
 const Admin = require('./models/admin');
 const Dish = require('./models/dish');
 const Status = require('./models/status');
+const dish = require('./models/dish');
 
 
 //Set up default mongoose connection
@@ -130,10 +131,30 @@ app.get('/allDishs', (req, res) => {
         }
         res.status(200).json({
             message: 'Here all Dishs',
-            dish: findedDish
+            dish: findedDish,
+
         })
     })
 })
+
+/***************Verify dish *************************** */
+app.get('/allVerifDishs', (req, res) => {
+
+    Dish.find({ verif: "VALIDATED" }, (err, findedDish) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedDish);
+    })
+})
+
+
+
+
+
+
+
+
 
 
 app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
@@ -146,7 +167,8 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
         userId: req.body.userId,
-        status: Status.NEW
+        status: Status.NEW,
+        verif: req.body.status
     });
     dish.save();
     res.status(200).json({
@@ -182,10 +204,7 @@ app.put('/editDish/:id', multer({ storage: storage }).single('img'), (req, res) 
             else res.send({
                 message: "Dish was Update succesfully"
             })
-            /* .catch(err=>{
-                 res.status(500).send({
-                     message:'error update dish id='+ id})
-             })*/
+
         })
 
         ;
@@ -295,7 +314,9 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
         userId: req.body.userId,
-        status: Status.NEW
+        status: Status.NEW,
+        verif: req.body.status
+
     });
     dish.save();
     res.status(200).json({
@@ -328,6 +349,10 @@ app.get('/allUser/:id', (req, res) => {
         }
     )
 })
+
+
+
+
 
 
 app.delete('/deleteDish/:id', (req, res) => {
@@ -406,7 +431,7 @@ app.post("/addLogin", (req, res) => {
 
                 let payload = { subject: data._id }
                 let token = jwt.sign(payload, 'secretKey', { expiresIn: '3h' })
-                res.status(200).json({ token, userType: data.userType, userId :data._id, message: 'User added successfuly' });
+                res.status(200).json({ token, userType: data.userType, userId: data._id, message: 'User added successfuly' });
 
 
 

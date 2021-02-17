@@ -1,1 +1,41 @@
-<app-todays-special></app-todays-special>
+<!-- ======= Today's special Section ======= -->
+<section id="about" class="about">
+    <div class="section-title">
+      <h2> today's <span>special</span></h2>
+  
+    </div>
+    <div class="container-fluid">
+  
+      <div class="row" *ngIf="dish">
+  
+        <img [src]="dish.img"  alt="" class="col-lg-3 align-items-stretch video-box">
+        
+  
+        <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
+  
+          <div class="content">
+            <h3> <strong> {{dish.name}}</strong></h3>
+            <h2> {{dish.price}}</h2>
+           <!-- <div>
+              <button type="button" class="buttonColor" (click)='goToDish(dish)'>Reserve</button>
+            </div>-->
+            <h2>Ingredient</h2>
+            <p class="font-italic"> {{dish.ingredient}}</p>
+            <ul>
+              <h2>Description</h2>
+              <li><i class="bx bx-check-double"></i>{{dish.description}}</li>
+             
+            </ul>
+            <h2>Calorie</h2>
+            <p class="font-italic">
+              {{dish.calorie}}</p>
+  
+  
+            
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+  </section><!-- End today's special Section -->

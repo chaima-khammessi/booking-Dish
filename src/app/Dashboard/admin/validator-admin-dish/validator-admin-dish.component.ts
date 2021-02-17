@@ -59,6 +59,7 @@ export class ValidatorAdminDishComponent implements OnInit {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
      dish.status= Status.REFUSED;
+     dish.verif="REFUSED";
 
      this.dishService.editDishById(dish.id, dish).subscribe(
        data=>{
@@ -112,17 +113,10 @@ export class ValidatorAdminDishComponent implements OnInit {
 
 
   validatorDish(dish){
-    /**
-     * Steps
-     * 
-     * DONE update the dish status
-     * DONE send a post request to mongo
-     * get success/error
-     * on response : send notification to the chef
-     * on error : show error toast
-     */
+   
     
     dish.status = Status.VALIDATED;
+      dish.verif=Status.VALIDATED;
     this.dishService.editDishById(dish.id, dish).subscribe(
       data=>{
        this.dishs=data.dish

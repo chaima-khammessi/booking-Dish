@@ -100,6 +100,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     DisplayUserComponent,
     HeaderDashoardChefComponent,
     GalleryChefComponent,
+    
 
   ],
   imports: [

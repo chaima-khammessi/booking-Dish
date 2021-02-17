@@ -1,6 +1,6 @@
 import { DishService } from './../../services/dish.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dish',
@@ -8,12 +8,25 @@ import { Router } from '@angular/router'
   styleUrls: ['./dish.component.css']
 })
 export class DishComponent implements OnInit {
+  id:string;
+  dish:any;
 
   constructor(private router: Router,
-    private dishService: DishService) { }
+              private dishService: DishService,
+              private activatedRoute: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.dishService.getDishById(this.id).subscribe(
+      data => {
+        console.log('dish', data);
+        this.dish = data.dish
+      }
+    )
   }
 
-
 }
+
+
+
