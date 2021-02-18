@@ -55,6 +55,16 @@ import { HeaderDashoardChefComponent } from './Dashboard/chef/header/header-dash
 import { GalleryChefComponent } from './Dashboard/chef/gallery-chef/gallery-chef.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { UserComponent } from './Dashboard/user/user.component';
+import { HeaderDashboardComponent } from './Dashboard/user/header-dashboard/header-dashboard.component';
+import { TablePlatsReservesComponent } from './Dashboard/user/table-plats-reserves/table-plats-reserves.component';
+import { FavoriteDishesComponent } from './Dashboard/user/favorite-dishes/favorite-dishes.component';
+import { HistoryDishsComponent } from './Dashboard/user/history-dishs/history-dishs.component';
+import { CompanyComponent } from './Dashboard/company/company.component';
+import { HeaderCampanyComponent } from './Dashboard/company/header-campany/header-campany.component';
+import { ReservedDishesComponent } from './Dashboard/company/reserved-dishes/reserved-dishes.component';
+import { FavoriteDishesCompanyComponent } from './Dashboard/company/favorite-dishes-company/favorite-dishes-company.component';
+import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-company/history-dishs-company.component';
 
 
 
@@ -100,6 +110,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     DisplayUserComponent,
     HeaderDashoardChefComponent,
     GalleryChefComponent,
+    UserComponent,
+    HeaderDashboardComponent,
+    TablePlatsReservesComponent,
+    FavoriteDishesComponent,
+    HistoryDishsComponent,
+    CompanyComponent,
+    HeaderCampanyComponent,
+    ReservedDishesComponent,
+    FavoriteDishesCompanyComponent,
+    HistoryDishsCompanyComponent,
     
 
   ],

@@ -1,3 +1,13 @@
+import { AuthCompanyGuard } from './Dashboard/company/auth-company.guard';
+import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-company/history-dishs-company.component';
+import { FavoriteDishesCompanyComponent } from './Dashboard/company/favorite-dishes-company/favorite-dishes-company.component';
+import { ReservedDishesComponent } from './Dashboard/company/reserved-dishes/reserved-dishes.component';
+import { CompanyComponent } from './Dashboard/company/company.component';
+import { AuthUserGuard } from './Dashboard/user/auth-user.guard';
+import { HistoryDishsComponent } from './Dashboard/user/history-dishs/history-dishs.component';
+import { FavoriteDishesComponent } from './Dashboard/user/favorite-dishes/favorite-dishes.component';
+import { TablePlatsReservesComponent } from './Dashboard/user/table-plats-reserves/table-plats-reserves.component';
+import { UserComponent } from './Dashboard/user/user.component';
 
 import { GalleryChefComponent } from './Dashboard/chef/gallery-chef/gallery-chef.component';
 import { from } from 'rxjs';
@@ -91,6 +101,47 @@ const routes: Routes = [
     path:'admin',
     component:AdminComponent,
     canActivate:[AuthAdminGuard] 
+  },
+  {
+    path:'user',
+    component: UserComponent,
+    canActivate:[AuthUserGuard]
+
+  },
+  {
+    path:'table-plats-reserves',
+    component:TablePlatsReservesComponent,
+    canActivate:[AuthUserGuard]
+  },
+  {
+    path:'favorite-dishes',
+    component: FavoriteDishesComponent,
+    canActivate:[AuthUserGuard]
+  },
+  {
+    path:'history-dishs',
+    component: HistoryDishsComponent,
+    canActivate:[AuthUserGuard]
+  },
+  {
+    path:'company',
+    component:CompanyComponent,
+    canActivate:[AuthCompanyGuard]
+  },
+  {
+    path:'reserved-dishes',
+    component: ReservedDishesComponent,
+    canActivate:[AuthCompanyGuard]
+  },
+  {
+    path:'favorite-dishes-company',
+    component: FavoriteDishesCompanyComponent,
+    canActivate:[AuthCompanyGuard]
+  },
+  {
+    path:'history-dishs-company',
+    component:HistoryDishsCompanyComponent,
+    canActivate:[AuthCompanyGuard]
   },
   {
     path:'sign-up',

@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
    
         if (data.userType === 'consumer') {
           this.storeDataInLocalStorage(data);
-          this.router.navigate(['contact']);
+          this.router.navigate(['user']);
           this.toastr.success(data.message);
           console.log(data);
 
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
           console.log(data);
         } else if (data.userType === 'company') {
           this.storeDataInLocalStorage(data);
-          this.router.navigate(['dish']);
+          this.router.navigate(['company']);
           this.toastr.success(data.message);
           console.log(data);
 
