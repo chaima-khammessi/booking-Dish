@@ -46,6 +46,9 @@
             <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
             <i title="Decline & return it back to the Chef" (click)="open(mymodal,dish)" style="cursor: pointer;" class="far fa-window-close text-danger"></i>&nbsp;
           </ng-container>
+          <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
+            <i title="choose special dishes" (click)="specialDish(dish)" style="cursor: pointer;" class="far fa-star text-warning" id="star"></i>&nbsp;
+          </ng-container>
           </td>
         </tr>
       </tbody>

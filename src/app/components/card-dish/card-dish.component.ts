@@ -1,3 +1,4 @@
+import { DishService } from './../../services/dish.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardDishComponent implements OnInit {
 
-  constructor() { }
+  dishs:any=[];
+
+  constructor( private dishServive:DishService) { }
 
   ngOnInit(): void {
+    this.getAllVerifDishs()
   }
+
+  private getAllVerifDishs() {
+    this.dishServive.getAllVerifDishs().subscribe(
+        (data) => {
+            this.dishs = data;
+  
+  
+            console.log('all dish Validated',this.dishs);
+            
+        },err=>{
+          console.dir(err)
+        }
+      )
+  
+    }
 
 }

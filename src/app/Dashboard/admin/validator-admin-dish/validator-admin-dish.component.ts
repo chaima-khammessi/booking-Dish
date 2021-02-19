@@ -19,9 +19,9 @@ export class ValidatorAdminDishComponent implements OnInit {
   firstName: any;
   p: number = 1;
   filter: any;
-  validator:boolean=false;
+  validator: boolean = false;
   title = 'appBootstrap';
-  
+
   closeResult: string;
 
   constructor(private dishService: DishService,
@@ -52,38 +52,38 @@ export class ValidatorAdminDishComponent implements OnInit {
 
 
   /************ Add popup ******************/
-  open(content , dish ) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  open(content, dish) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-     dish.status= Status.REFUSED;
-     dish.verif="REFUSED";
+    dish.status = Status.REFUSED;
+    dish.verif = "REFUSED";
 
-     this.dishService.editDishById(dish.id, dish).subscribe(
-       data=>{
-         this.dishs=data.dish;
-         console.log("Dish refusing" , "refused");
-         
-       },
-       (error)=>{
+    this.dishService.editDishById(dish.id, dish).subscribe(
+      data => {
+        this.dishs = data.dish;
+        console.log("Dish refusing", "refused");
+
+      },
+      (error) => {
         this.toastr.error('Error when refusing the Dish');
       }
-       
-     )
-     return this.validator==true
-  
-   
+
+    )
+    return this.validator == true
+
+
   }
-  
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
@@ -112,27 +112,43 @@ export class ValidatorAdminDishComponent implements OnInit {
   }
 
 
-  validatorDish(dish){
-   
-    
+  validatorDish(dish) {
+
+
     dish.status = Status.VALIDATED;
-      dish.verif=Status.VALIDATED;
+    dish.verif = Status.VALIDATED;
     this.dishService.editDishById(dish.id, dish).subscribe(
-      data=>{
-       this.dishs=data.dish
-       // send notification to the chef
-       console.log("Dish validation" , "validated");
+      data => {
+        this.dishs = data.dish
+        // send notification to the chef
+        console.log("Dish validation", "validated");
       },
-       (error)=>{
+      (error) => {
         this.toastr.error('Error when validating the Dish');
       }
     )
-    return this.validator==true
-    
+    return this.validator == true
+
+  }
+  specialDish(dish) {
+    dish.status = Status.SPECIAL;
+    dish.verif = Status.SPECIAL;
+    this.dishService.editDishById(dish.id, dish).subscribe(
+      data => {
+        this.dishs = data.dish;
+        // send notifacation to the chef 
+        console.log("dish special", "special");
+
+      },
+      (error) => {
+        this.toastr.error('Error when specialing the Dish');
+      }
+    )
+    return this.validator == true;
   }
 
 
- 
+
 
 
 

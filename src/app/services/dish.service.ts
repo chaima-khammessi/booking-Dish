@@ -20,7 +20,9 @@ export class DishService {
   getAllVerifDishs() {
     return this.httpClient.get<{ message: string, dish: any, verif:any }>(`${this.dishUrl}/allVerifDishs`);
   }
- 
+  getAllspecialDishs() {
+    return this.httpClient.get<{ message: string, dish: any, special:any }>(`${this.dishUrl}/getAllspecialDishs`);
+  }
   getDishById(id: string) {
     return this.httpClient.get<{ message: string, dish: string }>(`${this.dishUrl}/allDishs/${id}`);
   }

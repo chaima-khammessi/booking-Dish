@@ -19,17 +19,17 @@ export class TodaysSpecialComponent implements OnInit {
     private dishService: DishService) { }
 
   ngOnInit(): void {
-    this.getAllDishsValidate()
+    this.getAllspecialDishs()
 
   }
 
-  private getAllDishsValidate() {
-    this.dishService.getAllVerifDishs().subscribe(
+  private getAllspecialDishs() {
+  this.dishService.getAllspecialDishs().subscribe(
       (data) => {
           this.dishs = data;
 
 
-          console.log('all dish validated',this.dishs);
+          console.log('all dish special',this.dishs);
           
       },err=>{
         console.dir(err)

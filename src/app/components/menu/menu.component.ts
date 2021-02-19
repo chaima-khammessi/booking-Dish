@@ -1,3 +1,4 @@
+import { DishService } from './../../services/dish.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  dishs:any=[];
 
-  constructor() { }
+  constructor(private dishService:DishService) { }
 
   ngOnInit(): void {
+    this.getAllVerifDishs();
   }
+
+  private getAllVerifDishs() {
+    this.dishService.getAllVerifDishs().subscribe(
+        (data) => {
+            this.dishs = data;
+  
+  
+            console.log('all dish Validated',this.dishs);
+            
+        },err=>{
+          console.dir(err)
+        }
+      )
+  
+    }
 
 }
