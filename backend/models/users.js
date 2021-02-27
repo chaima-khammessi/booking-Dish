@@ -16,7 +16,18 @@ const userSchema = mongoose.Schema({
     faxCompany: Number,
     mfCompany: String,
     domainCompany: String,
-    userType: String
+    userType: String,
+    img: String,
+    nationality:String,
+    restaurant:String,
+    facebook:String,
+    instagram:String,
+    twitter:String,
+    linkedin:String,
+    userId: String,
+    status: String,
+    verif:String
+ 
 
 
 

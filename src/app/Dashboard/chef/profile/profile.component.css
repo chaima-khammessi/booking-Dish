@@ -1,0 +1,45 @@
+
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ffb03b;
+}
+
+.profile-button {
+    background: #ffb03b;
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background:#ffb03b
+}
+
+.profile-button:focus {
+    background: #ffb03b;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #ffb03b;
+    box-shadow: none
+}
+
+.back:hover {
+    color:#ffb03b;
+    cursor: pointer
+}
+/******button updat and add profile********/
+#btn.btn-skew {
+    -webkit-transform: skew(-15deg);
+    transform: skew(-15deg)
+}
+
+#btn {
+    border-radius: 2px;
+    text-transform: capitalize;
+    font-size: 15px;
+    padding: 10px 19px;
+    cursor: pointer;
+    color: #fff
+}

@@ -40,6 +40,7 @@ export class DishService {
     formData.append('verif',JSON.parse(localStorage.getItem('verif')));
     formData.append('userId', JSON.parse(localStorage.getItem('userId')));
     formData.append('description', dishs.description);
+    formData.append('category', dishs.category);
     return this.httpClient.post<{ message: string }>(`${this.dishUrl}/addDish`, formData);
 
   }
@@ -58,6 +59,7 @@ export class DishService {
     formData.append('verif',stat);
   
     formData.append('description', dishs.description);
+    formData.append('category', dishs.category);
 
     return this.httpClient.put(`${this.dishUrl}/editDish/${id}`, formData, dishs);
   }

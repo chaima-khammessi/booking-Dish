@@ -1,11 +1,7 @@
-import { from } from 'rxjs';
-
-import { UsersService } from './services/users.service';
-import { DataService } from './services/data.service';
-
+import { MatChipsModule } from '@angular/material/chips';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -21,8 +17,6 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { ChefsComponent } from './components/chefs/chefs.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { DishComponent } from './components/dish/dish.component';
-import { BookingComponent } from './components/booking/booking.component';
-import { RecipesComponent } from './components/recipes/recipes.component';
 import { BmiComponent } from './components/bmi/bmi.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
@@ -35,7 +29,6 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './Dashboard/admin/admin/admin.component';
 import { CardDishComponent } from './components/card-dish/card-dish.component';
 import { TableFilterComponent } from './Dashboard/admin/table-filter/table-filter.component';
-import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -54,7 +47,7 @@ import { DisplayUserComponent } from './Dashboard/admin/display-user/display-use
 import { HeaderDashoardChefComponent } from './Dashboard/chef/header/header-dashoard-chef/header-dashoard-chef.component';
 import { GalleryChefComponent } from './Dashboard/chef/gallery-chef/gallery-chef.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './Dashboard/user/user.component';
 import { HeaderDashboardComponent } from './Dashboard/user/header-dashboard/header-dashboard.component';
 import { TablePlatsReservesComponent } from './Dashboard/user/table-plats-reserves/table-plats-reserves.component';
@@ -65,9 +58,12 @@ import { HeaderCampanyComponent } from './Dashboard/company/header-campany/heade
 import { ReservedDishesComponent } from './Dashboard/company/reserved-dishes/reserved-dishes.component';
 import { FavoriteDishesCompanyComponent } from './Dashboard/company/favorite-dishes-company/favorite-dishes-company.component';
 import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-company/history-dishs-company.component';
-
-
-
+import { DishFavorisComponent } from './components/dish-favoris/dish-favoris.component';
+import { ProfileComponent } from './Dashboard/chef/profile/profile.component';
+import { DetailProfilChefComponent } from './Dashboard/admin/detail-profil-chef/detail-profil-chef.component';
+import {MatIconModule} from '@angular/material/icon';
+import { OurDishesComponent } from './components/our-dishes/our-dishes.component';
+import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
 
 
 @NgModule({
@@ -86,8 +82,6 @@ import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-
     ChefsComponent,
     ContactComponent,
     DishComponent,
-    BookingComponent,
-    RecipesComponent,
     BmiComponent,
     CartComponent,
     CheckoutComponent,
@@ -120,7 +114,12 @@ import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-
     ReservedDishesComponent,
     FavoriteDishesCompanyComponent,
     HistoryDishsCompanyComponent,
-    
+    DishFavorisComponent,
+    ProfileComponent,
+    DetailProfilChefComponent,
+    OurDishesComponent,
+    AddMenuComponent,
+
 
   ],
   imports: [
@@ -138,12 +137,18 @@ import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-
     AlertModule.forRoot({ maxMessages: 5, timeout: 5000, positionX: 'right' }),
     ToastNoAnimationModule.forRoot(),
     NgxGalleryModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    MatIconModule
 
 
   ],
   providers: [
     UserFormComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ],
 })
 export class AppModule { }

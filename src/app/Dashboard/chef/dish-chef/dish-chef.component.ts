@@ -3,16 +3,50 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 import { Component, OnInit } from '@angular/core';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material/chips';
 
+export interface Dish {
+  name: string;
+}
 @Component({
   selector: 'app-dish-chef',
   templateUrl: './dish-chef.component.html',
   styleUrls: ['./dish-chef.component.css']
 })
 export class DishChefComponent implements OnInit {
-  dish: any = {};
+  dish: any = [];
   dishForm: FormGroup;
   imagePreview: string;
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+ 
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.dish.push({name: value.trim()});
+    }
+ 
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(dish:Dish): void {
+    const index = this.dish.indexOf(dish);
+
+    if (index >= 0) {
+      this.dish.splice(index, 1);
+    }
+  }
 
 
   constructor(private dishService: DishService,
@@ -30,6 +64,7 @@ export class DishChefComponent implements OnInit {
       calorie: [''],
       description: [''],
       img: [''],
+      category: [''],
       
 
 

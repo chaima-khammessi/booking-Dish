@@ -24,7 +24,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let dish of dishs |orderBy  : key : reserve| filter:filter |  paginate :{itemsPerPage:5,currentPage:p }; let i = index ">
+          *ngFor="let dish of dishs |orderBy:key:reserve|filter:filter|paginate:{itemsPerPage:5,currentPage:p }; let i = index ">
           <th>{{i}}</th>
           <td>{{dish.name}}</td>
           <td>{{dish.price}}</td>
@@ -36,7 +36,8 @@
 
 
           <td>
-            <i title="Remove the dish" (click)="deletDish(dish)" style="cursor: pointer;" class="far fa-trash-alt text-danger pr-1"></i>&nbsp;
+            <i title="Remove the dish" (click)="deletDish(dish)" style="cursor: pointer;"
+              class="far fa-trash-alt text-danger pr-1"></i>&nbsp;
             <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
               <i title="Validate the dish" (click)="validatorDish(dish)" style="cursor: pointer;" class="far fa-check-circle text-success  pr-1
               "></i>&nbsp;
@@ -44,11 +45,13 @@
               "></i>
             </ng-container>
             <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
-            <i title="Decline & return it back to the Chef" (click)="open(mymodal,dish)" style="cursor: pointer;" class="far fa-window-close text-danger"></i>&nbsp;
-          </ng-container>
-          <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
-            <i title="choose special dishes" (click)="specialDish(dish)" style="cursor: pointer;" class="far fa-star text-warning" id="star"></i>&nbsp;
-          </ng-container>
+              <i title="Decline & return it back to the Chef" (click)="open(mymodal,dish)" style="cursor: pointer;"
+                class="far fa-window-close text-danger"></i>&nbsp;
+            </ng-container>
+            <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
+              <i title="choose special dishes" (click)="specialDish(dish)" style="cursor: pointer;"
+                class="far fa-star text-warning" id="star"></i>&nbsp;
+            </ng-container>
           </td>
         </tr>
       </tbody>

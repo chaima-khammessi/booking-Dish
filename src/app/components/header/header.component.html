@@ -9,10 +9,12 @@
 
   </div>
 </section>
-<button type="button" class="mobile-nav-toggle d-lg-none" data-bs-target="#header" data-bs-toggle="fixed-top d-flex align-items-center header-transparent" aria-controls="header" aria-expanded="false" aria-label="Toggle navigation">
+<button type="button" class="mobile-nav-toggle d-lg-none" data-bs-target="#header"
+  data-bs-toggle="fixed-top d-flex align-items-center header-transparent" aria-controls="header" aria-expanded="false"
+  aria-label="Toggle navigation">
   <i class="icofont-navigation-menu">
-  
-   
+
+
   </i>
 
 </button>
@@ -33,13 +35,15 @@
     <nav class="nav-menu d-none d-lg-block">
       <ul>
         <li class="active"><a routerLink="/">Home</a></li>
-        <li><a [routerLink]="['/dish']">Dish</a></li>
+        <li><a [routerLink]="['/our-dishes']">Our Dishes</a></li>
         <li><a [routerLink]="['/menu']">Menu</a></li>
-        <li><a [routerLink]="['/dish-favoris']" class=" nav-link disabled" aria-disabled="true">Dish Favoris</a></li>
         <li><a [routerLink]="['/chefs']">Chefs</a></li>
         <li><a [routerLink]="['/gallery']">Gallery Restau</a></li>
         <li><a [routerLink]="['/contact']">Contact</a></li>
         <li><a [routerLink]="['/bmi']">Calcul BMI</a></li>
+        <li><a [routerLink]="['/dish-favoris']" class=" nav-link disabled" aria-disabled="true">Favorites<img
+              src="../../../assets/img/icons/icons8-heart-outline-50.png" width="30px" height="25px"
+              title="Create count for display your Favorit Dish" alt="Dish Favoris" /></a></li>
         <li class="nav-item cart"><a [routerLink]="['/cart']" class="nav-link"><img
               src="https://img.icons8.com/fluent/24/000000/buy.png" /></a></li>
 

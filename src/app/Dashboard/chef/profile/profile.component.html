@@ -1,0 +1,111 @@
+<app-header-dashoard-chef></app-header-dashoard-chef>
+<div class="container rounded bg-white mt-5">
+    <div class="row" *ngIf="user">
+        <!-- (ngSubmit)='validate()' -->
+        <form #userForm='ngForm' >
+            <div class="col-md-4 border-right">
+
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"> <img alt=""
+                        class="rounded-circle mt-5" [(ngModel)]='user.img' [ngModelOptions]="{standalone: true}"  ngDefaultControl  [src]="imagePreview" width="90">
+                         
+                        <span
+                        class="font-weight-bold">{{user.fName}}</span><span
+                        class="text-black-50">{{user.lName}}</span><span>{{user.email}}</span></div>
+                <button class="btn btn-primary btn-skew" (click)='filePicker.click()' id="btn">Add Photo</button>
+                <input type="file" #filePicker style="visibility: hidden;" (change)='onImageSelected($event)'>
+                
+            </div>
+
+           
+            <div class="col-md-8" style="margin-left: 350px;
+            margin-top: -350px; ">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex flex-row align-items-center back"><i
+                                class="fa fa-long-arrow-left mr-5 mb-1"></i>
+                            <h6>Back to home</h6>
+                        </div>
+                        <h6 class="text-right">Display Profile</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.fName'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="First Name"
+                                ></div>
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.lName'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Last Name"
+                                ></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.email'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Email"
+                                ></div>
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.tel'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Phone Number"
+                                ></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.adress'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Adress"
+                                ></div>
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.specialityChef'  
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Speciatity"
+                                ></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.expChef'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Experience"
+                                ></div>
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.nationality'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Nationality"
+                                >
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.restaurant'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Name restaurant"
+                                >
+                        </div>
+
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.facebook'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="facebook"
+                                value="facebook">
+                        </div>
+
+
+                        <!-- <div class="col-md-6"  *ngFor="let value of values; let i = index">
+                                <input type="text" [(ngModel)]='user.socialMedia'
+                                    [ngModelOptions]="{standalone: true}" #name="ngModel" name="value{{i}}" class="form-control"
+                                    placeholder="socialMedia">
+                                    <button class="btn btn-danger" (click)="Remove(i)">Remove</button>
+                            </div> -->
+
+
+
+                        <!-- <button type="button" class="btn btn-primary profile-button"(click)="add()">Add Social Media</button> -->
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.instagram'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="instagram"
+                                value="instagram">
+                        </div>
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.twitter'
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="twitter"
+                                value="twitter">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6"><input type="text" [(ngModel)]='user.linkedin'  value="linkedin"
+                                [ngModelOptions]="{standalone: true}" class="form-control" placeholder="linkedin">
+                        </div>
+                    </div>
+
+
+                    <div class="mt-5 text-right"><button class="btn btn-primary profile-button" (click)="updateUser()"type="submit">Save
+                            Profile</button></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

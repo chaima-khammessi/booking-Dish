@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
   
-   fullName = '';
+   fullName = 'ADMIN';
   constructor(  private adminService:adminService,
                
                 private router:Router,

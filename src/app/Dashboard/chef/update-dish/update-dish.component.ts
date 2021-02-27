@@ -3,7 +3,12 @@ import { DishService } from './../../../services/dish.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material/chips';
 
+export interface Dish {
+  name: string;
+}
 
 @Component({
   selector: 'app-update-dish',
@@ -16,8 +21,7 @@ export class UpdateDishComponent implements OnInit {
   dishForm: FormGroup;
   imagePreview: string;
   dishs: any = {};
-  Dish:any;
-  submitted = false;
+
   constructor(private dishService: DishService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -36,7 +40,8 @@ export class UpdateDishComponent implements OnInit {
       ingredient: [''],
       calorie: [''],
       description: [''],
-      img: ['']
+      img: [''],
+      category:['']
     });
     this.dishService.getDishById(idDish).subscribe(
       res=> {

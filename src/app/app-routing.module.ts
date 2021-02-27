@@ -1,3 +1,7 @@
+import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
+import { OurDishesComponent } from './components/our-dishes/our-dishes.component';
+import { DetailProfilChefComponent } from './Dashboard/admin/detail-profil-chef/detail-profil-chef.component';
+import { ProfileComponent } from './Dashboard/chef/profile/profile.component';
 import { AuthCompanyGuard } from './Dashboard/company/auth-company.guard';
 import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-company/history-dishs-company.component';
 import { FavoriteDishesCompanyComponent } from './Dashboard/company/favorite-dishes-company/favorite-dishes-company.component';
@@ -8,7 +12,6 @@ import { HistoryDishsComponent } from './Dashboard/user/history-dishs/history-di
 import { FavoriteDishesComponent } from './Dashboard/user/favorite-dishes/favorite-dishes.component';
 import { TablePlatsReservesComponent } from './Dashboard/user/table-plats-reserves/table-plats-reserves.component';
 import { UserComponent } from './Dashboard/user/user.component';
-
 import { GalleryChefComponent } from './Dashboard/chef/gallery-chef/gallery-chef.component';
 import { from } from 'rxjs';
 import { DisplayUserComponent } from './Dashboard/admin/display-user/display-user.component';
@@ -31,13 +34,12 @@ import { BmiComponent } from './components/bmi/bmi.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { GalleryComponent } from './components/gallery/gallery.component';
 import { ChefsComponent } from './components/chefs/chefs.component';
-import { RecipesComponent } from './components/recipes/recipes.component';
-import { BookingComponent } from './components/booking/booking.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { DishComponent } from './components/dish/dish.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgModule, Component }from '@angular/core'
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule, Component } from '@angular/core'
+import { Routes, RouterModule, CanActivate } from '@angular/router';
+import { DishFavorisComponent } from './components/dish-favoris/dish-favoris.component';
 
 
 
@@ -50,17 +52,18 @@ const routes: Routes = [
     path: "dish/:id", component: DishComponent
   },
   {
+    path:'our-dishes',
+    component:OurDishesComponent
+  },
+  {
     path: "menu", component: MenuComponent
   },
-  {
-    path: "booking", component: BookingComponent
-  },
-  {
-    path: "recipes", component: RecipesComponent
-  },
- 
+
   {
     path: "chefs", component: ChefsComponent
+  },
+  {
+    path:'dish-favoris', component:DishFavorisComponent
   },
   {
     path: "gallery", component: GalleryComponent
@@ -84,104 +87,118 @@ const routes: Routes = [
     path: "login", component: LoginComponent
 
   },
-  
+
   {
-    path:'update-dish/:id',
-    component:UpdateDishComponent,
-    canActivate:[AuthChefGuard]
+    path: 'update-dish/:id',
+    component: UpdateDishComponent,
+    canActivate: [AuthChefGuard]
   },
   {
-    path:'display-dish-chef/:id',
-    component:DisplayDishChefComponent,
-    canActivate:[AuthChefGuard]
+    path: 'display-dish-chef/:id',
+    component: DisplayDishChefComponent,
+    canActivate: [AuthChefGuard]
   },
-  
-  
+
+
   {
-    path:'admin',
-    component:AdminComponent,
-    canActivate:[AuthAdminGuard] 
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthAdminGuard]
   },
   {
-    path:'user',
+    path: 'user',
     component: UserComponent,
-    canActivate:[AuthUserGuard]
+    canActivate: [AuthUserGuard]
 
   },
   {
-    path:'table-plats-reserves',
-    component:TablePlatsReservesComponent,
-    canActivate:[AuthUserGuard]
+    path: 'table-plats-reserves',
+    component: TablePlatsReservesComponent,
+    canActivate: [AuthUserGuard]
   },
   {
-    path:'favorite-dishes',
+    path: 'favorite-dishes',
     component: FavoriteDishesComponent,
-    canActivate:[AuthUserGuard]
+    canActivate: [AuthUserGuard]
   },
   {
-    path:'history-dishs',
+    path: 'history-dishs',
     component: HistoryDishsComponent,
-    canActivate:[AuthUserGuard]
+    canActivate: [AuthUserGuard]
   },
   {
-    path:'company',
-    component:CompanyComponent,
-    canActivate:[AuthCompanyGuard]
+    path: 'company',
+    component: CompanyComponent,
+    canActivate: [AuthCompanyGuard]
   },
   {
-    path:'reserved-dishes',
+    path: 'reserved-dishes',
     component: ReservedDishesComponent,
-    canActivate:[AuthCompanyGuard]
+    canActivate: [AuthCompanyGuard]
   },
   {
-    path:'favorite-dishes-company',
+    path: 'favorite-dishes-company',
     component: FavoriteDishesCompanyComponent,
-    canActivate:[AuthCompanyGuard]
+    canActivate: [AuthCompanyGuard]
   },
   {
-    path:'history-dishs-company',
-    component:HistoryDishsCompanyComponent,
-    canActivate:[AuthCompanyGuard]
+    path: 'history-dishs-company',
+    component: HistoryDishsCompanyComponent,
+    canActivate: [AuthCompanyGuard]
   },
   {
-    path:'sign-up',
-    component:SignUpComponent
+    path: 'sign-up',
+    component: SignUpComponent
   },
   {
-    path:'login-admin',
-    component:LoginAdminComponent
+    path: 'login-admin',
+    component: LoginAdminComponent
   },
   {
-    path:'chef',
-    component:ChefComponent,
-    canActivate:[AuthChefGuard]
+    path: 'chef',
+    component: ChefComponent,
+    canActivate: [AuthChefGuard]
   },
   {
-    path:'gallery-chef',
-    component:GalleryChefComponent,
-    canActivate:[AuthChefGuard]
+    path: 'gallery-chef',
+    component: GalleryChefComponent,
+    canActivate: [AuthChefGuard]
   },
   {
-    path:'dish-chef',
-    component:DishChefComponent,
-    canActivate:[AuthChefGuard]
-  },
- 
-  {
-    path:'display-dish/:id',
-    component:DisplayDishComponent,
-    canActivate:[AuthChefGuard]
+    path: 'dish-chef',
+    component: DishChefComponent,
+    canActivate: [AuthChefGuard]
   },
   {
-    path:'validator-admin-dish',
-    component:ValidatorAdminDishComponent,
-    canActivate:[AuthAdminGuard] 
+    path:'add-menu',
+    component:AddMenuComponent,
+    canActivate: [AuthChefGuard]
   },
-   {
-     path:'display-user/:id',
-     component:DisplayUserComponent
-   }
-  
+
+  {
+    path: 'display-dish/:id',
+    component: DisplayDishComponent,
+    canActivate: [AuthChefGuard]
+  },
+  {
+    path:"profile", component:ProfileComponent,
+   canActivate:[AuthChefGuard]
+  },
+  {
+    path: 'validator-admin-dish',
+    component: ValidatorAdminDishComponent,
+    canActivate: [AuthAdminGuard]
+  },
+  {
+    path:'detail-profil-chef',
+    component:DetailProfilChefComponent,
+    canActivate:[AuthAdminGuard]
+  },
+  {
+    path: 'display-user/:id',
+    component: DisplayUserComponent
+  }
+
 
 ];
 

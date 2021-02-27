@@ -33,6 +33,16 @@
                 <label for="exampleFormControlTextarea1">Description</label>
                 <textarea class="form-control" name="description" #description="ngModel" [(ngModel)]='dishs.description' [ngModelOptions]="{standalone: true}" id="exampleFormControlTextarea1" rows="4"></textarea>
               </div>
+
+              <mat-form-field class="example-chip-list">
+                <mat-label> Update Category Dish</mat-label>
+                <div class="form-group">
+                  <input type="text" name="category" #calorie="ngModel" [(ngModel)]='dishs.category' [ngModelOptions]="{standalone: true}" class="form-control"
+                    placeholder="category">
+                </div>
+              </mat-form-field>
+    
+              <br><br>
             <div class="form-group">
               <button type="submit" class="btn btn-primary py-3 px-5"  [disabled]="dishForm.invalid" (click)="updateDish()" >Update</button>
             </div>

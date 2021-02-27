@@ -12,7 +12,6 @@ const User = require('./models/users');
 const Admin = require('./models/admin');
 const Dish = require('./models/dish');
 const Status = require('./models/status');
-const dish = require('./models/dish');
 
 
 //Set up default mongoose connection
@@ -40,7 +39,7 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         const name = file.originalname.toLowerCase().split(' ').join('-');
         const extension = MIME_TYPE[file.mimetype];
-        const imgName = name + '-' + Date.now() + '-crococoder-' + '.' + extension;
+        const imgName = name + '-' + Date.now() + '.' + extension;
         cb(null, imgName);
     }
 });
@@ -78,7 +77,9 @@ app.post('/addUser', (req, res) => {
         domainCompany: req.body.domainCompany,
         expChef: req.body.expChef,
         specialityChef: req.body.specialityChef,
-        userType: req.body.userType
+        userType: req.body.userType,
+        status: Status.NEW,
+        verif: req.body.status
 
 
     });
@@ -93,6 +94,49 @@ app.post('/addUser', (req, res) => {
         }
     })
 });
+
+app.post('/addUserProfile', multer({ storage: storage }).single('img'), (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    // let filename = "";
+    // if(req.file && req.file.filename){
+    //     filename = url + ('/images/' + req.file.filename)
+    // }else{
+    //     filename = "";
+    // }
+    const filename = Boolean(req.file && req.file.filename) ? url + ('/images/' + req.file.filename) : "";
+    const user = new User({
+        fName: req.body.fName,
+        lName: req.body.lName,
+        email: req.body.email,
+        tel: req.body.tel,
+        img: filename,
+        adress: req.body.adress,
+        userId: req.body.userId,
+        specialityChef: req.body.specialityChef,
+        expChef: req.body.expChef,
+        nationality: req.body.nationality,
+        restaurant: req.body.restaurant,
+        facebook: req.body.facebook,
+        instagram: req.body.instagram,
+        twitter: req.body.twitter,
+        linkedin: req.body.linkedin,
+        status: Status.NEW,
+        verif: req.body.status
+    });
+
+    user.save();
+    res.status(200).json({
+        message: "user Profile added successfuly"
+    })
+});
+
+
+
+
+
+
+
+
 
 // add admin in collections from FE
 app.post('/addAdmin', (req, res) => {
@@ -138,6 +182,35 @@ app.get('/allDishs', (req, res) => {
 })
 
 /***************Verify dish *************************** */
+app.get('/getAllspecialDishs', (req, res) => {
+
+    Dish.find({ verif: "SPECIAL" }, (err, findedDish) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedDish);
+    })
+})
+
+
+/**************************Verify chef**************************************/
+
+
+app.get('/allUserChef', (req, res) => {
+    User.find({ userType: "chef" }, (err, findedUser) => {
+        console.log('All Users', findedUser);
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).json({
+            message: 'Here all Users',
+            users: findedUser
+        })
+    })
+})
+
+
+/**************** Validate Dish for verify***********************/
 app.get('/allVerifDishs', (req, res) => {
 
     Dish.find({ verif: "VALIDATED" }, (err, findedDish) => {
@@ -148,11 +221,16 @@ app.get('/allVerifDishs', (req, res) => {
     })
 })
 
+/**************** Validate User for verify***********************/
+app.get('/allVerifChefs', (req, res) => {
 
-
-
-
-
+    User.find({ verif: "VALIDATED" }, (err, findedChef) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedChef);
+    })
+})
 
 
 
@@ -166,6 +244,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
+        category:req.body.category,
         userId: req.body.userId,
         status: Status.NEW,
         verif: req.body.status
@@ -252,6 +331,20 @@ app.get('/allUserDishs/:userId', (req, res) => {
     )
 })
 
+// finded user by Id
+app.get('/allUserId/:userId', (req, res) => {
+    console.log('this is my userId', req.params.userId);
+    User.find({ userId: req.params.userId }).then(
+        user => {
+            console.log('Finded User', user);
+            res.status(200).json({
+                message: 'this is the user',
+                users: user
+            })
+        }
+    )
+})
+
 
 app.put('/editDish/:id', (req, res) => {
     console.log('Update Dish By ID', req.params.id);
@@ -292,6 +385,8 @@ app.get('/allUser', (req, res) => {
 })
 
 
+
+
 app.get('/allDishs', (req, res) => {
     Dish.find((err, findedDish) => {
         console.log('All Dishs', findedDish);
@@ -313,6 +408,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
+        category:req.body.category,
         userId: req.body.userId,
         status: Status.NEW,
         verif: req.body.status
@@ -349,7 +445,41 @@ app.get('/allUser/:id', (req, res) => {
         }
     )
 })
+// Update Dishs
+app.put('/editUserId/:id', multer({ storage: storage }).single('img'), (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    if (!req.body) {
 
+        return res.status(200).send({
+
+            message: 'Data To Update can not empty!'
+
+        });
+
+    }
+
+    const id = req.params.id;
+
+    if (req.file && req.file.filename) {
+        req.body.img = url + ('/images/' + req.file.filename);
+    }
+    console.log('source image', req.body.img);
+
+    User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        .then(data => {
+            if (!data) {
+                res.status(200).send({
+                    message: `Cannot Update User with id=${id}, May be User wa not found!`
+                });
+            }
+            else res.send({
+                message: "User was Update succesfully"
+            })
+
+        })
+
+        ;
+})
 
 
 
