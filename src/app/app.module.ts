@@ -64,6 +64,7 @@ import { DetailProfilChefComponent } from './Dashboard/admin/detail-profil-chef/
 import {MatIconModule} from '@angular/material/icon';
 import { OurDishesComponent } from './components/our-dishes/our-dishes.component';
 import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
+import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.component';
 
 
 @NgModule({
@@ -119,6 +120,7 @@ import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
     DetailProfilChefComponent,
     OurDishesComponent,
     AddMenuComponent,
+    TableMenuComponent,
 
 
   ],

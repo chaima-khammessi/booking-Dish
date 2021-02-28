@@ -1,9 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const jwt = require('jsonwebtoken')
 const app = express();
-
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose');
 const path = require('path');
@@ -12,6 +10,7 @@ const User = require('./models/users');
 const Admin = require('./models/admin');
 const Dish = require('./models/dish');
 const Status = require('./models/status');
+const Menu = require('./models/menu');
 
 
 //Set up default mongoose connection
@@ -220,6 +219,16 @@ app.get('/allVerifDishs', (req, res) => {
         res.status(200).send(findedDish);
     })
 })
+/**************** Validate Dish for verify***********************/
+app.get('/allVerifDishsHome', (req, res) => {
+
+    Dish.find({ verif: "VALIDATED"},(err, findedDish) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedDish);
+    }).sort({"_id":-1 }).limit(3)
+})
 
 /**************** Validate User for verify***********************/
 app.get('/allVerifChefs', (req, res) => {
@@ -244,7 +253,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
-        category:req.body.category,
+        category: req.body.category,
         userId: req.body.userId,
         status: Status.NEW,
         verif: req.body.status
@@ -254,6 +263,33 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         message: "dish added successfuly"
     })
 });
+
+//Add Menu
+
+app.post('/addMenu', multer({ storage: storage }).single('img'), (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    const menu = new Menu({
+
+        name: req.body.name,
+        category: req.body.category,
+        ingredient: req.body.ingredient,
+        price: req.body.price,
+        img: url + ('/image/' + req.file.filename),
+        userId: req.body.userId,
+        status: Status.NEW,
+        verif: req.body.status
+    });
+    menu.save();
+    res.status(200).json({
+        message: "menu added successful"
+    })
+
+
+});
+
+
+
+
 // Update Dishs
 app.put('/editDish/:id', multer({ storage: storage }).single('img'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
@@ -408,7 +444,7 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
         calorie: req.body.calorie,
         img: url + ('/images/' + req.file.filename),
         description: req.body.description,
-        category:req.body.category,
+        category: req.body.category,
         userId: req.body.userId,
         status: Status.NEW,
         verif: req.body.status

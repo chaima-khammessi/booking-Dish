@@ -27,10 +27,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Gallery</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="logout()" routerLink="/login-admin" id="logout">Logout</a>
-            </li>
         </ul>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          
+            <button class="btn btn-primary" type="button" (click)="logout()" routerLink="/login-admin" id="logout">Logout</button>
+          </div>
 
     </div>
 </nav>

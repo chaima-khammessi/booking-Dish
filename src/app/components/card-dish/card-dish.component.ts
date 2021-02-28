@@ -13,11 +13,11 @@ export class CardDishComponent implements OnInit {
   constructor( private dishServive:DishService) { }
 
   ngOnInit(): void {
-    this.getAllVerifDishs()
+    this.getAllVerifDishsHome()
   }
 
-  private getAllVerifDishs() {
-    this.dishServive.getAllVerifDishs().subscribe(
+  private getAllVerifDishsHome() {
+    this.dishServive.getAllVerifDishsHome().subscribe(
         (data) => {
             this.dishs = data;
   

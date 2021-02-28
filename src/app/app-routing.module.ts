@@ -1,3 +1,4 @@
+import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.component';
 import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
 import { OurDishesComponent } from './components/our-dishes/our-dishes.component';
 import { DetailProfilChefComponent } from './Dashboard/admin/detail-profil-chef/detail-profil-chef.component';
@@ -174,6 +175,11 @@ const routes: Routes = [
     component:AddMenuComponent,
     canActivate: [AuthChefGuard]
   },
+  {path:'table-menu',
+  component:TableMenuComponent,
+  canActivate:[AuthChefGuard]
+
+},
 
   {
     path: 'display-dish/:id',
