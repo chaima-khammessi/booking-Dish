@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 import { Component, OnInit } from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 export interface Dish {
   name: string;
@@ -24,23 +24,23 @@ export class DishChefComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
- 
+
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
+    // Add our dish
     if ((value || '').trim()) {
-      this.dish.push({name: value.trim()});
+      this.dish.push({ name: value.trim() });
     }
- 
+
     // Reset the input value
     if (input) {
       input.value = '';
     }
   }
 
-  remove(dish:Dish): void {
+  remove(dish: Dish): void {
     const index = this.dish.indexOf(dish);
 
     if (index >= 0) {
@@ -65,7 +65,7 @@ export class DishChefComponent implements OnInit {
       description: [''],
       img: [''],
       category: [''],
-      
+
 
 
     })
