@@ -18,7 +18,7 @@ export class ChefsComponent implements OnInit {
 
 
   private  getAllVerifChef(){
-    this.userService.getAllVerifChef().subscribe(
+    this.userService.getAllVerifChefProfile().subscribe(
      (data)=>{
        this.users=data;
        console.log('Profile chef validated', this.users);

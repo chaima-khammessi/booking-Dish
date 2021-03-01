@@ -61,10 +61,14 @@ import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-
 import { DishFavorisComponent } from './components/dish-favoris/dish-favoris.component';
 import { ProfileComponent } from './Dashboard/chef/profile/profile.component';
 import { DetailProfilChefComponent } from './Dashboard/admin/detail-profil-chef/detail-profil-chef.component';
-import {MatIconModule} from '@angular/material/icon';
+import {MatIconModule,} from '@angular/material/icon';
 import { OurDishesComponent } from './components/our-dishes/our-dishes.component';
 import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
 import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.component';
+import { AddGalleryRestauComponent } from './Dashboard/chef/add-gallery-restau/add-gallery-restau.component';
+import { TableDisplayGalleryComponent } from './Dashboard/chef/table-display-gallery/table-display-gallery.component';
+import { DisplayGalleryComponent } from './Dashboard/chef/display-gallery/display-gallery.component';
+import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-gallery.component'
 
 
 @NgModule({
@@ -121,6 +125,10 @@ import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.compo
     OurDishesComponent,
     AddMenuComponent,
     TableMenuComponent,
+    AddGalleryRestauComponent,
+    TableDisplayGalleryComponent,
+    DisplayGalleryComponent,
+    UpdateGalleryComponent,
 
 
   ],
@@ -142,7 +150,8 @@ import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.compo
     NgbModule,
     ReactiveFormsModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+      
 
 
   ],

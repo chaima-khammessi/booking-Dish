@@ -11,14 +11,14 @@ const Admin = require('./models/admin');
 const Dish = require('./models/dish');
 const Status = require('./models/status');
 const Menu = require('./models/menu');
+const galleryRestau=require('./models/galleryRestau')
 
 
 //Set up default mongoose connection
 mongoose.connect('mongodb://localhost:27017/restaurant', { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
+app.use(bodyParser.json({limit: '50mb'}));
 app.use('/images', express.static(path.join('backend/images')));
 const MIME_TYPE = {
     'image/png': 'png',
@@ -241,6 +241,17 @@ app.get('/allVerifChefs', (req, res) => {
     })
 })
 
+/**************** Validate Chef for verify Home***********************/
+app.get('/allVerifChefProfile', (req, res) => {
+
+    User.find({ verif: "VALIDATED" }, (err, findedChef) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedChef);
+    }).sort({"_id":-1 }).limit(3)
+})
+
 
 
 
@@ -269,12 +280,11 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
 app.post('/addMenu', multer({ storage: storage }).single('img'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
     const menu = new Menu({
-
         name: req.body.name,
         category: req.body.category,
         ingredient: req.body.ingredient,
         price: req.body.price,
-        img: url + ('/image/' + req.file.filename),
+        img: url + ('/images/' + req.file.filename),
         userId: req.body.userId,
         status: Status.NEW,
         verif: req.body.status
@@ -283,12 +293,50 @@ app.post('/addMenu', multer({ storage: storage }).single('img'), (req, res) => {
     res.status(200).json({
         message: "menu added successful"
     })
-
-
 });
 
+//Add Multiple Menu
 
+app.post('/addMultipleMenu', multer({ storage: storage }).array("img"), (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    console.log(req)
+    for (let index = 0; index < req.body.length; index++) {
+        const element = req.body[index];
+        const menu = new Menu({
+            name: element.name,
+            category: element.category,
+            ingredient: element.ingredient,
+            price: element.price,
+            img: url + ('/images/' + element.img),
+            userId: element.userId,
+            status: Status.NEW,
+            verif: element.status
+        });
+        menu.save();
+    }
+    
+    res.status(200).json({
+        message: "Gallery added successful"
+    })
+});
 
+// ADD Photo for Gallery
+
+app.post('/addGallery',multer({ storage: storage }).single('img'),(req,res)=>{
+    const url = req.protocol + '://' + req.get('host');
+    const galleryRest= new galleryRestau({
+    name: req.body.name,
+    adress:req.body.adress,
+    img:url + ('/images/' + req.file.filename),
+    userId: req.body.userId,
+    status: Status.NEW,
+    verif: req.body.status
+});
+galleryRest.save();
+res.status(200).json({
+    message: "Gallery added successful"
+})
+})
 
 // Update Dishs
 app.put('/editDish/:id', multer({ storage: storage }).single('img'), (req, res) => {
@@ -324,6 +372,39 @@ app.put('/editDish/:id', multer({ storage: storage }).single('img'), (req, res) 
 
         ;
 })
+
+// Update Gallery By Id 
+
+app.put('/editGalleryRestau/:id', multer({ storage: storage }).single('img'), (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    if (!req.body) {
+        return res.status(200).send({
+
+            message: 'Data To Update can not empty!'
+
+        });
+    }
+    const id = req.params.id;
+    console.log('source image', req.body.img);
+    if (req.file && req.file.filename) {
+        req.body.img = url + ('/images/' + req.file.filename);
+    }
+    galleryRestau.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        .then(data => {
+            if (!data) {
+                res.status(200).send({
+                    message: `Cannot Update Gallery with id=${id}, May be gallery wa not found!`
+                });
+            }
+            else res.send({
+                message: "Gallery was Update succesfully"
+            })
+
+        })
+
+        ;
+})
+
 // Delete Dish
 app.delete('/deleteDish/:id', (req, res) => {
     console.log('delete dish by ID', req.params._id);
@@ -338,6 +419,22 @@ app.delete('/deleteDish/:id', (req, res) => {
         }
     );
 });
+
+//Delete Gallery By Id
+app.delete('/deleteGalleryResatu/:id', (req, res) => {
+    console.log('delete dish by ID', req.params._id);
+    galleryRestau.deleteOne({ _id: req.params.id }).then(
+        result => {
+            if (result) {
+                console.log('result', result);
+                res.status(200).json({
+                    message: 'Gallery deleted successfully'
+                });
+            }
+        }
+    );
+});
+
 //  Finded Dish By Id
 app.get('/allDishs/:id', (req, res) => {
     console.log('this is my id', req.params.id);
@@ -351,6 +448,22 @@ app.get('/allDishs/:id', (req, res) => {
         }
     )
 })
+
+//Fided Dish By Id
+app.get('/allGalleryRestau/:id', (req, res) => {
+    console.log('this is my id', req.params.id);
+    galleryRestau.findOne({ _id: req.params.id }).then(
+        gallery => {
+            console.log('Finded Gallery', gallery);
+            res.status(200).json({
+                message: 'this is the Gallery',
+                gallery: gallery
+            })
+        }
+    )
+})
+
+
 
 
 //  Finded all dishes by User Id
@@ -376,6 +489,20 @@ app.get('/allUserId/:userId', (req, res) => {
             res.status(200).json({
                 message: 'this is the user',
                 users: user
+            })
+        }
+    )
+})
+
+//finded All photo Gallery By Id
+app.get('/allUserGallery/:userId', (req, res) => {
+    console.log('this is my userId', req.params.userId);
+    galleryRestau.find({ userId: req.params.userId }).then(
+        gallery => {
+            console.log('Finded gallery', gallery);
+            res.status(200).json({
+                message: 'this is the gallery',
+                gallery:gallery
             })
         }
     )

@@ -1,3 +1,4 @@
+import { HomeMenu } from './../model/home-menu.model';
 import { Status } from './../enums/status.enum';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -24,8 +25,6 @@ export class MenuService {
   addMenu(menu: any, image: File) {
     let formData = new FormData();
     formData.append('name', menu.name);
-    formData.append('category', menu.category);
-    formData.append('ingredient', menu.ingredient);
     formData.append('price', menu.price);
     formData.append('img', image);
     formData.append('status', Status.NEW);
@@ -33,6 +32,21 @@ export class MenuService {
     formData.append('userId', JSON.parse(localStorage.getItem('userId')));
   
     return this.httpClient.post<{ message: string }>(`${this.menuUrl}/addMenu`, formData);
+
+  }
+
+  addMultipleMenu(menus: Array<HomeMenu>) {
+    const verif = JSON.parse(localStorage.getItem('verif'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    const status =  Status.NEW;
+    let parsedMenus = [];
+    for (let index = 0; index < menus.length; index++) {
+      const element = menus[index];
+      let parsedMenu = {...element, status, userId, verif};
+      parsedMenus[index] = parsedMenu;
+    }
+   
+    return this.httpClient.post<{ message: string }>(`${this.menuUrl}/addMultipleMenu`, parsedMenus);
 
   }
   editMenu(id, menu, image: File): Observable<any> {

@@ -4,7 +4,8 @@
 
 <form (ngSubmit)="validate()" #menuForm='ngForm'>
     <div class="container">
-        <div class="form-row" *ngFor="let obj of menu; let i=index ">
+        <div class="form-row" *ngFor="let obj of menus; let i=index ">
+
             <div class="form-group col-md-2">
                 <label for="">Name</label>
                 <input type="text" name="nameMenu{{i}}" class="form-control" [(ngModel)]="obj.name"
@@ -17,23 +18,6 @@
                     [ngModelOptions]="{standalone: true}">
             </div>
 
-            <!--<mat-form-field class="example-chip-list">
-                <mat-label> Category Menu</mat-label>
-                <mat-chip-list #chipList aria-label="dishelection">
-                  <mat-chip *ngFor="let menu of menu" [selectable]="selectable" [removable]="removable"
-                    (removed)="remove(menu)">
-                    {{menu.name}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                  </mat-chip>
-                  <input placeholder="Add a category..." [matChipInputFor]="chipList" [(ngModel)]='menu.category' [ngModelOptions]="{standalone: true}"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="addCategory($event)">
-                </mat-chip-list>
-              </mat-form-field>-->
-
-
-
-
             <div class="form-group col-md-2">
                 <label for="">Price</label>
                 <input type="text" name="price{{i}}" class="form-control" [(ngModel)]="obj.price"
@@ -45,18 +29,14 @@
                     [ngModelOptions]="{standalone:true}">
             </div>
 
-            <!-- <div class="form-group col-md-4">
-                <label for="">Photo</label>
-                <input type="file" name="img{{i}}" class="form-control" [(ngModel)]="obj.img">
-            </div>--><br>
+            <br>
             <div class="form-group col-md-4" style="top: 31px;">
                 <button type="button" (click)='filePicker.click()' name="img{{i}}" class="btn btn-warning">Select
                     File</button>
-                <input type="file" #filePicker style="visibility: hidden;" (change)='onImageSelected($event)'>
-                <img [src]="imagePreview" alt="" width="150px" height="150px">
+                <input type="file" #filePicker style="visibility: hidden;" (change)='onImageSelected($event, i)'>
+                <img [src]="images[i]" alt="" width="150px" height="150px">
                 <br><br><br><br>
             </div>
-
 
             <div class="form-group col-md-2" style="top: 30px; right: 70px !important;">
                 <span (click)="removeForm(i)" class="btn btn-danger">-</span>
@@ -68,7 +48,6 @@
 
         <span (click)="addForm()" class="btn btn-success">+</span>
         <button class="btn btn-primary">Send</button>
-
 
     </div>
 </form>

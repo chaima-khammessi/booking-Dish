@@ -1,3 +1,7 @@
+import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-gallery.component';
+import { DisplayGalleryComponent } from './Dashboard/chef/display-gallery/display-gallery.component';
+import { TableDisplayGalleryComponent } from './Dashboard/chef/table-display-gallery/table-display-gallery.component';
+import { AddGalleryRestauComponent } from './Dashboard/chef/add-gallery-restau/add-gallery-restau.component';
 import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.component';
 import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
 import { OurDishesComponent } from './components/our-dishes/our-dishes.component';
@@ -53,8 +57,8 @@ const routes: Routes = [
     path: "dish/:id", component: DishComponent
   },
   {
-    path:'our-dishes',
-    component:OurDishesComponent
+    path: 'our-dishes',
+    component: OurDishesComponent
   },
   {
     path: "menu", component: MenuComponent
@@ -64,7 +68,7 @@ const routes: Routes = [
     path: "chefs", component: ChefsComponent
   },
   {
-    path:'dish-favoris', component:DishFavorisComponent
+    path: 'dish-favoris', component: DishFavorisComponent
   },
   {
     path: "gallery", component: GalleryComponent
@@ -171,15 +175,30 @@ const routes: Routes = [
     canActivate: [AuthChefGuard]
   },
   {
-    path:'add-menu',
-    component:AddMenuComponent,
+    path: 'add-menu',
+    component: AddMenuComponent,
     canActivate: [AuthChefGuard]
   },
-  {path:'table-menu',
-  component:TableMenuComponent,
-  canActivate:[AuthChefGuard]
-
-},
+  {
+    path: 'table-menu',
+    component: TableMenuComponent,
+    canActivate: [AuthChefGuard]
+  },
+  {
+    path: 'add-gallery-restau',
+    component: AddGalleryRestauComponent,
+    canActivate: [AuthChefGuard]
+  },
+  {
+    path: 'table-display-gallery',
+    component: TableDisplayGalleryComponent,
+    canActivate: [AuthChefGuard]
+  },
+  {
+    path: 'display-gallery/:id',
+    component: DisplayGalleryComponent,
+    canActivate: [AuthChefGuard]
+  },
 
   {
     path: 'display-dish/:id',
@@ -187,8 +206,13 @@ const routes: Routes = [
     canActivate: [AuthChefGuard]
   },
   {
-    path:"profile", component:ProfileComponent,
-   canActivate:[AuthChefGuard]
+    path:'update-gallery/:id',
+    component:UpdateGalleryComponent,
+    canActivate:[AuthChefGuard]
+  },
+  {
+    path: "profile", component: ProfileComponent,
+    canActivate: [AuthChefGuard]
   },
   {
     path: 'validator-admin-dish',
@@ -196,9 +220,9 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard]
   },
   {
-    path:'detail-profil-chef',
-    component:DetailProfilChefComponent,
-    canActivate:[AuthAdminGuard]
+    path: 'detail-profil-chef',
+    component: DetailProfilChefComponent,
+    canActivate: [AuthAdminGuard]
   },
   {
     path: 'display-user/:id',

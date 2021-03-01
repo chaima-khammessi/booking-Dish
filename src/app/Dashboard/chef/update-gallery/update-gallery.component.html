@@ -1,0 +1,32 @@
+<app-header-dashoard-chef></app-header-dashoard-chef>
+
+
+<h1 class="centerLign">ADD Photo Restau</h1>
+
+<div class="site-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <form #galleryForm='ngForm' >
+          <div class="form-group">
+            <input type="text" [(ngModel)]='gallerys.name' [ngModelOptions]="{standalone: true}" class="form-control"
+              placeholder="Name Restau">
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]='gallerys.adress' [ngModelOptions]="{standalone: true}" class="form-control"
+              placeholder="Adress Restau">
+          </div>
+          <button type="button" (click)='filePicker.click()' class="btn btn-warning">Select Phot</button>
+          <input type="file" #filePicker style="visibility: hidden;" (change)='onImageSelected($event)'>
+          <img [src]="gallerys.img" [(ngModel)]='gallerys.img' [ngModelOptions]="{standalone: true}"  ngDefaultControl alt="" width="150px" height="150px">
+          <br><br>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary py-3 px-5" [disabled]="galleryForm.invalid" (click)="updateGallery()" >Update</button>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

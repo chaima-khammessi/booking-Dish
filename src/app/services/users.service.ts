@@ -22,6 +22,9 @@ export class UsersService {
   getAllVerifChef() {
     return this.httpClient.get<{ message: string, users: any, verif:any }>(`${this.urlUsers}/allVerifChefs`);
   }
+  getAllVerifChefProfile() {
+    return this.httpClient.get<{ message: string, users: any, verif:any }>(`${this.urlUsers}/allVerifChefProfile`);
+  }
   getAllUserId(userId: String) {
     return this.httpClient.get<{ message: string, users: any }>(`${this.urlUsers}/allUserId/${userId}`);
   }

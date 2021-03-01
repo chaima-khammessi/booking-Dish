@@ -31,8 +31,6 @@ export class UpdateDishComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-   
-
     let idDish = this.activatedRoute.snapshot.params.id;
     this.dishForm = this.formBuilder.group({
       name: [''],

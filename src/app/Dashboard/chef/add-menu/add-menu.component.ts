@@ -3,7 +3,7 @@ import { MenuService } from './../../../services/menu.service';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Home } from './../../../model/home.model';
+import { HomeMenu } from './../../../model/home-menu.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,68 +12,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-menu.component.css']
 })
 export class AddMenuComponent implements OnInit {
-  menus =new Home();
-   menu :any = [];
+  menu = new HomeMenu();
+  menus: any = [];
+  images: Array<string> = [];
   imagePreview: string;
-  //menus = new this.menu;
-  //dataarray=[];
-  menuForm:FormGroup;
- 
 
-  constructor( private formBuilder:FormBuilder,
-               private menuService:MenuService,
-               private router:Router
-    ) { }
+  constructor(private formBuilder: FormBuilder,
+    private menuService: MenuService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.menus=new Home();
-    this.menu.push(this.menus);
-    this.menuForm = this.formBuilder.group({
-      name:[''],
-      ingredient:[''],
-      category:[''],
-      price:[''],
-      img: [''],
-      
-    })
-  
+    this.menu = new HomeMenu();
+    this.menus.push(this.menu);
   }
 
-
-
-  addForm(){
-    this.menus=new Home();
-    this.menu.push(this.menus);
+  addForm() {
+    this.menu = new HomeMenu();
+    this.menus.push(this.menu);
   }
- 
- 
-  removeForm(index){
-    this.menu.splice(index);
 
+  removeForm(index) {
+    this.menus.splice(index);
   }
- 
-  
-  onImageSelected(event: Event) {
+
+  onImageSelected(event: Event, index: number) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.menuForm.patchValue({ img: file });
-    this.menuForm.updateValueAndValidity();
+    this.menus[index].img = file;
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result as string
+      this.images[index] = reader.result as string
     };
     reader.readAsDataURL(file);
   }
 
-  validate(){
-    this.menuService.addMenu(this.menus, this.menuForm.value.img).subscribe(
-      data =>{
+  validate() {
+    this.menuService.addMultipleMenu(this.menus).subscribe(
+      data => {
         console.log('returned data', data);
         this.router.navigate(['chef'])
-
-        
       }
-    )    
-   }
+    )
+  }
 
 
 }
