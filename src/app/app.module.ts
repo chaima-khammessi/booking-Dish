@@ -68,7 +68,8 @@ import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.compo
 import { AddGalleryRestauComponent } from './Dashboard/chef/add-gallery-restau/add-gallery-restau.component';
 import { TableDisplayGalleryComponent } from './Dashboard/chef/table-display-gallery/table-display-gallery.component';
 import { DisplayGalleryComponent } from './Dashboard/chef/display-gallery/display-gallery.component';
-import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-gallery.component'
+import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-gallery.component';
+import { ValidatorAdminGalleryComponent } from './Dashboard/admin/validator-admin-gallery/validator-admin-gallery.component'
 
 
 @NgModule({
@@ -129,6 +130,7 @@ import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-g
     TableDisplayGalleryComponent,
     DisplayGalleryComponent,
     UpdateGalleryComponent,
+    ValidatorAdminGalleryComponent,
 
 
   ],

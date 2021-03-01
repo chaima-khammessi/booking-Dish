@@ -59,7 +59,7 @@ export class GalleryRestauService {
     return this.httpClient.put(`${this.galleryRestauUrl}/editGalleryRestau/${id}`, formData, gallerys);
   }
 
-  editDishById(id, gallery): Observable<any> {
+  editGalleryById(id, gallery): Observable<any> {
     return this.httpClient.put(`${this.galleryRestauUrl}/editGalleryRestau/${id}`, gallery);
   }
 }

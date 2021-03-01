@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GalleryRestauService } from 'src/app/services/gallery-restau.service';
 
 @Component({
   selector: 'app-gallery',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
-
-  constructor() { }
+  gallerys:any = [];
+  constructor( private galleryRest:GalleryRestauService) { }
 
   ngOnInit(): void {
+    this.getAllVerifGallery();
+  }
+
+  private  getAllVerifGallery(){
+    this.galleryRest.getAllVerifGallerysHome().subscribe(
+     (data)=>{
+       this.gallerys=data;
+       console.log('gallery Restaurant validated', this.gallerys);
+       
+     },
+     err=>{
+       console.dir(err);
+       
+     }
+
+    )
   }
 
 }

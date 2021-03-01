@@ -1,20 +1,19 @@
 import { Status } from './../../../enums/status.enum';
+import { ToastrService } from 'ngx-toastr';
 import { adminService } from './../../../services/admins.service';
 import { Router } from '@angular/router';
-import { DishService } from './../../../services/dish.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Route } from '@angular/compiler/src/core';
-import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { GalleryRestauService } from 'src/app/services/gallery-restau.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-validator-admin-dish',
-  templateUrl: './validator-admin-dish.component.html',
-  styleUrls: ['./validator-admin-dish.component.css']
+  selector: 'app-validator-admin-gallery',
+  templateUrl: './validator-admin-gallery.component.html',
+  styleUrls: ['./validator-admin-gallery.component.css']
 })
-export class ValidatorAdminDishComponent implements OnInit {
+export class ValidatorAdminGalleryComponent implements OnInit {
   @Output() newDish: EventEmitter<any> = new EventEmitter()
-  dishs: any = [];
+  gallerys: any = [];
   id: number;
   firstName: any;
   p: number = 1;
@@ -23,22 +22,17 @@ export class ValidatorAdminDishComponent implements OnInit {
   title = 'appBootstrap';
 
   closeResult: string;
-
-  constructor(private dishService: DishService,
+  constructor(private galleryRestau: GalleryRestauService,
     private router: Router,
     private adminService: adminService,
     private toastr: ToastrService,
     private modalService: NgbModal
-
   ) { }
 
   ngOnInit(): void {
-    this.dishService.getAllDishs().subscribe(
+    this.galleryRestau.getAllGallery().subscribe(
       (data) => {
-        this.dishs = data['dish'];
-
-
-
+        this.gallerys = data['gallery'];
       })
   }
   key: string = 'id';
@@ -46,29 +40,25 @@ export class ValidatorAdminDishComponent implements OnInit {
   sort(key) {
     this.key = key;
     this.reserve = !this.reserve;
-
-
   }
-
-
   /************ Add popup ******************/
-  open(content, dish) {
+  open(content, gallery) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    dish.status = Status.REFUSED;
-    dish.verif = "REFUSED";
+    gallery.status = Status.REFUSED;
+    gallery.verif = "REFUSED";
 
-    this.dishService.editDishById(dish.id, dish).subscribe(
+    this.galleryRestau.editGalleryById(gallery.id, gallery).subscribe(
       data => {
-        this.dishs = data.dish;
-        console.log("Dish refusing", "refused");
+        this.gallerys = data.gallery;
+        console.log("Gallery refusing", "refused");
 
       },
       (error) => {
-        this.toastr.error('Error when refusing the Dish');
+        this.toastr.error('Error when refusing the Gallery');
       }
 
     )
@@ -87,18 +77,18 @@ export class ValidatorAdminDishComponent implements OnInit {
     }
   }
 
-  deletDish(dish) {
+  deletGallery(gallery) {
 
-    let index = this.dishs.indexOf(dish);
-    this.dishs.splice(index, 1);
+    let index = this.gallerys.indexOf(gallery);
+    this.gallerys.splice(index, 1);
 
-    this.dishService.deleteDish(dish.id).subscribe(
+    this.galleryRestau.deleteGallery(gallery.id).subscribe(
       () => {
 
-        this.dishService.getAllDishs().subscribe(
+        this.galleryRestau.getAllGallery().subscribe(
           res => {
-            this.newDish.emit(res.dish);
-            this.toastr.error('Dish deleted successfully');
+            this.newDish.emit(res.gallery);
+            this.toastr.error('Gallery deleted successfully');
 
 
 
@@ -112,40 +102,25 @@ export class ValidatorAdminDishComponent implements OnInit {
   }
 
 
-  validatorDish(dish) {
+  validatorGallery(gallery) {
 
 
-    dish.status = Status.VALIDATED;
-    dish.verif = Status.VALIDATED;
-    this.dishService.editDishById(dish.id, dish).subscribe(
+    gallery.status = Status.VALIDATED;
+    gallery.verif = Status.VALIDATED;
+    this.galleryRestau. editGalleryById(gallery.id, gallery).subscribe(
       data => {
-        this.dishs = data.dish
+        this.gallerys = data.gallery
         // send notification to the chef
-        console.log("Dish validation", "validated");
+        console.log("Gallery validation", "validated");
       },
       (error) => {
-        this.toastr.error('Error when validating the Dish');
+        this.toastr.error('Error when validating the Gallery');
       }
     )
     return this.validator == true
 
   }
-  specialDish(dish) {
-    dish.status = Status.SPECIAL;
-    dish.verif = Status.SPECIAL;
-    this.dishService.editDishById(dish.id, dish).subscribe(
-      data => {
-        this.dishs = data.dish;
-        // send notifacation to the chef 
-        console.log("dish special", "special");
-
-      },
-      (error) => {
-        this.toastr.error('Error when specialing the Dish');
-      }
-    )
-    return this.validator == true;
-  }
+ 
 
 
   logout() {

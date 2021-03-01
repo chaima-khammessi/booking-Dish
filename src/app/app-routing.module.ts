@@ -1,3 +1,4 @@
+import { ValidatorAdminGalleryComponent } from './Dashboard/admin/validator-admin-gallery/validator-admin-gallery.component';
 import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-gallery.component';
 import { DisplayGalleryComponent } from './Dashboard/chef/display-gallery/display-gallery.component';
 import { TableDisplayGalleryComponent } from './Dashboard/chef/table-display-gallery/table-display-gallery.component';
@@ -218,6 +219,11 @@ const routes: Routes = [
     path: 'validator-admin-dish',
     component: ValidatorAdminDishComponent,
     canActivate: [AuthAdminGuard]
+  },
+  {
+    path:'validator-admin-gallery',
+    component:ValidatorAdminGalleryComponent,
+    canActivate:[AuthAdminGuard]
   },
   {
     path: 'detail-profil-chef',

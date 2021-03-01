@@ -16,7 +16,7 @@ export class AddMenuComponent implements OnInit {
   menus: any = [];
   images: Array<string> = [];
   imagePreview: string;
-
+  formData: FormData = new FormData();
   constructor(private formBuilder: FormBuilder,
     private menuService: MenuService,
     private router: Router
@@ -38,7 +38,8 @@ export class AddMenuComponent implements OnInit {
 
   onImageSelected(event: Event, index: number) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.menus[index].img = file;
+    this.formData.set("file-"+index ,file);
+    this.menus[index].imgName = file.name;
     const reader = new FileReader();
     reader.onload = () => {
       this.images[index] = reader.result as string
@@ -47,10 +48,10 @@ export class AddMenuComponent implements OnInit {
   }
 
   validate() {
-    this.menuService.addMultipleMenu(this.menus).subscribe(
+    this.menuService.addMultipleMenu(this.menus, this.formData).subscribe(
       data => {
         console.log('returned data', data);
-        this.router.navigate(['chef'])
+        //this.router.navigate(['chef'])
       }
     )
   }

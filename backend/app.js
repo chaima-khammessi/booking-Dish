@@ -37,6 +37,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         const name = file.originalname.toLowerCase().split(' ').join('-');
+        //TODO KEEP ONLY FILE NAME (REMOVE THE EXTENSION FROM ORIGINAL FILENAME)
         const extension = MIME_TYPE[file.mimetype];
         const imgName = name + '-' + Date.now() + '.' + extension;
         cb(null, imgName);
@@ -230,7 +231,19 @@ app.get('/allVerifDishsHome', (req, res) => {
     }).sort({"_id":-1 }).limit(3)
 })
 
-/**************** Validate User for verify***********************/
+
+/**************** Validate Gallery for verify***********************/
+app.get('/allVerifGallerysHome', (req, res) => {
+
+    galleryRestau.find({ verif: "VALIDATED"},(err, findedGallery) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedGallery);
+    }).sort({"_id":-1 }).limit(8)
+})
+
+/**************** Validate User for verify********allVerifGallerys***************/
 app.get('/allVerifChefs', (req, res) => {
 
     User.find({ verif: "VALIDATED" }, (err, findedChef) => {
@@ -238,6 +251,17 @@ app.get('/allVerifChefs', (req, res) => {
             console.log('error', err);
         }
         res.status(200).send(findedChef);
+    })
+})
+
+/**************** Validate Gallery for verify***********************/
+app.get('/allVerifGallerys', (req, res) => {
+
+    galleryRestau.find({ verif: "VALIDATED" }, (err, findedGallery) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedGallery);
     })
 })
 
@@ -297,17 +321,18 @@ app.post('/addMenu', multer({ storage: storage }).single('img'), (req, res) => {
 
 //Add Multiple Menu
 
-app.post('/addMultipleMenu', multer({ storage: storage }).array("img"), (req, res) => {
+app.post('/addMultipleMenu', multer({ storage: storage }).any(), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
     console.log(req)
-    for (let index = 0; index < req.body.length; index++) {
-        const element = req.body[index];
+    const menus = JSON.parse(req.body.menus);
+    for (let index = 0; index < menus.length; index++) {
+        const element = menus[index];
         const menu = new Menu({
             name: element.name,
             category: element.category,
             ingredient: element.ingredient,
             price: element.price,
-            img: url + ('/images/' + element.img),
+            img: url + ('/images/' + element.imgName),
             userId: element.userId,
             status: Status.NEW,
             verif: element.status
@@ -547,9 +572,7 @@ app.get('/allUser', (req, res) => {
     })
 })
 
-
-
-
+//finded all dishs
 app.get('/allDishs', (req, res) => {
     Dish.find((err, findedDish) => {
         console.log('All Dishs', findedDish);
@@ -559,6 +582,20 @@ app.get('/allDishs', (req, res) => {
         res.status(200).json({
             message: 'Here all Dishs',
             dish: findedDish
+        })
+    })
+})
+
+//finded all Gallery
+app.get('/allGalleryRestau', (req, res) => {
+    galleryRestau.find((err, findedGallery) => {
+        console.log('All Gallerys', findedGallery);
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).json({
+            message: 'Here all Gallerys',
+            gallery: findedGallery
         })
     })
 })

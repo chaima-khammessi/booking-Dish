@@ -35,20 +35,26 @@ export class MenuService {
 
   }
 
-  addMultipleMenu(menus: Array<HomeMenu>) {
+  addMultipleMenu(menus: Array<HomeMenu>, formData: FormData) : Observable<any>{
     const verif = JSON.parse(localStorage.getItem('verif'));
     const userId = JSON.parse(localStorage.getItem('userId'));
     const status =  Status.NEW;
-    let parsedMenus = [];
+    let parsedMenus : any = [];
+    
+    
     for (let index = 0; index < menus.length; index++) {
       const element = menus[index];
       let parsedMenu = {...element, status, userId, verif};
+
       parsedMenus[index] = parsedMenu;
     }
-   
-    return this.httpClient.post<{ message: string }>(`${this.menuUrl}/addMultipleMenu`, parsedMenus);
+    
+    formData.set("menus", JSON.stringify(parsedMenus))
+    return this.httpClient.post<{ message: string }>(`${this.menuUrl}/addMultipleMenu`, formData);
 
   }
+
+
   editMenu(id, menu, image: File): Observable<any> {
     let formData = new FormData();
     formData.append('name', menu.name);
