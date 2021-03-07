@@ -16,7 +16,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{dish.name}}</h5>
                 <p class="card-text">{{dish.price}}</p>
-                <a href="#" id="buttonColor">Reserve</a>
+                <a class="btn btn-primary" id="buttonColor" (click)="addToCart(dish.id)">Reserve</a>
               </div>
             </div>
           </div>

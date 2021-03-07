@@ -1,0 +1,47 @@
+
+<app-header-dashoard-chef></app-header-dashoard-chef>
+<div class=" container move-tab ">
+    <h1 class="centerLign">Table Menu Chef</h1>
+    <nav class="navbar">
+        <input class="form-control" type="text" name="search" [(ngModel)]="filter">      
+      </nav>
+      <div class="table-responsive">
+          <div *ngIf='menus.length == 0 ' class="alert alert-warning"> No Menus Found</div>
+    <table   class="table" *ngIf='menus.length > 0 ' >
+        <thead>
+            <tr>
+                <th>#</th>
+                <th (click)="sort('FirstName')">Name Menu &nbsp; <i class="fa fa-sort"></i></th>
+               
+                <th>Category</th>
+                <th>Price</th>
+                <th>Ingredient</th>
+                <th>Photo</th>
+                <th>Action</th>
+                
+
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let menu of menus |orderBy  : key : reserve| filter:filter | paginate :{itemsPerPage:5,currentPage:p }; let i = index ">
+                <th>{{i}}</th>
+                <td>{{menu.name}}</td>
+                <td>{{menu.category}}</td>
+                <td>{{menu.price}}</td>
+                <td>{{menu.ingredient}}</td>
+                <td><img [src]="menu.img" height="50px" width="50px" alt=""></td>               
+                <td><i (click)='deleteMenu(menu)' style="cursor: pointer;" class="far fa-trash-alt" ></i>&nbsp;
+                    <i  (click)='goToMenu(menu)' style="cursor: pointer;" class="far fa-eye"></i>&nbsp;
+                    <i  style="cursor: pointer;" routerLink="/update-menu/{{menu.id}}" class="fas fa-user-edit"></i>
+                </td>
+            </tr>
+        </tbody>
+    
+    </table>
+    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+    </div>
+</div>
+
+   
+     

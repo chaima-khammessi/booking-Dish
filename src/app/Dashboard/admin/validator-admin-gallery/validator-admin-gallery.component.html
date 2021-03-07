@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 <tr
-                    *ngFor="let gallery of gallerys |orderBy:key:reserve | filter:filter| paginate :{itemsPerPage:5,currentPage:p }; let i = index ">
+                    *ngFor="let gallery of gallerys |orderBy:key:reserve | filter:filter|paginate:{itemsPerPage:5,currentPage:p }; let i = index ">
                     <th>{{i}}</th>
                     <td>{{gallery.name}}</td>
                     <td>{{gallery.adress}}</td>

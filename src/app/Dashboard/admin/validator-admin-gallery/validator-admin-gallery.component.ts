@@ -20,7 +20,6 @@ export class ValidatorAdminGalleryComponent implements OnInit {
   filter: any;
   validator: boolean = false;
   title = 'appBootstrap';
-
   closeResult: string;
   constructor(private galleryRestau: GalleryRestauService,
     private router: Router,

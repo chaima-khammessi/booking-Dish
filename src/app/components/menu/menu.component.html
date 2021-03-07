@@ -17,54 +17,54 @@
       </div>
     </div>
 
-    <div class="row menu-container">
+    <div class="row menu-container"  *ngFor="let menu of menus">
 
       <div class="col-lg-6 menu-item filter-starters">
         <div class="menu-content">
-          <a href="#"><img src="assets/img/menu_1.jpg"> Bisque</a><span>5.95DT</span>
+          <a href="#"><img [src]="menu.img"> {{menu.name}}</a><span>{{menu.price}}</span>
         </div>
         <div class="menu-ingredients">
-          Lorem, deren, trataro, filede, nerada
+         {{menu.ingredient}}
         </div>
       </div>
 
-      <div class="col-lg-6 menu-item filter-specialty">
+      <div class="col-lg-6 menu-item filter-specialty" >
         <div class="menu-content">
-          <a href="#"><img src="assets/img/menu_2.jpg">Bread barrel</a><span>6.95DT</span>
+          <a href="#"><img [src]="menu.img"> {{menu.name}}</a><span>{{menu.price}}</span>
         </div>
         <div class="menu-ingredients">
-          Lorem, deren, trataro, filede, nerada
+          {{menu.ingredient}}
         </div>
-      </div>
+      </div> 
 
-      <div class="col-lg-6 menu-item filter-starters">
+      <!-- <div class="col-lg-6 menu-item filter-starters">
         <div class="menu-content">
           <a href="#"><img src="assets/img/menu_3.jpg">Crab Cake</a><span>7.95DT</span>
         </div>
         <div class="menu-ingredients">
           A delicate crab cake served on a toasted roll with lettuce and tartar sauce
         </div>
-      </div>
+      </div> -->
 
-      <div class="col-lg-6 menu-item filter-salads">
+       <div class="col-lg-6 menu-item filter-salads" >
         <div class="menu-content">
-          <a href="#"><img src="assets/img/menu_2.jpg">Caesar Selections</a><span>8.95DT</span>
+          <a href="#"><img [src]="menu.img"> {{menu.name}}</a><span>{{menu.price}}</span>
         </div>
         <div class="menu-ingredients">
-          Lorem, deren, trataro, filede, nerada
+          {{menu.ingredient}}
         </div>
-      </div>
+      </div> 
 
-      <div class="col-lg-6 menu-item filter-specialty">
+      <!-- <div class="col-lg-6 menu-item filter-specialty">
         <div class="menu-content">
           <a href="#"><img src="assets/img/menu_1.jpg">Tuscan Grilled</a><span>9.95DT</span>
         </div>
         <div class="menu-ingredients">
           Grilled chicken with provolone, artichoke hearts, and roasted red pesto
         </div>
-      </div>
+      </div> -->
 
-      <div class="col-lg-6 menu-item filter-starters">
+      <!-- <div class="col-lg-6 menu-item filter-starters">
         <div class="menu-content">
           <a href="#"><img src="assets/img/menu_3.jpg">Mozzarella Stick</a><span>4.95DT</span>
         </div>
@@ -72,17 +72,17 @@
           Lorem, deren, trataro, filede, nerada
         </div>
       </div>
-
-      <div class="col-lg-6 menu-item filter-salads">
+ -->
+      <!-- <div class="col-lg-6 menu-item filter-salads">
         <div class="menu-content">
           <a href="#"><img src="assets/img/menu_2.jpg">Greek Salad</a><span>9.95DT</span>
         </div>
         <div class="menu-ingredients">
           Fresh spinach, crisp romaine, tomatoes, and Greek olives
         </div>
-      </div>
+      </div> -->
 
-      <div class="col-lg-6 menu-item filter-salads">
+      <!-- <div class="col-lg-6 menu-item filter-salads">
         <div class="menu-content">
           <a href="#"><img src="assets/img/menu_1.jpg">Spinach Salad</a><span>9.95DT</span>
         </div>
@@ -98,7 +98,7 @@
         <div class="menu-ingredients">
           Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
         </div>
-      </div>
+      </div> -->
 
     </div>
 

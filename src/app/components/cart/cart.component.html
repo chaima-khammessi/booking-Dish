@@ -17,8 +17,8 @@
                         </thead>
                         <tbody>
                             <tr class="text-center">
-                                <td class="product-remove"><a href="#"><img
-                                            src="https://img.icons8.com/fluent/48/000000/delete-dollar.png" /></a>
+                                <td class="product-remove"><a href="#"><i class="fas fa-trash"
+                                            style="color:#FF4646; font-size: 30px;"></i></a>
                                 </td>
 
                                 <td class="image-prod"><img src="assets/img/breakfast-3.jpg"></td>
@@ -32,10 +32,19 @@
 
                                 <td class="quantity">
                                     <div class="input-group mb-3">
+                                        <i class="fa fa-minus-circle" ng-click="qty_decr(item)"
+                                            style="color:#FF4646; font-size: 30px;"></i>
+
                                         <input type="text" name="quantity" class="quantity form-control input-number"
-                                            value="1" min="1" max="100">
+                                            style="border-radius: 5px;" value="1" min="1" max="100">
+                                        <i class="fa fa-plus-circle" ng-click="qty_incr(item)"
+                                            style="color:#68C549; font-size: 30px;"></i>
+
                                     </div>
+                                    <!-- <span id="incr_decr_no" ng-init="item.quantity=1"></span>
+                                    <i class="fa fa-times-circle-o" ng-click="removefromcart(product.product_id)"></i>   -->
                                 </td>
+
 
                                 <td class="total">4.90 DT</td>
                             </tr><!-- END TR-->
@@ -89,12 +98,19 @@
                         <span>Total</span>
                         <span>17.60 DT</span>
                     </p>
+                </div><br><br>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <p class=""><a [routerLink]="['/']" class="btn btn-primary py-3 px-4">
+                            back to basket</a>
+                    </p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p class="text-center"><a [routerLink]="['/checkout']" class="btn btn-primary py-3 px-4">Proceed to
+                            Checkout</a>
+                    </p>
+
                 </div>
-                <p class="text-center"><a [routerLink]="['/checkout']" class="btn btn-primary py-3 px-4">Proceed to
-                        Checkout</a>
-                </p>
             </div>
         </div>
     </div>
+
 </section>
 <!-- End cart section-->

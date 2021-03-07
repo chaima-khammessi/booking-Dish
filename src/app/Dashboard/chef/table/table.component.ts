@@ -22,8 +22,8 @@ export class TableComponent implements OnInit {
   reserve: boolean = false;
 
   constructor(private dishService: DishService,
-    private router: Router,
-    private toastr: ToastrService,
+             private router: Router,
+             private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {

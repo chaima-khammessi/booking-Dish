@@ -14,9 +14,18 @@ export class MenuService {
   getAllMenu() {
     return this.httpClient.get<{ message: string, menu: any }>(`${this.menuUrl}/allMenu`)
   }
+  getAllUserMenus(userId: String) {
+    return this.httpClient.get<{ message: string, menu: any }>(`${this.menuUrl}/allUserMenus/${userId}`);
+  }
+  getAllVerifMenus() {
+    return this.httpClient.get<{ message: string, menu: any, verif: any }>(`${this.menuUrl}/allVerifMenus`);
+  }
+  getAllVerifMenusHome() {
+    return this.httpClient.get<{ message: string, menu: any, verif: any }>(`${this.menuUrl}/allVerifMenusHome`);
+  }
 
-  getByIdMenu(id: number) {
-    return this.httpClient.get<{ message: string, menu: any }>(`${this.menuUrl}/allMenu ${id}`)
+  getMenuById(id: string) {
+    return this.httpClient.get<{ message: string, menu: string }>(`${this.menuUrl}/allMenu/${id}`);
   }
 
   deleteMenu(id: number) {
@@ -25,30 +34,32 @@ export class MenuService {
   addMenu(menu: any, image: File) {
     let formData = new FormData();
     formData.append('name', menu.name);
+    formData.append('category', menu.category);
+    formData.append('ingredient', menu.ingredient);
     formData.append('price', menu.price);
     formData.append('img', image);
     formData.append('status', Status.NEW);
-    formData.append('verif',JSON.parse(localStorage.getItem('verif')));
+    formData.append('verif', JSON.parse(localStorage.getItem('verif')));
     formData.append('userId', JSON.parse(localStorage.getItem('userId')));
-  
+
     return this.httpClient.post<{ message: string }>(`${this.menuUrl}/addMenu`, formData);
 
   }
 
-  addMultipleMenu(menus: Array<HomeMenu>, formData: FormData) : Observable<any>{
+  addMultipleMenu(menus: Array<HomeMenu>, formData: FormData): Observable<any> {
     const verif = JSON.parse(localStorage.getItem('verif'));
     const userId = JSON.parse(localStorage.getItem('userId'));
-    const status =  Status.NEW;
-    let parsedMenus : any = [];
-    
-    
+    const status = Status.NEW;
+    let parsedMenus: any = [];
+
+
     for (let index = 0; index < menus.length; index++) {
       const element = menus[index];
-      let parsedMenu = {...element, status, userId, verif};
+      let parsedMenu = { ...element, status, userId, verif };
 
       parsedMenus[index] = parsedMenu;
     }
-    
+
     formData.set("menus", JSON.stringify(parsedMenus))
     return this.httpClient.post<{ message: string }>(`${this.menuUrl}/addMultipleMenu`, formData);
 
@@ -64,8 +75,8 @@ export class MenuService {
     if (image) {
       formData.append('img', image);
     }
-   
-  
+
+
 
     return this.httpClient.put(`${this.menuUrl}/editMenu/${id}`, formData, menu);
   }

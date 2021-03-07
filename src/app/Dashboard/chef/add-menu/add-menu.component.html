@@ -1,4 +1,4 @@
-<app-header-dashoard-chef></app-header-dashoard-chef>
+<!--<app-header-dashoard-chef></app-header-dashoard-chef>
 
 <h1 class="container">Starters</h1>
 
@@ -50,4 +50,44 @@
         <button class="btn btn-primary">Send</button>
 
     </div>
-</form>
+</form>-->
+<app-header-dashoard-chef></app-header-dashoard-chef>
+
+
+<h1 class="centerLign">ADD Menu Restau</h1>
+
+<div class="site-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <form #menuForm='ngForm' (ngSubmit)='validate()'>
+          <div class="form-group">
+            <input type="text" [(ngModel)]='menus.name' [ngModelOptions]="{standalone: true}" class="form-control"
+              placeholder="Name Menu">
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]='menus.category' [ngModelOptions]="{standalone: true}" class="form-control"
+              placeholder="Category">
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]='menus.price' [ngModelOptions]="{standalone: true}" class="form-control"
+              placeholder="price">
+          </div>
+          <div class="form-group">
+            <input type="text" [(ngModel)]='menus.ingredient' [ngModelOptions]="{standalone: true}" class="form-control"
+              placeholder="Ingredient">
+          </div>
+          <button type="button" (click)='filePicker.click()' class="btn btn-warning">Select Photo</button>
+          <input type="file" #filePicker style="visibility: hidden;" (change)='onImageSelected($event)'>
+          <img [src]="imagePreview" alt="" width="150px" height="150px">
+          <br><br>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary py-3 px-5">Add</button>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -69,7 +69,13 @@ import { AddGalleryRestauComponent } from './Dashboard/chef/add-gallery-restau/a
 import { TableDisplayGalleryComponent } from './Dashboard/chef/table-display-gallery/table-display-gallery.component';
 import { DisplayGalleryComponent } from './Dashboard/chef/display-gallery/display-gallery.component';
 import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-gallery.component';
-import { ValidatorAdminGalleryComponent } from './Dashboard/admin/validator-admin-gallery/validator-admin-gallery.component'
+import { ValidatorAdminGalleryComponent } from './Dashboard/admin/validator-admin-gallery/validator-admin-gallery.component';
+import { GalleryRestauComponent } from './components/gallery-restau/gallery-restau.component';
+import { AllMenuComponent } from './Dashboard/chef/all-menu/all-menu.component';
+import { DisplayMenuChefComponent } from './Dashboard/chef/display-menu-chef/display-menu-chef.component';
+import { UpdateMenuComponent } from './Dashboard/chef/update-menu/update-menu.component';
+import { ValidatorAdminMenuComponent } from './Dashboard/admin/validator-admin-menu/validator-admin-menu.component';
+import { MenuHomeComponent } from './components/menu-home/menu-home.component'
 
 
 @NgModule({
@@ -131,6 +137,12 @@ import { ValidatorAdminGalleryComponent } from './Dashboard/admin/validator-admi
     DisplayGalleryComponent,
     UpdateGalleryComponent,
     ValidatorAdminGalleryComponent,
+    GalleryRestauComponent,
+    AllMenuComponent,
+    DisplayMenuChefComponent,
+    UpdateMenuComponent,
+    ValidatorAdminMenuComponent,
+    MenuHomeComponent,
 
 
   ],

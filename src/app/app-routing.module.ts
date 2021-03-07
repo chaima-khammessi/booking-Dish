@@ -1,3 +1,8 @@
+import { MenuHomeComponent } from './components/menu-home/menu-home.component';
+import { ValidatorAdminMenuComponent } from './Dashboard/admin/validator-admin-menu/validator-admin-menu.component';
+import { UpdateMenuComponent } from './Dashboard/chef/update-menu/update-menu.component';
+import { DisplayMenuChefComponent } from './Dashboard/chef/display-menu-chef/display-menu-chef.component';
+import { AllMenuComponent } from './Dashboard/chef/all-menu/all-menu.component';
 import { ValidatorAdminGalleryComponent } from './Dashboard/admin/validator-admin-gallery/validator-admin-gallery.component';
 import { UpdateGalleryComponent } from './Dashboard/chef/update-gallery/update-gallery.component';
 import { DisplayGalleryComponent } from './Dashboard/chef/display-gallery/display-gallery.component';
@@ -46,6 +51,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule, Component } from '@angular/core'
 import { Routes, RouterModule, CanActivate } from '@angular/router';
 import { DishFavorisComponent } from './components/dish-favoris/dish-favoris.component';
+import { GalleryRestauComponent } from './components/gallery-restau/gallery-restau.component';
 
 
 
@@ -62,6 +68,10 @@ const routes: Routes = [
     component: OurDishesComponent
   },
   {
+    path:'menu-home',
+    component:MenuHomeComponent
+  },
+  {
     path: "menu", component: MenuComponent
   },
 
@@ -69,10 +79,24 @@ const routes: Routes = [
     path: "chefs", component: ChefsComponent
   },
   {
+    path:'all-menu',
+    component:AllMenuComponent,
+    canActivate:[AuthChefGuard]
+  },
+  {
+    path:'display-menu-chef/:id',
+    component:DisplayMenuChefComponent,
+    canActivate:[AuthChefGuard]
+  },
+  {
     path: 'dish-favoris', component: DishFavorisComponent
   },
   {
     path: "gallery", component: GalleryComponent
+  },
+  {
+    path:"gallery-restau",
+    component:GalleryRestauComponent
   },
   {
     path: "contact", component: ContactComponent
@@ -98,6 +122,11 @@ const routes: Routes = [
     path: 'update-dish/:id',
     component: UpdateDishComponent,
     canActivate: [AuthChefGuard]
+  },
+  {
+    path:'update-menu/:id',
+    component:UpdateMenuComponent,
+    canActivate:[AuthChefGuard]
   },
   {
     path: 'display-dish-chef/:id',
@@ -223,6 +252,11 @@ const routes: Routes = [
   {
     path:'validator-admin-gallery',
     component:ValidatorAdminGalleryComponent,
+    canActivate:[AuthAdminGuard]
+  },
+  {
+    path:'validator-admin-menu',
+    component:ValidatorAdminMenuComponent,
     canActivate:[AuthAdminGuard]
   },
   {

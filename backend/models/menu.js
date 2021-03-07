@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+
 const menuSchema = mongoose.Schema({
     name: String,
     price: String,

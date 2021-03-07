@@ -57,7 +57,7 @@ export class UserFormComponent implements OnInit {
 
     let isLoggedIn = this.usersService.isLoggedIn();
     if (isLoggedIn) {
-      this.router.navigate(['chef'])
+      this.router.navigate(['user'])
     }
 
 

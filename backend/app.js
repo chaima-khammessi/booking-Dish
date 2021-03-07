@@ -11,14 +11,16 @@ const Admin = require('./models/admin');
 const Dish = require('./models/dish');
 const Status = require('./models/status');
 const Menu = require('./models/menu');
-const galleryRestau=require('./models/galleryRestau')
+const galleryRestau = require('./models/galleryRestau');
+const menu = require('./models/menu');
+const Cart = require('./models/cart')
 
 
 //Set up default mongoose connection
 mongoose.connect('mongodb://localhost:27017/restaurant', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use('/images', express.static(path.join('backend/images')));
 const MIME_TYPE = {
     'image/png': 'png',
@@ -181,6 +183,21 @@ app.get('/allDishs', (req, res) => {
     })
 })
 
+/****************Finded Menu *********/
+app.get('/allMenu', (req, res) => {
+    Menu.find((err, findedMenu) => {
+        console.log('All menus', findedMenu);
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).json({
+            message: 'Here all menus',
+            menu: findedMenu,
+
+        })
+    })
+})
+
 /***************Verify dish *************************** */
 app.get('/getAllspecialDishs', (req, res) => {
 
@@ -194,7 +211,6 @@ app.get('/getAllspecialDishs', (req, res) => {
 
 
 /**************************Verify chef**************************************/
-
 
 app.get('/allUserChef', (req, res) => {
     User.find({ userType: "chef" }, (err, findedUser) => {
@@ -220,27 +236,49 @@ app.get('/allVerifDishs', (req, res) => {
         res.status(200).send(findedDish);
     })
 })
+/**************** Validate Menu for verify***********************/
+app.get('/allVerifMenus', (req, res) => {
+
+    Menu.find({ verif: "VALIDATED" }, (err, findedMenu) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedMenu);
+    })
+})
+
+/*****************Validate Menu for verif Limeted Home************/
+app.get('/allVerifMenusHome', (req, res) =>
+
+    Menu.find({ verif: "VALIDATED" }, (err, findedMenu) => {
+        if (err) {
+            console.log('error', err);
+        }
+        res.status(200).send(findedMenu)
+    }).sort({ "_id": -1 }).limit(3)
+
+)
 /**************** Validate Dish for verify***********************/
 app.get('/allVerifDishsHome', (req, res) => {
 
-    Dish.find({ verif: "VALIDATED"},(err, findedDish) => {
+    Dish.find({ verif: "VALIDATED" }, (err, findedDish) => {
         if (err) {
             console.log('error', err);
         }
         res.status(200).send(findedDish);
-    }).sort({"_id":-1 }).limit(3)
+    }).sort({ "_id": -1 }).limit(3)
 })
 
 
 /**************** Validate Gallery for verify***********************/
 app.get('/allVerifGallerysHome', (req, res) => {
 
-    galleryRestau.find({ verif: "VALIDATED"},(err, findedGallery) => {
+    galleryRestau.find({ verif: "VALIDATED" }, (err, findedGallery) => {
         if (err) {
             console.log('error', err);
         }
         res.status(200).send(findedGallery);
-    }).sort({"_id":-1 }).limit(8)
+    }).sort({ "_id": -1 }).limit(8)
 })
 
 /**************** Validate User for verify********allVerifGallerys***************/
@@ -273,7 +311,7 @@ app.get('/allVerifChefProfile', (req, res) => {
             console.log('error', err);
         }
         res.status(200).send(findedChef);
-    }).sort({"_id":-1 }).limit(3)
+    }).sort({ "_id": -1 }).limit(3)
 })
 
 
@@ -321,9 +359,9 @@ app.post('/addMenu', multer({ storage: storage }).single('img'), (req, res) => {
 
 //Add Multiple Menu
 
-app.post('/addMultipleMenu', multer({ storage: storage }).any(), (req, res) => {
+/*app.post('/addMultipleMenu', multer({ storage: storage }).any(), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
-    console.log(req)
+    //console.log(req)
     const menus = JSON.parse(req.body.menus);
     for (let index = 0; index < menus.length; index++) {
         const element = menus[index];
@@ -332,7 +370,7 @@ app.post('/addMultipleMenu', multer({ storage: storage }).any(), (req, res) => {
             category: element.category,
             ingredient: element.ingredient,
             price: element.price,
-            img: url + ('/images/' + element.imgName),
+            img: url + ('/images/gallery-Menu' + element.imgName),
             userId: element.userId,
             status: Status.NEW,
             verif: element.status
@@ -341,26 +379,61 @@ app.post('/addMultipleMenu', multer({ storage: storage }).any(), (req, res) => {
     }
     
     res.status(200).json({
-        message: "Gallery added successful"
+        message: "Menu added successful"
     })
-});
+});*/
 
+
+// Update Menu
+app.put('/editMenu/:id', multer({ storage: storage }).single('img'), (req, res) => {
+    const url = req.protocol + '://' + req.get('host');
+    if (!req.body) {
+
+        return res.status(200).send({
+
+            message: 'Data To Update can not empty!'
+
+        });
+
+    }
+
+    const id = req.params.id;
+    console.log('source image', req.body.img);
+    if (req.file && req.file.filename) {
+        req.body.img = url + ('/images/' + req.file.filename);
+    }
+
+    Menu.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        .then(data => {
+            if (!data) {
+                res.status(200).send({
+                    message: `Cannot Update Menu with id=${id}, May be menu wa not found!`
+                });
+            }
+            else res.send({
+                message: "Menu was Update succesfully"
+            })
+
+        })
+
+        ;
+})
 // ADD Photo for Gallery
 
-app.post('/addGallery',multer({ storage: storage }).single('img'),(req,res)=>{
+app.post('/addGallery', multer({ storage: storage }).single('img'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
-    const galleryRest= new galleryRestau({
-    name: req.body.name,
-    adress:req.body.adress,
-    img:url + ('/images/' + req.file.filename),
-    userId: req.body.userId,
-    status: Status.NEW,
-    verif: req.body.status
-});
-galleryRest.save();
-res.status(200).json({
-    message: "Gallery added successful"
-})
+    const galleryRest = new galleryRestau({
+        name: req.body.name,
+        adress: req.body.adress,
+        img: url + ('/images/' + req.file.filename),
+        userId: req.body.userId,
+        status: Status.NEW,
+        verif: req.body.status
+    });
+    galleryRest.save();
+    res.status(200).json({
+        message: "Gallery added successful"
+    })
 })
 
 // Update Dishs
@@ -425,9 +498,7 @@ app.put('/editGalleryRestau/:id', multer({ storage: storage }).single('img'), (r
                 message: "Gallery was Update succesfully"
             })
 
-        })
-
-        ;
+        });
 })
 
 // Delete Dish
@@ -439,6 +510,22 @@ app.delete('/deleteDish/:id', (req, res) => {
                 console.log('result', result);
                 res.status(200).json({
                     message: 'Dish deleted successfully'
+                });
+            }
+        }
+    );
+});
+
+// Deleted Menu
+
+app.delete('/deleteMenu/:id', (req, res) => {
+    console.log('delete menu by ID', req.params.id);
+    Menu.deleteOne({ _id: req.params.id }).then(
+        result => {
+            if (result) {
+                console.log('result', result);
+                res.status(200).json({
+                    message: 'Menu deleted successfully'
                 });
             }
         }
@@ -473,6 +560,20 @@ app.get('/allDishs/:id', (req, res) => {
         }
     )
 })
+//  Finded Menu By Id
+app.get('/allMenu/:id', (req, res) => {
+    console.log('this is my id', req.params.id);
+    Menu.findOne({ _id: req.params.id }).then(
+        menu => {
+            console.log('Finded Menu', menu);
+            res.status(200).json({
+                message: 'this is the dish',
+                menu: menu
+            })
+
+        }
+    )
+})
 
 //Fided Dish By Id
 app.get('/allGalleryRestau/:id', (req, res) => {
@@ -488,9 +589,6 @@ app.get('/allGalleryRestau/:id', (req, res) => {
     )
 })
 
-
-
-
 //  Finded all dishes by User Id
 app.get('/allUserDishs/:userId', (req, res) => {
     console.log('this is my userId', req.params.userId);
@@ -500,6 +598,19 @@ app.get('/allUserDishs/:userId', (req, res) => {
             res.status(200).json({
                 message: 'this is the dish',
                 dish: dish
+            })
+        }
+    )
+})
+//  Finded all menus by User Id
+app.get('/allUserMenus/:userId', (req, res) => {
+    console.log('this is my userId', req.params.userId);
+    Menu.find({ userId: req.params.userId }).then(
+        menu => {
+            console.log('Finded Menu', menu);
+            res.status(200).json({
+                message: 'this is the menu',
+                menu: menu
             })
         }
     )
@@ -527,7 +638,7 @@ app.get('/allUserGallery/:userId', (req, res) => {
             console.log('Finded gallery', gallery);
             res.status(200).json({
                 message: 'this is the gallery',
-                gallery:gallery
+                gallery: gallery
             })
         }
     )
@@ -556,6 +667,30 @@ app.put('/editDish/:id', (req, res) => {
         }
     );
 })
+// Update Menu
+app.put('/editMenu/:id', (req, res) => {
+    console.log('Update Menu By ID', req.params.id);
+    Menu.findByIdAndUpdate(
+        // the id of the item to find
+        req.params.id,
+
+        // the change to be made. Mongoose will smartly combine your existing 
+        // document with this change, which allows for partial updates too
+        req.body,
+
+        // an option that asks mongoose to return the updated version 
+        // of the document instead of the pre-updated one.
+        { new: true },
+
+        // the callback function
+        (err, dish) => {
+            // Handle any possible database errors
+            if (err) return res.status(500).send(err);
+            return res.send(menu);
+        }
+    );
+})
+
 
 
 
@@ -676,14 +811,56 @@ app.put('/editUserId/:id', multer({ storage: storage }).single('img'), (req, res
                 message: "User was Update succesfully"
             })
 
-        })
-
-        ;
+        });
 })
 
+/************ Add  to Cart***************/
+app.post('/addDishToCart',(req, res) => {
+    //verifier le cart existe deja
+    //si elle existe verifier si le dish existe dans cart.items
+    //si dish existe quantity=quantity+1
+    // else dish n'existe pas alors ajouter dish dans items
+    //else cart n'existe pas crée le carte et ajouter dish dans items
+    const existeCarte = Cart.objects.filter(cart.items)
+    const existe = existeCarte.exists() 
+    if (existe) {
+        dish = Dish.objects.get(pk = req.data['dish'])
+        quantity = int(request.data['cart'])
+        while (Cart.dishId.filter(cart.items).exists()) {
+            cart.items.quantity += 1
+        }
+    }
+    else if (Cart.objects.filter(cart.items == null)) {
+        cart,
+        {
+            $push: {
+                items: {
+                    dishId: mongodb.ObjectID(req.body.dishId)
+                }
+            }
+        }
+
+    }
+    else if (Cart.objects.filter(cart == null)) {
+        const cart = new CartItem({
+            //items: req.body.,
+            dishId: mongodb.ObjectID(req.body.dishId),
+            userId: req.body.userId,
+            status: Status.NEW,
+            verif: req.body.status,
+            quantity: req.body.quantity
+
+        });
+
+        cart.save();
+        res.status(200).json({
+            message: "cart added successfuly"
+        })
+    }
 
 
 
+})
 
 app.delete('/deleteDish/:id', (req, res) => {
     console.log('delete dish by ID', req.params.id);

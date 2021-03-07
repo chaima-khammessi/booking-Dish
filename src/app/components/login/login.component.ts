@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
       pswLogin: ['', Validators.required]
 
     })
+    let isLoggedIn = this.usersService.isLoggedIn();
+    if (isLoggedIn) {
+      this.router.navigate(['user'])
+    }
   }
 
   login(loginUser) {

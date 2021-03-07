@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { DishService } from './../../services/dish.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card-dish.component.css']
 })
 export class CardDishComponent implements OnInit {
-
+  currentProduct;
   dishs:any=[];
+  cartDishs:any=[];
 
-  constructor( private dishServive:DishService) { }
+  constructor( private dishServive:DishService,
+               private cartService:CartService
+    
+    ) { }
 
   ngOnInit(): void {
     this.getAllVerifDishsHome()
@@ -29,6 +34,11 @@ export class CardDishComponent implements OnInit {
         }
       )
   
+    }
+
+    addToCart(data:any, quantity: number){
+     // this.cartService.addDish(data,)
+
     }
 
 }

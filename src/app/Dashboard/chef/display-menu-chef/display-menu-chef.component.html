@@ -1,0 +1,32 @@
+<app-header-dashoard-chef></app-header-dashoard-chef>
+<div class=" container move-tab ">
+    <h1> Table Menu</h1>
+   
+      <div class="table-responsive">
+    <table   class="table">
+        <thead>
+            <tr>
+                <th>Name Menu</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Ingredient</th>
+                <th>Photo</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="menu">
+                
+                <td>{{menu.name}}</td>
+                <td>{{menu.category}}</td>
+                <td>{{menu.price}}</td>
+                <td><img [src]="menu.img" height="50px" width="50px" alt=""></td>
+                <td>{{menu.ingredient}}</td>                
+            </tr>
+        </tbody>
+    
+    </table>
+    </div>
+</div>
+
+   
+     

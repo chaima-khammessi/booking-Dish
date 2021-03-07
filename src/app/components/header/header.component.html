@@ -36,16 +36,17 @@
       <ul>
         <li class="active"><a routerLink="/">Home</a></li>
         <li><a [routerLink]="['/our-dishes']">Our Dishes</a></li>
-        <li><a [routerLink]="['/menu']">Menu</a></li>
+        <li><a [routerLink]="['/menu-home']">Menu</a></li>
         <li><a [routerLink]="['/chefs']">Chefs</a></li>
-        <li><a [routerLink]="['/gallery']">Gallery Restau</a></li>
+        <li><a [routerLink]="['/gallery-restau']">Gallery Restau</a></li>
         <li><a [routerLink]="['/contact']">Contact</a></li>
         <li><a [routerLink]="['/bmi']">Calcul BMI</a></li>
-        <li><a [routerLink]="['/dish-favoris']" class=" nav-link disabled" aria-disabled="true">Favorites<img
+        <li><a [routerLink]="['/favorite-dishes']"  class=" nav-link" *ngIf="isLoggedIn"  >Favorites<img
               src="../../../assets/img/icons/icons8-heart-outline-50.png" width="30px" height="25px"
               title="Create count for display your Favorit Dish" alt="Dish Favoris" /></a></li>
         <li class="nav-item cart"><a [routerLink]="['/cart']" class="nav-link"><img
               src="https://img.icons8.com/fluent/24/000000/buy.png" /></a></li>
+        <li style="color:aliceblue">{{ count }}</li>
 
         <!-- <li class="book-a-table text-center"><a href="#book-a-table">Book a table</a></li> -->
       </ul>

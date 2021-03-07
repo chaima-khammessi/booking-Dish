@@ -2,7 +2,7 @@ export class HomeMenu {
     id: any;
     name: String;
     img: File;
-    imgName: string;
+    imgName: String;
     category: String;
     price: String;
 }
