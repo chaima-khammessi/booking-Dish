@@ -10,28 +10,27 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./detail-profil-chef.component.css']
 })
 export class DetailProfilChefComponent implements OnInit {
-   @Output() newUser : EventEmitter<any> = new EventEmitter();
+  @Output() newUser: EventEmitter<any> = new EventEmitter();
   filter: any;
   firstName: any;
   p: number = 1;
   closeResult: string;
-  users:any=[];
-  validator:boolean=false;
-  id:number;
+  users: any = [];
+  validator: boolean = false;
+  id: number;
 
   constructor(private toastr: ToastrService,
-              private modalService: NgbModal,
-              private userService: UsersService
+    private modalService: NgbModal,
+    private userService: UsersService
   ) { }
 
   ngOnInit(): void {
     this.userService.getAllUserChef().subscribe(
-      (data)=>{
-        this.users=data['users'];
-        console.log('All chef', this.users); 
+      (data) => {
+        this.users = data['users'];
+        console.log('All chef', this.users);
       },
-      error=>
-      {
+      error => {
         console.log(error);
       }
     )
@@ -53,28 +52,28 @@ export class DetailProfilChefComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  deleteChef(user){
-    let index=this.users.indexOf(user);
-    this.users.splice(index,1);
+  deleteChef(user) {
+    let index = this.users.indexOf(user);
+    this.users.splice(index, 1);
     this.userService.deleteUser(user._id).subscribe(
-      ()=>{
+      () => {
         this.userService.getAllUserChef().subscribe(
-          data=>{
+          data => {
             this.newUser.emit(data.users);
             this.toastr.error('User deleted successfully');
 
-            
+
           }
         )
       },
-      (err)=>{
+      (err) => {
         console.log(err);
-        
+
 
       }
-      )
+    )
 
-    
+
   }
 
   /************ Add popup ******************/
@@ -103,15 +102,13 @@ export class DetailProfilChefComponent implements OnInit {
 
   }
 
-
+  //  Methode Validator Profile Chef
   validatorUser(user) {
-
-
     user.status = Status.VALIDATED;
     user.verif = Status.VALIDATED;
     this.userService.editUserById(user._id, user).subscribe(
       data => {
-        this.users = data.user 
+        this.users = data.user
         // send notification to the chef
         console.log("User validation", "validated");
       },

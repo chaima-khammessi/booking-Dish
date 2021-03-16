@@ -8,12 +8,11 @@ const dishSchema = mongoose.Schema({
     calorie: String,
     img: String,
     description: String,
-    category:String,
+    category: String,
     userId: String,
     status: String,
-    verif:String
+    verif: String
 });
-
 dishSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;

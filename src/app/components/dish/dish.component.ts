@@ -8,12 +8,12 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./dish.component.css']
 })
 export class DishComponent implements OnInit {
-  id:string;
-  dish:any;
+  id: string;
+  dish: any;
 
   constructor(private router: Router,
-              private dishService: DishService,
-              private activatedRoute: ActivatedRoute,
+    private dishService: DishService,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {

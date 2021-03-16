@@ -7,27 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chefs.component.css']
 })
 export class ChefsComponent implements OnInit {
-  users:any = [];
- 
+  users: any = [];
 
-  constructor(private userService:UsersService) { }
+
+  constructor(private userService: UsersService) { }
 
   ngOnInit(): void {
     this.getAllVerifChef();
   }
 
-
-  private  getAllVerifChef(){
+   // Methode verified profile chef
+  private getAllVerifChef() {
     this.userService.getAllVerifChefProfile().subscribe(
-     (data)=>{
-       this.users=data;
-       console.log('Profile chef validated', this.users);
-       
-     },
-     err=>{
-       console.dir(err);
-       
-     }
+      (data) => {
+        this.users = data;
+        console.log('Profile chef validated', this.users);
+
+      },
+      err => {
+        console.dir(err);
+
+      }
 
     )
   }

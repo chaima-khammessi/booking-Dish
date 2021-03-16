@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private toastr: ToastrService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     // Validator Input Login
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     // searsh if userType== true 
     this.usersService.login(loginUser).subscribe(
       data => {
-   
+
         if (data.userType === 'consumer') {
           this.storeDataInLocalStorage(data);
           this.router.navigate(['user']);
@@ -62,15 +62,13 @@ export class LoginComponent implements OnInit {
           console.log(data);
 
         } else {
-
-         // document.getElementById('error').innerHTML = '<div class="alert alert-danger" role="alert">' + 'Email / Password incorrect' + '</div>'
-         this.toastr.error(data.message);
+          this.toastr.error(data.message);
         }
       }
     );
   }
 
-  private storeDataInLocalStorage(data){
+  private storeDataInLocalStorage(data) {
     localStorage.setItem('token', JSON.stringify(data.token))
     localStorage.setItem('userId', JSON.stringify(data.userId))
   }

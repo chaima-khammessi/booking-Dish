@@ -1,27 +1,27 @@
 <!-- ======= Gallery Section ======= -->
 <section id="gallery" class="gallery">
-    <div class="container-fluid">
-  
-      <div class="section-title">
-        <h2>Some photos from <span>Our Restaurant</span></h2>
-        <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae
-          autem.</p>
-      </div>
-  
-      <div class="row no-gutters" >
-  
-        <div class="col-lg-3 col-md-4" *ngFor="let gallery of gallerys">
-          <div class="gallery-item">
-            <a href="{{gallery.img}}" class="venobox" data-gall="gallery-item">
-             
-              <img [src]="gallery.img" alt="" class="img-fluid">
-            </a>
-            <span>{{gallery.name}}</span>
-            <span>{{gallery.adress}}</span>
-          </div>
-        </div>
-       
-       
-      </div>
+  <div class="container-fluid">
+
+    <div class="section-title">
+      <h2>Some photos from <span>Our Restaurant</span></h2>
+      <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae
+        autem.</p>
     </div>
-  </section><!-- End Gallery Section -->
+
+    <div class="row no-gutters">
+
+      <div class="col-lg-3 col-md-4" *ngFor="let gallery of gallerys">
+        <div class="gallery-item">
+          <a href="{{gallery.img}}" class="venobox" data-gall="gallery-item">
+
+            <img [src]="gallery.img" alt="" class="img-fluid">
+          </a>
+          <span>{{gallery.name}}</span>
+          <span>{{gallery.adress}}</span>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section><!-- End Gallery Section -->

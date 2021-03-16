@@ -21,7 +21,7 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private router:Router,
+    private router: Router,
     private toastr: ToastrService
 
   ) { }
@@ -47,12 +47,8 @@ export class UserFormComponent implements OnInit {
       userType: new FormControl(this.userType)
 
     },
-    
-    //{ validator: MustMatch('pwd', 'confPwd') }
-    
-    
     );
-    
+
     this.userFormConstruction();
 
     let isLoggedIn = this.usersService.isLoggedIn();
@@ -123,9 +119,9 @@ export class UserFormComponent implements OnInit {
     this.usersService.addUser(this.usersForm.value).subscribe(
       (data) => {
         this.router.navigate(['login']);
-          this.toastr.success('User Registred Succesufully');
-       
-       
+        this.toastr.success('User Registred Succesufully');
+
+
       })
   }
 

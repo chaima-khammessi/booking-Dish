@@ -9,21 +9,19 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GalleryChefComponent implements OnInit {
   dishs: any = [];
-  constructor( private dishService:DishService,
-              private activatedRoute:ActivatedRoute
-    
-    ) { }
+  constructor(private dishService: DishService,
+    private activatedRoute: ActivatedRoute
+
+  ) { }
 
   ngOnInit(): void {
- this.dishService.getAllDishs().subscribe(
-   data=>{
-     this.dishs=data['dish'];
-     console.log(this.dishs);
-     
-   }
- )
+    this.dishService.getAllDishs().subscribe(
+      data => {
+        this.dishs = data['dish'];
+        console.log(this.dishs);
 
-
+      }
+    )
   }
 
 }

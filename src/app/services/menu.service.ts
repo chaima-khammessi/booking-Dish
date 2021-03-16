@@ -51,8 +51,6 @@ export class MenuService {
     const userId = JSON.parse(localStorage.getItem('userId'));
     const status = Status.NEW;
     let parsedMenus: any = [];
-
-
     for (let index = 0; index < menus.length; index++) {
       const element = menus[index];
       let parsedMenu = { ...element, status, userId, verif };

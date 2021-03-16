@@ -1,5 +1,3 @@
-
-
 <app-header-dashoard-chef></app-header-dashoard-chef>
 <!------ Include the above in your HEAD tag ---------->
 
@@ -9,18 +7,12 @@
     <div class="row">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-xs-6 thumb" *ngFor="let dish of dishs">
-                <a class="thumbnail" href="#"  data-toggle="modal" data-title="Im so nice"
-                    data-target="" data-target="#image-gallery">
-
-
-                    <img class="img-thumbnail" [src]="dish.img"  alt="Another alt text">
+                <a class="thumbnail" href="#" data-toggle="modal" data-title="Im so nice" data-target=""
+                    data-target="#image-gallery">
+                    <img class="img-thumbnail" [src]="dish.img" alt="Another alt text">
                 </a>
             </div>
-
-
         </div>
-
-
         <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">

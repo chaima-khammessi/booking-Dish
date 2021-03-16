@@ -5,15 +5,11 @@ const { stringify } = require('querystring');
 
 //Define a schema
 const adminSchema = mongoose.Schema({
-   fullName:String,
-   emailAdmin:String,
-   userAdmin:String,
-   pwdAdmin:String,
-   confPwdAdmin:String
-  
-
-
-
+    fullName: String,
+    emailAdmin: String,
+    userAdmin: String,
+    pwdAdmin: String,
+    confPwdAdmin: String
 });
 adminSchema.pre('save', function (next) {
     if (this.pwdAdmin) {

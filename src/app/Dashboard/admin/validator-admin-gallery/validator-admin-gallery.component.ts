@@ -76,6 +76,7 @@ export class ValidatorAdminGalleryComponent implements OnInit {
     }
   }
 
+  // Delete Photo Gallery 
   deletGallery(gallery) {
 
     let index = this.gallerys.indexOf(gallery);
@@ -88,9 +89,6 @@ export class ValidatorAdminGalleryComponent implements OnInit {
           res => {
             this.newDish.emit(res.gallery);
             this.toastr.error('Gallery deleted successfully');
-
-
-
           }
         )
       },
@@ -102,11 +100,9 @@ export class ValidatorAdminGalleryComponent implements OnInit {
 
 
   validatorGallery(gallery) {
-
-
     gallery.status = Status.VALIDATED;
     gallery.verif = Status.VALIDATED;
-    this.galleryRestau. editGalleryById(gallery.id, gallery).subscribe(
+    this.galleryRestau.editGalleryById(gallery.id, gallery).subscribe(
       data => {
         this.gallerys = data.gallery
         // send notification to the chef
@@ -119,8 +115,6 @@ export class ValidatorAdminGalleryComponent implements OnInit {
     return this.validator == true
 
   }
- 
-
 
   logout() {
     this.adminService.logoutAdmin();

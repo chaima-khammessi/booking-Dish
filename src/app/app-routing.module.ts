@@ -68,8 +68,8 @@ const routes: Routes = [
     component: OurDishesComponent
   },
   {
-    path:'menu-home',
-    component:MenuHomeComponent
+    path: 'menu-home',
+    component: MenuHomeComponent
   },
   {
     path: "menu", component: MenuComponent
@@ -79,14 +79,14 @@ const routes: Routes = [
     path: "chefs", component: ChefsComponent
   },
   {
-    path:'all-menu',
-    component:AllMenuComponent,
-    canActivate:[AuthChefGuard]
+    path: 'all-menu',
+    component: AllMenuComponent,
+    canActivate: [AuthChefGuard]
   },
   {
-    path:'display-menu-chef/:id',
-    component:DisplayMenuChefComponent,
-    canActivate:[AuthChefGuard]
+    path: 'display-menu-chef/:id',
+    component: DisplayMenuChefComponent,
+    canActivate: [AuthChefGuard]
   },
   {
     path: 'dish-favoris', component: DishFavorisComponent
@@ -95,8 +95,8 @@ const routes: Routes = [
     path: "gallery", component: GalleryComponent
   },
   {
-    path:"gallery-restau",
-    component:GalleryRestauComponent
+    path: "gallery-restau",
+    component: GalleryRestauComponent
   },
   {
     path: "contact", component: ContactComponent
@@ -124,9 +124,9 @@ const routes: Routes = [
     canActivate: [AuthChefGuard]
   },
   {
-    path:'update-menu/:id',
-    component:UpdateMenuComponent,
-    canActivate:[AuthChefGuard]
+    path: 'update-menu/:id',
+    component: UpdateMenuComponent,
+    canActivate: [AuthChefGuard]
   },
   {
     path: 'display-dish-chef/:id',
@@ -236,9 +236,9 @@ const routes: Routes = [
     canActivate: [AuthChefGuard]
   },
   {
-    path:'update-gallery/:id',
-    component:UpdateGalleryComponent,
-    canActivate:[AuthChefGuard]
+    path: 'update-gallery/:id',
+    component: UpdateGalleryComponent,
+    canActivate: [AuthChefGuard]
   },
   {
     path: "profile", component: ProfileComponent,
@@ -250,14 +250,14 @@ const routes: Routes = [
     canActivate: [AuthAdminGuard]
   },
   {
-    path:'validator-admin-gallery',
-    component:ValidatorAdminGalleryComponent,
-    canActivate:[AuthAdminGuard]
+    path: 'validator-admin-gallery',
+    component: ValidatorAdminGalleryComponent,
+    canActivate: [AuthAdminGuard]
   },
   {
-    path:'validator-admin-menu',
-    component:ValidatorAdminMenuComponent,
-    canActivate:[AuthAdminGuard]
+    path: 'validator-admin-menu',
+    component: ValidatorAdminMenuComponent,
+    canActivate: [AuthAdminGuard]
   },
   {
     path: 'detail-profil-chef',

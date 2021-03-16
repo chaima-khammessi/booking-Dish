@@ -49,7 +49,7 @@ export class AllMenuComponent implements OnInit {
   goToMenu(menu) {
     this.router.navigate([`display-menu-chef/${menu.id}`]);
   }
-
+ // Delet Menu
   deleteMenu(menu) {
     let index = this.menus.indexOf(menu);
     this.menus.splice(index, 1);

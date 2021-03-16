@@ -10,20 +10,20 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableDisplayGalleryComponent implements OnInit {
 
-   gallerys: any = [];
-   id: number;
-   firstName: any;
-   p: number = 1;
-   filter: any;
-   key: string = 'id';
-   reserve: boolean = false;
-  constructor( private galleryRestauService:GalleryRestauService,
-               private router:Router,
-               private toaster:ToastrService
-    ) { }
+  gallerys: any = [];
+  id: number;
+  firstName: any;
+  p: number = 1;
+  filter: any;
+  key: string = 'id';
+  reserve: boolean = false;
+  constructor(private galleryRestauService: GalleryRestauService,
+    private router: Router,
+    private toaster: ToastrService
+  ) { }
 
   ngOnInit(): void {
-    this. getAllUserDishes()
+    this.getAllUserDishes()
   }
 
   private getAllUserDishes() {
@@ -31,8 +31,8 @@ export class TableDisplayGalleryComponent implements OnInit {
     this.galleryRestauService.getAllUserGallery(userId).subscribe(
       data => {
         this.gallerys = data['gallery'];
-        console.log('information gallery',this.gallerys);
-        
+        console.log('information gallery', this.gallerys);
+
       },
       error => {
         console.log(error);

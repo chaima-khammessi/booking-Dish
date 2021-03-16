@@ -15,12 +15,12 @@ export class UpdateMenuComponent implements OnInit {
   menuForm: FormGroup;
   imagePreview: string;
   menus: any = {};
-  constructor( private activatedRoute:ActivatedRoute,
-               private formBuilder:FormBuilder,
-               private menuService:MenuService,
-               private toastr:ToastrService,
-               private router:Router
-    ) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private menuService: MenuService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     let idDish = this.activatedRoute.snapshot.params.id;
@@ -29,12 +29,12 @@ export class UpdateMenuComponent implements OnInit {
       price: [''],
       ingredient: [''],
       img: [''],
-      category:['']
+      category: ['']
     });
     this.menuService.getMenuById(idDish).subscribe(
-      res=> {
+      res => {
         this.menus = res['menu'];
-        let menu = res;   
+        let menu = res;
       }
     )
   }
@@ -50,29 +50,17 @@ export class UpdateMenuComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  updateMenu(): void {
+    this.menuService.editMenu(this.menus.id, this.menus, this.menuForm.value.img).subscribe(
+      reponse => {
 
-
-   
-  updateMenu():void {
-   
-    this.menuService.editMenu(this.menus.id,this.menus, this.menuForm.value.img).subscribe(
-      reponse=>{
-       
         this.toastr.warning(reponse.message);
         this.router.navigate(['all-menu'])
-       
-        
       },
-      err=>{
+      err => {
         console.log(err);
       }
-      
-      
     )
-   
-  
-
-
   }
 
 }

@@ -7,24 +7,24 @@ import { GalleryRestauService } from 'src/app/services/gallery-restau.service';
   styleUrls: ['./gallery-restau.component.css']
 })
 export class GalleryRestauComponent implements OnInit {
-  gallerys:any = [];
-  constructor(private galleryRest:GalleryRestauService) { }
+  gallerys: any = [];
+  constructor(private galleryRest: GalleryRestauService) { }
 
   ngOnInit(): void {
-    this. getAllVerifGallery();
+    this.getAllVerifGallery();
   }
 
-  private  getAllVerifGallery(){
+  private getAllVerifGallery() {
     this.galleryRest.getAllVerifGallerys().subscribe(
-     (data)=>{
-       this.gallerys=data;
-       console.log('gallery Restaurant validated', this.gallerys);
-       
-     },
-     err=>{
-       console.dir(err);
-       
-     }
+      (data) => {
+        this.gallerys = data;
+        console.log('gallery Restaurant validated', this.gallerys);
+
+      },
+      err => {
+        console.dir(err);
+
+      }
 
     )
   }

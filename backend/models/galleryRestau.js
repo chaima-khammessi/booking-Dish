@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 
 const gallerySchema = mongoose.Schema({
     name: String,
-   adress:String,
+    adress: String,
     img: String,
     userId: String,
     status: String,
-    verif:String
+    verif: String
 });
 
 gallerySchema.method('toJSON', function () {

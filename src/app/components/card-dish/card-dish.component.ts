@@ -9,13 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardDishComponent implements OnInit {
   currentProduct;
-  dishs:any=[];
-  cartDishs:any=[];
+  dishs: any = [];
+  cartDishs: any = [];
 
-  constructor( private dishServive:DishService,
-               private cartService:CartService
-    
-    ) { }
+  constructor(private dishServive: DishService,
+    private cartService: CartService
+
+  ) { }
 
   ngOnInit(): void {
     this.getAllVerifDishsHome()
@@ -23,22 +23,22 @@ export class CardDishComponent implements OnInit {
 
   private getAllVerifDishsHome() {
     this.dishServive.getAllVerifDishsHome().subscribe(
-        (data) => {
-            this.dishs = data;
-  
-  
-            console.log('all dish Validated',this.dishs);
-            
-        },err=>{
-          console.dir(err)
-        }
-      )
-  
-    }
+      (data) => {
+        this.dishs = data;
 
-    addToCart(data:any, quantity: number){
-     // this.cartService.addDish(data,)
 
-    }
+        console.log('all dish Validated', this.dishs);
+
+      }, err => {
+        console.dir(err)
+      }
+    )
+
+  }
+
+  addToCart(data: any, quantity: number) {
+    // this.cartService.addDish(data,)
+
+  }
 
 }

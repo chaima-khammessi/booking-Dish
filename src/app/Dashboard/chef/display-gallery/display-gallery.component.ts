@@ -9,28 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./display-gallery.component.css']
 })
 export class DisplayGalleryComponent implements OnInit {
-  id:any;
-  gallery:any = [];
-  constructor(private galleryRestau:GalleryRestauService,
-              private activateRoute:ActivatedRoute
-    
-    ) { }
+  id: any;
+  gallery: any = [];
+  constructor(private galleryRestau: GalleryRestauService,
+    private activateRoute: ActivatedRoute
+
+  ) { }
 
   ngOnInit(): void {
-    this.id=this.activateRoute.snapshot.paramMap.get('id');
+    this.id = this.activateRoute.snapshot.paramMap.get('id');
     this.galleryRestau.getByIdGallery(this.id).subscribe(
-      data=>{
-        console.log('this is all data for that Gallery',data);
-        this.gallery=data.gallery
-        console.log('********************',this.gallery);
-        
-        
-      
-    },
-    err=>{
-      console.log(err);
-      
-    }
+      data => {
+        console.log('this is all data for that Gallery', data);
+        this.gallery = data.gallery
+        console.log('********************', this.gallery);
+
+
+
+      },
+      err => {
+        console.log(err);
+
+      }
     )
 
   }

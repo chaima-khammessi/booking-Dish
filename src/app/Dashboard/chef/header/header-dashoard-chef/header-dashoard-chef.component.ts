@@ -8,10 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./header-dashoard-chef.component.css']
 })
 export class HeaderDashoardChefComponent implements OnInit {
- 
+
   user: any = {};
   id: number;
-  
+
   constructor(private router: Router,
     private userService: UsersService
   ) { }
@@ -24,8 +24,6 @@ export class HeaderDashoardChefComponent implements OnInit {
         console.log('this is all Data for User', data);
         this.user = data.users
         console.log('this is Use  by id', this.user);
-
-
       },
       err => {
         console.log(err);
@@ -33,12 +31,6 @@ export class HeaderDashoardChefComponent implements OnInit {
       }
     )
   }
-
- 
-
- /* displayChef(user) {
-    this.router.navigate([`profile/${user._id}`]);
-  }*/
 
   logout() {
     localStorage.removeItem('token')

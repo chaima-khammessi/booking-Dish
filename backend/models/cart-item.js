@@ -4,10 +4,9 @@ const bcrypt = require('bcrypt');
 
 
 const cartItemSchema = mongoose.Schema({
-   
+
     dishId: String,
-    quantity:Number
-   
+    quantity: Number
 });
 
 cartItemSchema.method('toJSON', function () {

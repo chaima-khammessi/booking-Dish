@@ -8,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./display-menu-chef.component.css']
 })
 export class DisplayMenuChefComponent implements OnInit {
-  id:any;
-  menu:any = [];
-  constructor( private activetedRoute:ActivatedRoute,
-                private menuSevice:MenuService   
-    ) { }
+  id: any;
+  menu: any = [];
+  constructor(private activetedRoute: ActivatedRoute,
+    private menuSevice: MenuService
+  ) { }
 
   ngOnInit(): void {
     this.id = this.activetedRoute.snapshot.paramMap.get('id');
@@ -23,6 +23,6 @@ export class DisplayMenuChefComponent implements OnInit {
       }
     )
   }
-  }
+}
 
 

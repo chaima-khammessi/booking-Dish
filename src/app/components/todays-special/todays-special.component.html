@@ -6,32 +6,32 @@
   </div>
   <div class="container-fluid">
 
-    <div class="row" *ngFor="let dish of dishs" >
+    <div class="row" *ngFor="let dish of dishs">
 
-      <img [src]="dish.img" alt=""  class="col-lg-4 align-items-stretch video-box">
-      
+      <img [src]="dish.img" alt="" class="col-lg-4 align-items-stretch video-box">
+
 
       <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
 
         <div class="content">
           <h2> <strong> {{dish.name}}</strong></h2>
           <h3> {{dish.price}}</h3>
-         
+
           <h2>Ingredient</h2>
           <p class="font-italic"> {{dish.ingredient}}</p>
           <ul>
             <h2>Description</h2>
             <li><i class="bx bx-check-double"></i>{{dish.description}}</li>
-           
+
           </ul>
           <h2>Calorie</h2>
           <p class="font-italic">
             {{dish.calorie}}</p>
 
-            <div>
-              <button type="button" class="buttonColor" (click)='goToDish(dish)'>Reserve</button>
-            </div>
-          
+          <div>
+            <button type="button" class="buttonColor" (click)='goToDish(dish)'>Reserve</button>
+          </div>
+
         </div>
 
       </div>

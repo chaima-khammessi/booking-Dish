@@ -1,7 +1,7 @@
 import { MatChipsModule } from '@angular/material/chips';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -61,7 +61,7 @@ import { HistoryDishsCompanyComponent } from './Dashboard/company/history-dishs-
 import { DishFavorisComponent } from './components/dish-favoris/dish-favoris.component';
 import { ProfileComponent } from './Dashboard/chef/profile/profile.component';
 import { DetailProfilChefComponent } from './Dashboard/admin/detail-profil-chef/detail-profil-chef.component';
-import {MatIconModule,} from '@angular/material/icon';
+import { MatIconModule, } from '@angular/material/icon';
 import { OurDishesComponent } from './components/our-dishes/our-dishes.component';
 import { AddMenuComponent } from './Dashboard/chef/add-menu/add-menu.component';
 import { TableMenuComponent } from './Dashboard/chef/table-menu/table-menu.component';
@@ -75,7 +75,8 @@ import { AllMenuComponent } from './Dashboard/chef/all-menu/all-menu.component';
 import { DisplayMenuChefComponent } from './Dashboard/chef/display-menu-chef/display-menu-chef.component';
 import { UpdateMenuComponent } from './Dashboard/chef/update-menu/update-menu.component';
 import { ValidatorAdminMenuComponent } from './Dashboard/admin/validator-admin-menu/validator-admin-menu.component';
-import { MenuHomeComponent } from './components/menu-home/menu-home.component'
+import { MenuHomeComponent } from './components/menu-home/menu-home.component';
+
 
 
 @NgModule({
@@ -145,6 +146,8 @@ import { MenuHomeComponent } from './components/menu-home/menu-home.component'
     MenuHomeComponent,
 
 
+
+
   ],
   imports: [
     BrowserModule,
@@ -165,7 +168,7 @@ import { MenuHomeComponent } from './components/menu-home/menu-home.component'
     ReactiveFormsModule,
     MatChipsModule,
     MatIconModule,
-      
+
 
 
   ],

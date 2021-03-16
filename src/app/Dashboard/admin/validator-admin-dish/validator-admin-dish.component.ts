@@ -36,9 +36,6 @@ export class ValidatorAdminDishComponent implements OnInit {
     this.dishService.getAllDishs().subscribe(
       (data) => {
         this.dishs = data['dish'];
-
-
-
       })
   }
   key: string = 'id';
@@ -46,11 +43,7 @@ export class ValidatorAdminDishComponent implements OnInit {
   sort(key) {
     this.key = key;
     this.reserve = !this.reserve;
-
-
-  }
-
-
+}
   /************ Add popup ******************/
   open(content, dish) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -73,8 +66,6 @@ export class ValidatorAdminDishComponent implements OnInit {
 
     )
     return this.validator == true
-
-
   }
 
   private getDismissReason(reason: any): string {
@@ -87,6 +78,7 @@ export class ValidatorAdminDishComponent implements OnInit {
     }
   }
 
+  // Delete Dish 
   deletDish(dish) {
 
     let index = this.dishs.indexOf(dish);
@@ -99,22 +91,15 @@ export class ValidatorAdminDishComponent implements OnInit {
           res => {
             this.newDish.emit(res.dish);
             this.toastr.error('Dish deleted successfully');
-
-
-
-          }
-        )
+          })
       },
       (err) => {
         console.dir(err);
       }
     )
   }
-
-
+  // Validator Dish
   validatorDish(dish) {
-
-
     dish.status = Status.VALIDATED;
     dish.verif = Status.VALIDATED;
     this.dishService.editDishById(dish.id, dish).subscribe(
@@ -125,11 +110,11 @@ export class ValidatorAdminDishComponent implements OnInit {
       },
       (error) => {
         this.toastr.error('Error when validating the Dish');
-      }
-    )
+      })
     return this.validator == true
-
   }
+
+  // Validator Dish Special
   specialDish(dish) {
     dish.status = Status.SPECIAL;
     dish.verif = Status.SPECIAL;

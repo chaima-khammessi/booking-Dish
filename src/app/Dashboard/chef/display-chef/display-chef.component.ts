@@ -8,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./display-chef.component.css']
 })
 export class DisplayChefComponent implements OnInit {
- id:string;
- dish:any;
+  id: string;
+  dish: any;
 
-  constructor( private activatedRoute:ActivatedRoute,
-               private dishService:DishService
-    
-    ) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private dishService: DishService
+
+  ) { }
 
   ngOnInit(): void {
 

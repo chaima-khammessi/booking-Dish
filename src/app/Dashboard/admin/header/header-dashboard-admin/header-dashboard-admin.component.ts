@@ -15,7 +15,6 @@ export class HeaderDashboardAdminComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('token')
-    //this.adminService.logoutAdmin();
     this.router.navigate(['login-admin'])
 
   }

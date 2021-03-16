@@ -47,7 +47,6 @@ const storage = multer.diskStorage({
 });
 
 
-
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -65,7 +64,6 @@ app.use(express.static('uploads'));
 
 // add user in collections from FE
 app.post('/addUser', (req, res) => {
-    console.log('users added from FE', req.body);
     const user = new User({
         fName: req.body.fName,
         lName: req.body.lName,
@@ -82,10 +80,8 @@ app.post('/addUser', (req, res) => {
         userType: req.body.userType,
         status: Status.NEW,
         verif: req.body.status
-
-
     });
-    user.save((error, users) => {
+    ++user.save((error, users) => {
         if (error) {
             console.log(error);
         }
@@ -96,15 +92,9 @@ app.post('/addUser', (req, res) => {
         }
     })
 });
-
+// add Profile User
 app.post('/addUserProfile', multer({ storage: storage }).single('img'), (req, res) => {
     const url = req.protocol + '://' + req.get('host');
-    // let filename = "";
-    // if(req.file && req.file.filename){
-    //     filename = url + ('/images/' + req.file.filename)
-    // }else{
-    //     filename = "";
-    // }
     const filename = Boolean(req.file && req.file.filename) ? url + ('/images/' + req.file.filename) : "";
     const user = new User({
         fName: req.body.fName,
@@ -132,17 +122,8 @@ app.post('/addUserProfile', multer({ storage: storage }).single('img'), (req, re
     })
 });
 
-
-
-
-
-
-
-
-
 // add admin in collections from FE
 app.post('/addAdmin', (req, res) => {
-    console.log('admins added from FE', req.body);
     const admin = new Admin({
         fullName: req.body.fullName,
         emailAdmin: req.body.emailAdmin,
@@ -163,11 +144,6 @@ app.post('/addAdmin', (req, res) => {
     })
 });
 
-
-/**
- * UPDATE ONE BY ID
- * Patch attributes for a model instance and persist it into the data source.
- */
 // finded Dishs
 app.get('/allDishs', (req, res) => {
     Dish.find((err, findedDish) => {
@@ -281,7 +257,7 @@ app.get('/allVerifGallerysHome', (req, res) => {
     }).sort({ "_id": -1 }).limit(8)
 })
 
-/**************** Validate User for verify********allVerifGallerys***************/
+/**************** Validate User for verify***********************/
 app.get('/allVerifChefs', (req, res) => {
 
     User.find({ verif: "VALIDATED" }, (err, findedChef) => {
@@ -313,8 +289,6 @@ app.get('/allVerifChefProfile', (req, res) => {
         res.status(200).send(findedChef);
     }).sort({ "_id": -1 }).limit(3)
 })
-
-
 
 
 app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
@@ -357,32 +331,6 @@ app.post('/addMenu', multer({ storage: storage }).single('img'), (req, res) => {
     })
 });
 
-//Add Multiple Menu
-
-/*app.post('/addMultipleMenu', multer({ storage: storage }).any(), (req, res) => {
-    const url = req.protocol + '://' + req.get('host');
-    //console.log(req)
-    const menus = JSON.parse(req.body.menus);
-    for (let index = 0; index < menus.length; index++) {
-        const element = menus[index];
-        const menu = new Menu({
-            name: element.name,
-            category: element.category,
-            ingredient: element.ingredient,
-            price: element.price,
-            img: url + ('/images/gallery-Menu' + element.imgName),
-            userId: element.userId,
-            status: Status.NEW,
-            verif: element.status
-        });
-        menu.save();
-    }
-    
-    res.status(200).json({
-        message: "Menu added successful"
-    })
-});*/
-
 
 // Update Menu
 app.put('/editMenu/:id', multer({ storage: storage }).single('img'), (req, res) => {
@@ -414,9 +362,7 @@ app.put('/editMenu/:id', multer({ storage: storage }).single('img'), (req, res) 
                 message: "Menu was Update succesfully"
             })
 
-        })
-
-        ;
+        });
 })
 // ADD Photo for Gallery
 
@@ -691,9 +637,6 @@ app.put('/editMenu/:id', (req, res) => {
     );
 })
 
-
-
-
 app.get('/allUser', (req, res) => {
     User.find((err, findedUser) => {
         console.log('All Users', findedUser);
@@ -755,6 +698,9 @@ app.post('/addDish', multer({ storage: storage }).single('img'), (req, res) => {
     })
 });
 
+
+
+
 app.get('/allDishs/:id', (req, res) => {
     console.log('this is my id', req.params.id);
     Dish.findOne({ _id: req.params.id }).then(
@@ -767,6 +713,7 @@ app.get('/allDishs/:id', (req, res) => {
         }
     )
 })
+
 // Fided All User
 app.get('/allUser/:id', (req, res) => {
     console.log('this is my id', req.params.id);
@@ -790,7 +737,6 @@ app.put('/editUserId/:id', multer({ storage: storage }).single('img'), (req, res
             message: 'Data To Update can not empty!'
 
         });
-
     }
 
     const id = req.params.id;
@@ -813,54 +759,44 @@ app.put('/editUserId/:id', multer({ storage: storage }).single('img'), (req, res
 
         });
 })
+// added dish to cart
+app.post('/addDishToCart', async (req, res) => {
+    console.log('cart added from db', req.body);
+    const { dishId, quantity, name, price } = req.body;
 
-/************ Add  to Cart***************/
-app.post('/addDishToCart',(req, res) => {
-    //verifier le cart existe deja
-    //si elle existe verifier si le dish existe dans cart.items
-    //si dish existe quantity=quantity+1
-    // else dish n'existe pas alors ajouter dish dans items
-    //else cart n'existe pas crée le carte et ajouter dish dans items
-    const existeCarte = Cart.objects.filter(cart.items)
-    const existe = existeCarte.exists() 
-    if (existe) {
-        dish = Dish.objects.get(pk = req.data['dish'])
-        quantity = int(request.data['cart'])
-        while (Cart.dishId.filter(cart.items).exists()) {
-            cart.items.quantity += 1
-        }
-    }
-    else if (Cart.objects.filter(cart.items == null)) {
-        cart,
-        {
-            $push: {
-                items: {
-                    dishId: mongodb.ObjectID(req.body.dishId)
-                }
+    const customerID = req.user.userId
+    console.log('customerid', customerID);
+    try {
+        let cart = await Cart.findOne({ customerID });
+        if (cart) {
+            //cart exists for user
+            let itemIndex = cart.dishs.findIndex(p => p.dishId == dishId);
+
+            if (itemIndex > -1) {
+                //product exists in the cart, update the quantity
+                let dishItem = cart.dishs[itemIndex];
+                dishItem.quantity = quantity;
+                cart.dishs[itemIndex] = dishItem;
+            } else {
+                //product does not exists in cart, add new item
+                cart.dishs.push({ dishId, quantity, name, price });
             }
+            cart = await cart.save();
+            return res.status(201).send(cart);
+        } else {
+            //no cart for user, create new cart
+            const newCart = await Cart.create({
+                userId,
+                dishs: [{ dishId, quantity, name, price }]
+            });
+
+            return res.status(201).send(newCart);
         }
-
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Something went wrong");
     }
-    else if (Cart.objects.filter(cart == null)) {
-        const cart = new CartItem({
-            //items: req.body.,
-            dishId: mongodb.ObjectID(req.body.dishId),
-            userId: req.body.userId,
-            status: Status.NEW,
-            verif: req.body.status,
-            quantity: req.body.quantity
-
-        });
-
-        cart.save();
-        res.status(200).json({
-            message: "cart added successfuly"
-        })
-    }
-
-
-
-})
+});
 
 app.delete('/deleteDish/:id', (req, res) => {
     console.log('delete dish by ID', req.params.id);
@@ -875,6 +811,7 @@ app.delete('/deleteDish/:id', (req, res) => {
         }
     );
 });
+// Delete User By Id
 app.delete('/deleteUser/:id', (req, res) => {
     console.log('delet User by id', req.params.id);
     User.deleteOne({ _id: req.params.id }).then(
@@ -888,7 +825,7 @@ app.delete('/deleteUser/:id', (req, res) => {
         }
     )
 })
-
+// Finded User
 app.get('/allUser', (req, res) => {
     console.log(('well received in BE'));
     User.find((err, documents) => {

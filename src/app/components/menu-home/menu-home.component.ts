@@ -7,23 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu-home.component.css']
 })
 export class MenuHomeComponent implements OnInit {
-  menus:any=[];
-  constructor(private menuService:MenuService) { }
+  menus: any = [];
+  constructor(private menuService: MenuService) { }
 
   ngOnInit(): void {
     this.affichMenuVerif();
   }
 
-  private affichMenuVerif(){
+  private affichMenuVerif() {
     this.menuService.getAllVerifMenus().subscribe(
-      (data)=>{
-        this.menus=data;
-        console.log('All Menu Verified',this.menus);
-        
+      (data) => {
+        this.menus = data;
+        console.log('All Menu Verified', this.menus);
+
       },
-      (err)=>{
+      (err) => {
         console.dir(err);
-        
+
       }
     )
   }

@@ -24,20 +24,20 @@ export class TodaysSpecialComponent implements OnInit {
   }
 
   private getAllspecialDishs() {
-  this.dishService.getAllspecialDishs().subscribe(
+    this.dishService.getAllspecialDishs().subscribe(
       (data) => {
-          this.dishs = data;
+        this.dishs = data;
 
 
-          console.log('all dish special',this.dishs);
-          
-      },err=>{
+        console.log('all dish special', this.dishs);
+
+      }, err => {
         console.dir(err)
       }
     )
 
   }
-  goToDish(dish) { 
+  goToDish(dish) {
     this.router.navigate([`dish/${dish.id}`]);
 
 

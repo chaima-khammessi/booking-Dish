@@ -20,10 +20,10 @@ export class UsersService {
 
   }
   getAllVerifChef() {
-    return this.httpClient.get<{ message: string, users: any, verif:any }>(`${this.urlUsers}/allVerifChefs`);
+    return this.httpClient.get<{ message: string, users: any, verif: any }>(`${this.urlUsers}/allVerifChefs`);
   }
   getAllVerifChefProfile() {
-    return this.httpClient.get<{ message: string, users: any, verif:any }>(`${this.urlUsers}/allVerifChefProfile`);
+    return this.httpClient.get<{ message: string, users: any, verif: any }>(`${this.urlUsers}/allVerifChefProfile`);
   }
   getAllUserId(userId: String) {
     return this.httpClient.get<{ message: string, users: any }>(`${this.urlUsers}/allUserId/${userId}`);
@@ -46,26 +46,26 @@ export class UsersService {
     formData.append('tel', user.tel);
     formData.append('img', image);
     formData.append('adress', user.adress);
-    formData.append('specialityChef',user.specialityChef);
+    formData.append('specialityChef', user.specialityChef);
     formData.append('expChef', user.expChef);
-    formData.append('nationality',user.nationality);
-    formData.append('restaurant',user.restaurant);
+    formData.append('nationality', user.nationality);
+    formData.append('restaurant', user.restaurant);
     formData.append('facebook', user.facebook);
     formData.append('instagram', user.instagram);
     formData.append('twitter', user.twitter);
     formData.append('linkedin', user.linkedin);
     formData.append('status', Status.NEW);
-    formData.append('verif',JSON.parse(localStorage.getItem('verif')));
+    formData.append('verif', JSON.parse(localStorage.getItem('verif')));
 
 
-   
+
     return this.httpClient.post<{ message: string }>(`${this.urlUsers}/addUserProfile`, formData);
 
   }
   editUser(users: any) {
     return this.httpClient.put<{ message: string, users: any }>(`${this.urlUsers}/editUser/${users.id}`, users)
   }
-  editUserId(id, user, image: File):Observable<any> {
+  editUserId(id, user, image: File): Observable<any> {
     let formData = new FormData();
     formData.append('fName', user.fName);
     formData.append('lName', user.lName);
@@ -75,32 +75,32 @@ export class UsersService {
       formData.append('img', image);
     }
     formData.append('adress', user.adress);
-    formData.append('specialityChef',user.specialityChef);
+    formData.append('specialityChef', user.specialityChef);
     formData.append('expChef', user.expChef);
-    formData.append('nationality',user.nationality);
-    formData.append('restaurant',user.restaurant);
+    formData.append('nationality', user.nationality);
+    formData.append('restaurant', user.restaurant);
     formData.append('facebook', user.facebook);
     formData.append('instagram', user.instagram);
     formData.append('twitter', user.twitter);
     formData.append('linkedin', user.linkedin);
     formData.append('status', Status.NEW);
-    let stat= status.valueOf();
-    formData.append('verif',stat);
-   
+    let stat = status.valueOf();
+    formData.append('verif', stat);
+
     return this.httpClient.put(`${this.urlUsers}/editUserId/${id}`, formData, user);
   }
 
   editUserById(id, user): Observable<any> {
     return this.httpClient.put(`${this.urlUsers}/editUserId/${id}`, user);
   }
-  
-  
+
+
 
 
   login(user: any) {
     console.log('user in service', user);
 
-    return this.httpClient.post<{ message: string, userType: string,userId: string, token: any }>(`${this.urlUsers}/addLogin`, user);
+    return this.httpClient.post<{ message: string, userType: string, userId: string, token: any }>(`${this.urlUsers}/addLogin`, user);
 
   }
 

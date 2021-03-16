@@ -1,54 +1,50 @@
-
-
 <div class=" container move-tab ">
     <h1 class="centerLign">Table Chef</h1>
     <nav class="navbar">
-        <input class="form-control" type="text" name="search" [(ngModel)]="filter">      
-      </nav>
-      <div class="table-responsive">
-          <div *ngIf='dishs.length == 0 ' class="alert alert-warning"> No Dishs Found</div>
-    <table   class="table" *ngIf='dishs.length > 0 ' >
-        <thead>
-            <tr>
-                <th>#</th>
-                <th (click)="sort('FirstName')">Name Dish &nbsp; <i class="fa fa-sort"></i></th>
-               
-                <th>Price</th>
-                <th>Photo</th>
-                <th>Description</th>
-                <th>Ingredient</th>
-                <th>Calorie</th>
-                <th>Category</th>
-                <th>Action</th>
-                
+        <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+    </nav>
+    <div class="table-responsive">
+        <div *ngIf='dishs.length == 0 ' class="alert alert-warning"> No Dishs Found</div>
+        <table class="table" *ngIf='dishs.length > 0 '>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th (click)="sort('FirstName')">Name Dish &nbsp; <i class="fa fa-sort"></i></th>
 
-                
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let dish of dishs |orderBy  : key : reserve| filter:filter |  paginate :{itemsPerPage:5,currentPage:p }; let i = index ">
-                <th>{{i}}</th>
-                <td>{{dish.name}}</td>
-                <td>{{dish.price}}</td>
-                <td><img [src]="dish.img" height="50px" width="50px" alt=""></td>
-                <td>{{dish.description}}</td>
-                <td>{{dish.ingredient}}</td>
-                <td>{{dish.calorie}}</td>
-                <td>{{dish.category}}</td>
-               
-               
-                
-                <td><i (click)='deleteDish(dish)' style="cursor: pointer;" class="far fa-trash-alt" ></i>&nbsp;
-                    <i  (click)='goToDish(dish)' style="cursor: pointer;" class="far fa-eye"></i>&nbsp;
-                    <i  style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit"></i>
-                </td>
-            </tr>
-        </tbody>
-    
-    </table>
-    <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                    <th>Price</th>
+                    <th>Photo</th>
+                    <th>Description</th>
+                    <th>Ingredient</th>
+                    <th>Calorie</th>
+                    <th>Category</th>
+                    <th>Action</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let dish of dishs |orderBy  : key : reserve| filter:filter |  paginate :{itemsPerPage:5,currentPage:p }; let i = index ">
+                    <th>{{i}}</th>
+                    <td>{{dish.name}}</td>
+                    <td>{{dish.price}}</td>
+                    <td><img [src]="dish.img" height="50px" width="50px" alt=""></td>
+                    <td>{{dish.description}}</td>
+                    <td>{{dish.ingredient}}</td>
+                    <td>{{dish.calorie}}</td>
+                    <td>{{dish.category}}</td>
+
+
+
+                    <td><i (click)='deleteDish(dish)' style="cursor: pointer;" class="far fa-trash-alt"></i>&nbsp;
+                        <i (click)='goToDish(dish)' style="cursor: pointer;" class="far fa-eye"></i>&nbsp;
+                        <i style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit"></i>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <pagination-controls (pageChange)="p=$event"></pagination-controls>
     </div>
 </div>
-
-   
-     

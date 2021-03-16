@@ -16,8 +16,6 @@ export class ProfileComponent implements OnInit {
   user: any = {};
   imagePreview: string = "../../../../assets/img/avatar.jpg";
   userForm: FormGroup;
-  // values=[];
-
 
   constructor(private userService: UsersService,
     private router: Router,
@@ -70,23 +68,6 @@ export class ProfileComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
-  /*validate() {
-    this.userService.addUserProfile(this.user, this.userForm.value.img).subscribe(
-      data => {
-        console.log('returned data', data);
-        this.router.navigate(['profile']);
-      }
-    )
-
-  }*/
-
-
-  /* Remove(i){
-     this.values.splice(i,1);
-   }
-   add(){
-     this.values.push({value:""})
-   }*/
   updateUser(): void {
 
     this.userService.editUserId(this.user._id, this.user, this.userForm.value.img).subscribe(
@@ -102,7 +83,7 @@ export class ProfileComponent implements OnInit {
     )
   }
 
- 
+
 
 
 }

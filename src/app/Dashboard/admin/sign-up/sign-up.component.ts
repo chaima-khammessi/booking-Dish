@@ -56,8 +56,5 @@ export class SignUpComponent implements OnInit {
         this.toastr.success('Admin registred succesuflly');
 
       })
-
-
   }
-
 }

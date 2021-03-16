@@ -1,3 +1,4 @@
+import { UsersService } from './users.service';
 import { HttpClient } from '@angular/common/http';
 import { StringMapWithRename } from '@angular/compiler/src/compiler_facade_interface';
 import { Injectable } from '@angular/core';
@@ -7,8 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
-  cartItems ;
-  
+  cartItems;
+
   message = '';
   messageType = 'danger';
 
@@ -21,8 +22,10 @@ export class CartService {
   }
 
   getByIdCart(id: number) {
-    return this.httpClient.get<{ message: string, cart: any }>(`${this.cartUrl}/allCart/${id}`)
+    return this.httpClient.get<{ message: string, userId: any, dishId: any }>(`${this.cartUrl}/allCart/${id}`)
   }
+
+
 
   deleteCart(id: number) {
     return this.httpClient.delete(`${this.cartUrl}/deleteCart/${id}`);
@@ -31,8 +34,8 @@ export class CartService {
   addCart(cart: any) {
     return this.httpClient.post(`${this.cartUrl}/addCart`, cart)
   }
-  addDish(dishId: string, quantity:1) {
-    
+  addDish(dishId: string, quantity: 1) {
+
     //get user id form localstorge
     const userId = JSON.parse(localStorage.getItem('userId'));
     //create obejct data (user id , dish id)
@@ -41,43 +44,44 @@ export class CartService {
     }
     return this.httpClient.post(`${this.cartUrl}/addDishToCart`, data)
   }
-  
+
 
   editCart(cart: any) {
     return this.httpClient.put<{ message: string }>(`${this.cartUrl}/editCart/${cart.id}`, cart)
   }
 
 
-  error(message) {
-    this.messageType = 'danger';
-    this.message = message;
+  error() {
+
+    return " error to add to cart"
   }
 
-  success(message) {
-    this.messageType = 'success';
-    this.message = message;
+  success() {
+    return " success add to cart"
   }
 
-
-
-
-
+  warning(message) {
+    this.messageType = 'warning';
+    this.message = message;
+  }
 
   getCart() {
     const cart = localStorage.getItem('cart');
     return cart ? JSON.parse(cart) : [];
+
   }
 
   addToCart(item: string) {
     const cart: any = this.getCart();
-    if (cart.find(data => JSON.stringify(data) === JSON.stringify(item))) {
+    if (cart.length > 0 && cart.find(data => JSON.stringify(data) === JSON.stringify(item))) {
       return false;
     } else {
       cart.push(item);
-      this.cartItems
+      this.cartItems += 1;
       localStorage.setItem('cart', JSON.stringify(cart));
-      return true;
-    }
+      return this.httpClient.post(`${this.cartUrl}/addDishToCart`, cart)
+    }//(`${this.cartUrl}/addDishToCart`, data)
+    //return this.httpClient.post(`${this.cartUrl}/addDishToCart`,cart)
   }
 
   removeFromCart(item: string) {

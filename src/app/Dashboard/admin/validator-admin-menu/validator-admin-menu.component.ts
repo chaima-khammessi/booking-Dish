@@ -23,7 +23,7 @@ export class ValidatorAdminMenuComponent implements OnInit {
   closeResult: string;
 
 
-  constructor(private menuService:MenuService, 
+  constructor(private menuService: MenuService,
     private router: Router,
     private adminService: adminService,
     private toastr: ToastrService,
@@ -64,8 +64,6 @@ export class ValidatorAdminMenuComponent implements OnInit {
 
     )
     return this.validator == true
-
-
   }
 
   private getDismissReason(reason: any): string {
@@ -90,9 +88,6 @@ export class ValidatorAdminMenuComponent implements OnInit {
           res => {
             this.newMenu.emit(res.menu);
             this.toastr.error('Menu deleted successfully');
-
-
-
           }
         )
       },
@@ -104,8 +99,6 @@ export class ValidatorAdminMenuComponent implements OnInit {
 
 
   validatorMenu(menu) {
-
-
     menu.status = Status.VALIDATED;
     menu.verif = Status.VALIDATED;
     this.menuService.editMenuById(menu.id, menu).subscribe(
@@ -121,7 +114,7 @@ export class ValidatorAdminMenuComponent implements OnInit {
     return this.validator == true
 
   }
- 
+
 
 
 }

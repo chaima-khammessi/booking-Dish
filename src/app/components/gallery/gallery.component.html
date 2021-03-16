@@ -8,20 +8,20 @@
         autem.</p>
     </div>
 
-    <div class="row no-gutters" >
+    <div class="row no-gutters">
 
       <div class="col-lg-3 col-md-4" *ngFor="let gallery of gallerys">
         <div class="gallery-item">
           <a href="{{gallery.img}}" class="venobox" data-gall="gallery-item">
-           
+
             <img [src]="gallery.img" alt="" class="img-fluid">
           </a>
-         <h5> NAME Restau: <span>{{gallery.name}}</span></h5>
+          <h5> NAME Restau: <span>{{gallery.name}}</span></h5>
           <h5>Adress: <span>{{gallery.adress}}</span></h5>
         </div>
       </div>
-     
-     
+
+
     </div>
   </div>
 </section><!-- End Gallery Section -->

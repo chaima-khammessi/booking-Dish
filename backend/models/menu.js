@@ -7,11 +7,10 @@ const menuSchema = mongoose.Schema({
     price: String,
     ingredient: String,
     img: String,
-    category:String,
+    category: String,
     userId: String,
     status: String,
-    verif:String
-   
+    verif: String
 });
 
 menuSchema.method('toJSON', function () {

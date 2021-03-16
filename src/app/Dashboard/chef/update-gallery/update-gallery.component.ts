@@ -52,9 +52,6 @@ export class UpdateGalleryComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
-
-
-
    
   updateGallery():void {
    
@@ -62,20 +59,12 @@ export class UpdateGalleryComponent implements OnInit {
       reponse=>{
        
         this.toastr.warning(reponse.message);
-        this.router.navigate(['table-display-gallery'])
-       
-        
+        this.router.navigate(['table-display-gallery'])  
       },
       err=>{
         console.log(err);
-      }
-      
-      
+      }  
     )
-   
-  
-
-
   }
 
 }

@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  id: any;
+  dish: any = {}
+  constructor(private cartService: CartService,
+    private activateRoute: ActivatedRoute
 
-  constructor() { }
 
+  ) { }
   ngOnInit(): void {
+    this.id = this.activateRoute.snapshot.paramMap.get('id');
+    this.cartService.getByIdCart(this.id).subscribe(
+      data => {
+        console.log('dish', data);
+        this.dish = data.dishId
+      }
+    )
   }
 
 }

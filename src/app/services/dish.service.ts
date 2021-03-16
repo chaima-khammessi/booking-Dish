@@ -18,13 +18,13 @@ export class DishService {
     return this.httpClient.get<{ message: string, dish: any }>(`${this.dishUrl}/allUserDishs/${userId}`);
   }
   getAllVerifDishs() {
-    return this.httpClient.get<{ message: string, dish: any, verif:any }>(`${this.dishUrl}/allVerifDishs`);
+    return this.httpClient.get<{ message: string, dish: any, verif: any }>(`${this.dishUrl}/allVerifDishs`);
   }
   getAllVerifDishsHome() {
-    return this.httpClient.get<{ message: string, dish: any, verif:any }>(`${this.dishUrl}/allVerifDishsHome`);
+    return this.httpClient.get<{ message: string, dish: any, verif: any }>(`${this.dishUrl}/allVerifDishsHome`);
   }
   getAllspecialDishs() {
-    return this.httpClient.get<{ message: string, dish: any, special:any }>(`${this.dishUrl}/getAllspecialDishs`);
+    return this.httpClient.get<{ message: string, dish: any, special: any }>(`${this.dishUrl}/getAllspecialDishs`);
   }
   getDishById(id: string) {
     return this.httpClient.get<{ message: string, dish: string }>(`${this.dishUrl}/allDishs/${id}`);
@@ -40,7 +40,7 @@ export class DishService {
     formData.append('calorie', dishs.calorie);
     formData.append('img', image);
     formData.append('status', Status.NEW);
-    formData.append('verif',JSON.parse(localStorage.getItem('verif')));
+    formData.append('verif', JSON.parse(localStorage.getItem('verif')));
     formData.append('userId', JSON.parse(localStorage.getItem('userId')));
     formData.append('description', dishs.description);
     formData.append('category', dishs.category);
@@ -58,9 +58,9 @@ export class DishService {
       formData.append('img', image);
     }
     formData.append('status', Status.NEW);
-    let stat= status.valueOf();
-    formData.append('verif',stat);
-  
+    let stat = status.valueOf();
+    formData.append('verif', stat);
+
     formData.append('description', dishs.description);
     formData.append('category', dishs.category);
 

@@ -18,19 +18,15 @@ const userSchema = mongoose.Schema({
     domainCompany: String,
     userType: String,
     img: String,
-    nationality:String,
-    restaurant:String,
-    facebook:String,
-    instagram:String,
-    twitter:String,
-    linkedin:String,
+    nationality: String,
+    restaurant: String,
+    facebook: String,
+    instagram: String,
+    twitter: String,
+    linkedin: String,
     userId: String,
     status: String,
-    verif:String
- 
-
-
-
+    verif: String
 });
 userSchema.pre('save', function (next) {
     if (this.pwd) {

@@ -1,41 +1,43 @@
 <app-header-dashoard-chef></app-header-dashoard-chef>
 
 <h1>Update Menu</h1>
-  <div class="site-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <form #menuForm='ngForm' >
-            <div class="form-group">
-              <input type="text" name="name" #name="ngModel" [(ngModel)]="menus.name" [ngModelOptions]="{standalone: true}" class="form-control"
-                placeholder="Name Menu">
-            </div>
-            <div class="form-group">
-              <input type="text" name="category" #price="ngModel" [(ngModel)]='menus.category' [ngModelOptions]="{standalone: true}" class="form-control"
-                placeholder="Category">
-            </div>
-            <div class="form-group">
-                <input type="text" name="ingredient" #ingredient="ngModel" [(ngModel)]='menus.ingredient' [ngModelOptions]="{standalone: true}" class="form-control"
-                  placeholder="Ingredient">
-              </div>
-              <div class="form-group">
-                <input type="text" name="price" #calorie="ngModel" [(ngModel)]='menus.price' [ngModelOptions]="{standalone: true}" class="form-control"
-                  placeholder="Price">
-              </div>
-           
-  
-  
-              <button type="button"  (click)='filePicker.click()' class="btn btn-warning">Select Another File</button>
-             <input type="file" #filePicker  style="visibility: hidden;" (change)='onImageSelected($event)'>
-              <img [src]="menus.img" [(ngModel)]='menus.img'   [ngModelOptions]="{standalone: true}"  ngDefaultControl alt="" width="150px" height="150px">
-          
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary py-3 px-5"  [disabled]="menuForm.invalid" (click)="updateMenu()" >Update</button>
-            </div>
-           
-            
-          </form>
-        </div>
+<div class="site-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <form #menuForm='ngForm'>
+          <div class="form-group">
+            <input type="text" name="name" #name="ngModel" [(ngModel)]="menus.name"
+              [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Name Menu">
+          </div>
+          <div class="form-group">
+            <input type="text" name="category" #price="ngModel" [(ngModel)]='menus.category'
+              [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Category">
+          </div>
+          <div class="form-group">
+            <input type="text" name="ingredient" #ingredient="ngModel" [(ngModel)]='menus.ingredient'
+              [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Ingredient">
+          </div>
+          <div class="form-group">
+            <input type="text" name="price" #calorie="ngModel" [(ngModel)]='menus.price'
+              [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Price">
+          </div>
+
+
+
+          <button type="button" (click)='filePicker.click()' class="btn btn-warning">Select Another File</button>
+          <input type="file" #filePicker style="visibility: hidden;" (change)='onImageSelected($event)'>
+          <img [src]="menus.img" [(ngModel)]='menus.img' [ngModelOptions]="{standalone: true}" ngDefaultControl alt=""
+            width="150px" height="150px">
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary py-3 px-5" [disabled]="menuForm.invalid"
+              (click)="updateMenu()">Update</button>
+          </div>
+
+
+        </form>
       </div>
     </div>
   </div>
+</div>

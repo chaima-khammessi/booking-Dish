@@ -48,9 +48,9 @@
                 {{dish.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
-              <input placeholder="Add a category..." [matChipInputFor]="chipList" [(ngModel)]='dish.category' [ngModelOptions]="{standalone: true}"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                (matChipInputTokenEnd)="add($event)">
+              <input placeholder="Add a category..." [matChipInputFor]="chipList" [(ngModel)]='dish.category'
+                [ngModelOptions]="{standalone: true}" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
             </mat-chip-list>
           </mat-form-field>
 

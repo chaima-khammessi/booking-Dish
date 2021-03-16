@@ -21,8 +21,6 @@
           <th>Linkedin</th>
           <th>Action</th>
 
-
-
         </tr>
       </thead>
       <tbody>
@@ -42,18 +40,20 @@
 
 
           <td>
-            <i title="Remove the dish"  style="cursor: pointer;" (click)='deleteChef(user)' class="far fa-trash-alt text-danger pr-1"></i>&nbsp;
-            
+            <i title="Remove the dish" style="cursor: pointer;" (click)='deleteChef(user)'
+              class="far fa-trash-alt text-danger pr-1"></i>&nbsp;
+
             <ng-container *ngIf="user.status && user.status === 'NEW' ">
-              <i title="Validate the Profile Chef"  (click)="validatorUser(user)" style="cursor: pointer;" class="far fa-check-circle text-success  pr-1
+              <i title="Validate the Profile Chef" (click)="validatorUser(user)" style="cursor: pointer;" class="far fa-check-circle text-success  pr-1
               "></i>&nbsp;
               <i title="Update the Chef" style="cursor: pointer;" routerLink="/update-user/{{user.id}}" class="fas fa-user-edit text-primary  pr-1
               "></i>
             </ng-container>
             <ng-container *ngIf="user.status && user.status === 'NEW' ">
-            <i title="Decline & return it back to the Chef" (click)="open(mymodal,user)" style="cursor: pointer;" class="far fa-window-close text-danger"></i>&nbsp;
-          </ng-container>
-         
+              <i title="Decline & return it back to the Chef" (click)="open(mymodal,user)" style="cursor: pointer;"
+                class="far fa-window-close text-danger"></i>&nbsp;
+            </ng-container>
+
           </td>
         </tr>
       </tbody>

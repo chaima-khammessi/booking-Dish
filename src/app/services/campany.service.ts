@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CampanyService {
-companyUrl = 'http://localhost:3000'
+  companyUrl = 'http://localhost:3000'
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   getAllCompany() {
     return this.httpClient.get<{ message: string, Company: any }>(`${this.companyUrl}/allCompany`)
@@ -31,7 +31,7 @@ companyUrl = 'http://localhost:3000'
   login(company: any) {
     console.log('copany in service', company);
 
-    return this.httpClient.post<{ message: string, userType: string,companyId: string, token: any }>(`${this.companyUrl}/addLogin`, company);
+    return this.httpClient.post<{ message: string, userType: string, companyId: string, token: any }>(`${this.companyUrl}/addLogin`, company);
 
   }
 

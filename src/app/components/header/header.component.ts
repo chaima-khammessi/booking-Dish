@@ -10,17 +10,17 @@ import { CartService } from 'src/app/services/cart.service';
 export class HeaderComponent implements OnInit {
   @Input() count: any;
   dateNow: Date;
-  isLoggedIn:boolean;
-  
-  constructor( private usersSevice:UsersService , private cartService: CartService ) { }
+  isLoggedIn: boolean;
+
+  constructor(private usersSevice: UsersService, private cartService: CartService) { }
 
   ngOnInit(): void {
     this.dateNow = new Date();
-    this.isLoggedIn=this.usersSevice.isLoggedIn();
+    this.isLoggedIn = this.usersSevice.isLoggedIn();
 
     this.count = this.cartService.cartItems;
 
-    
+
 
   }
 
