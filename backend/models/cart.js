@@ -9,10 +9,7 @@ const cartSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Users"
   },
-  status: String,
-  verif: String,
-  priceTotal: Number,
-  dishs: [
+  dishes: [
     {
       dishId: Number,
       quantity: Number,
@@ -20,12 +17,17 @@ const cartSchema = mongoose.Schema({
       price: Number
     }
   ],
-
-  date: {
+  active: {
+    type: Boolean,
+    default: true
+  },
+  modifiedOn: {
     type: Date,
     default: Date.now
   }
-})
+},
+{ timestamps: true }
+);
 
 cartSchema.method('toJSON', function () {
   const { __v, _id, ...object } = this.toObject();

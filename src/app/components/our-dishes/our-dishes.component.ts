@@ -13,6 +13,7 @@ export class OurDishesComponent implements OnInit {
   dish: any;
   countNuber = 0;
   msg = '';
+  quantity:1;
 
   constructor(private dishService: DishService,
     private cartService: CartService,

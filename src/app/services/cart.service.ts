@@ -71,7 +71,7 @@ export class CartService {
 
   }
 
-  addToCart(item: string) {
+   addToCart(item: string) {
     const cart: any = this.getCart();
     if (cart.length > 0 && cart.find(data => JSON.stringify(data) === JSON.stringify(item))) {
       return false;
@@ -83,6 +83,17 @@ export class CartService {
     }//(`${this.cartUrl}/addDishToCart`, data)
     //return this.httpClient.post(`${this.cartUrl}/addDishToCart`,cart)
   }
+ /* addToCart(dishId:string, quantity: 1){
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    let body: any = {
+//get user id form localstorge
+        'userId':userId,
+        'dishId': dishId,
+        'quantity': 1,
+    };
+
+    return this.httpClient.post('addDishToCart', body)
+}*/
 
   removeFromCart(item: string) {
     let cart: any = this.getCart();

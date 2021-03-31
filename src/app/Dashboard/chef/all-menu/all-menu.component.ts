@@ -20,9 +20,9 @@ export class AllMenuComponent implements OnInit {
   key: string = 'id';
   reserve: boolean = false;
 
-  constructor(private menuServce:MenuService ,
-              private router: Router,
-              private toastr: ToastrService) { }
+  constructor(private menuServce: MenuService,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAllUserMenus();
@@ -33,7 +33,7 @@ export class AllMenuComponent implements OnInit {
       data => {
         this.menus = data['menu'];
         console.log(this.menus);
-        
+
       },
       error => {
         console.log(error);
@@ -49,7 +49,7 @@ export class AllMenuComponent implements OnInit {
   goToMenu(menu) {
     this.router.navigate([`display-menu-chef/${menu.id}`]);
   }
- // Delet Menu
+  // Delet Menu
   deleteMenu(menu) {
     let index = this.menus.indexOf(menu);
     this.menus.splice(index, 1);

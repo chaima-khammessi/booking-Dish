@@ -10,8 +10,9 @@ const dishSchema = mongoose.Schema({
     description: String,
     category: String,
     userId: String,
+    dishId:String,
     status: String,
-    verif: String
+    verif: String,
 });
 dishSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();

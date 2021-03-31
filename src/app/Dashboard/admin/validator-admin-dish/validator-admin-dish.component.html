@@ -35,8 +35,6 @@
             <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
               <i title="Validate the dish" (click)="validatorDish(dish)" style="cursor: pointer;" class="far fa-check-circle text-success  pr-1
               "></i>&nbsp;
-              <i title="Update the dish" style="cursor: pointer;" routerLink="/update-dish/{{dish.id}}" class="fas fa-user-edit text-primary  pr-1
-              "></i>
             </ng-container>
             <ng-container *ngIf="dish.status && dish.status === 'NEW' ">
               <i title="Decline & return it back to the Chef" (click)="open(mymodal,dish)" style="cursor: pointer;"

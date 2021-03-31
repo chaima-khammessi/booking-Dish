@@ -760,43 +760,60 @@ app.put('/editUserId/:id', multer({ storage: storage }).single('img'), (req, res
         });
 })
 // added dish to cart
-app.post('/addDishToCart', async (req, res) => {
-    console.log('cart added from db', req.body);
-    const { dishId, quantity, name, price } = req.body;
+app.post('/addDishToCart', (req, res) => {
+    const {dishId, quantity, name, price } = req.body;
 
-    const customerID = req.user.userId
-    console.log('customerid', customerID);
+    const userId = req.body.userId; //TODO: the logged in user id
+  
     try {
-        let cart = await Cart.findOne({ customerID });
-        if (cart) {
-            //cart exists for user
-            let itemIndex = cart.dishs.findIndex(p => p.dishId == dishId);
-
-            if (itemIndex > -1) {
-                //product exists in the cart, update the quantity
-                let dishItem = cart.dishs[itemIndex];
-                dishItem.quantity = quantity;
-                cart.dishs[itemIndex] = dishItem;
-            } else {
-                //product does not exists in cart, add new item
-                cart.dishs.push({ dishId, quantity, name, price });
-            }
-            cart = await cart.save();
-            return res.status(201).send(cart);
+      let cart =  Cart.findOne({ userId });
+  
+      if (cart) {
+        //cart exists for user
+        let itemIndex = cart.dishes.findIndex(p => p.dishId == dishId);
+  
+        if (itemIndex > -1) {
+          //product exists in the cart, update the quantity
+          let dishItem = cart.dishes[itemIndex];
+          dishItem.quantity = quantity;
+          cart.dishes[itemIndex] = dishItem;
         } else {
-            //no cart for user, create new cart
-            const newCart = await Cart.create({
-                userId,
-                dishs: [{ dishId, quantity, name, price }]
-            });
-
-            return res.status(201).send(newCart);
+          //product does not exists in cart, add new item
+          cart.dishes.push({ dishId, quantity, name, price });
         }
+        cart = cart.save();
+        return res.status(201).send(cart);
+      } else {
+        //no cart for user, create new cart
+        const newCart = Cart.create({
+          userId,
+          dishes: [{ dishId, quantity, name, price }]
+        });
+  
+        return res.status(201).send(newCart)
+      }
     } catch (err) {
-        console.log(err);
-        res.status(500).send("Something went wrong");
+      console.log(err);
+      res.status(201).send("Something went wrong");
     }
-});
+   
+}); 
+   
+/*app.post('addDishToCart', (res,req)=>
+document =  {
+    userId: req.body.userId,
+    dishId: mongodb.ObjectID(req.body.dishId),
+    quantity: req.body.quantity 
+  },
+
+ // repository.createOne(req, res, 'cart', document)
+  const newCart = Cart.create({
+      req,res, 'cart , document
+  })
+
+)*/
+
+ 
 
 app.delete('/deleteDish/:id', (req, res) => {
     console.log('delete dish by ID', req.params.id);
